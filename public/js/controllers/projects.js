@@ -1,4 +1,4 @@
-window.angular.module('ngff.controllers.projects', [])
+window.angular.module('ngProjects.controllers.projects', [])
 .controller('ProjectsController', ['$scope','$routeParams','$location','Projects',
   function ($scope, $routeParams, $location, Projects) {
 

@@ -1,4 +1,4 @@
-window.angular.module('ngff.services.projects', [])
+window.angular.module('ngProjects.services.projects', [])
   .factory('Projects', ['$resource',
     function($resource){
       return $resource(

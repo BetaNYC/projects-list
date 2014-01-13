@@ -1,5 +1,5 @@
-window.app = angular.module('ngJeopardy', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'ngff.controllers', 'ngff.directives', 'ngff.services']);
+window.app = angular.module('ngProjects', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'ngProjects.controllers', 'ngProjects.directives', 'ngProjects.services']);
 
 // bundling dependencies
-window.angular.module('ngff.controllers', ['ngff.controllers.projects']);
-window.angular.module('ngff.services',['ngff.services.projects']);
+window.angular.module('ngProjects.controllers', ['ngProjects.controllers.projects']);
+window.angular.module('ngProjects.services',['ngProjects.services.projects']);

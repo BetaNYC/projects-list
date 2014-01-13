@@ -18,7 +18,7 @@ module.exports = {
     root: rootPath,
     notifier: notifier,
     app: {
-      name: 'ngJeopardy - Development'
+      name: 'ngProjects - Development'
     }
   },
   test: {
@@ -26,7 +26,7 @@ module.exports = {
     root: rootPath,
     notifier: notifier,
     app: {
-      name: 'ngJeopardy - Test'
+      name: 'ngProjects - Test'
     }
   },
   production: {
@@ -34,7 +34,7 @@ module.exports = {
     root: rootPath,
     notifier: notifier,
     app: {
-      name: 'ngJeopardy - Production'
+      name: 'ngProjects - Production'
     }
   }
 }

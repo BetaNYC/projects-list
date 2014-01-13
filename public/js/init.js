@@ -1,5 +1,5 @@
 window.bootstrap = function () {
-    angular.bootstrap(document, ['ngJeopardy']);
+    angular.bootstrap(document, ['ngProjects']);
 }
 
 window.init = function () {
