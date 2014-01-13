@@ -1,0 +1,186 @@
+.navbar .nav> li > a.brand {
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+.content {
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+   background:#ddd;
+   -webkit-box-shadow: 0 8px 6px 6px black;
+     -moz-box-shadow: 0 8px 6px 6px black;
+          box-shadow: 0 8px 6px 6px black;
+}
+footer p{
+     padding: 5px 0 12px 10px;
+}
+
+.headerLink{
+  color:#fff;
+  display:inline-block;
+}
+
+.column{
+  width:20%;
+  display:inline-block;
+  vertical-align:top;
+}
+
+.square{
+  height: 100px;
+  border: 1px solid #fff;
+  padding: 14px;
+  background: #3F4E9C;
+  color: #FFFF28;
+  font-size: 16px;
+
+}
+
+.columnTitle{
+  border-bottom: 10px solid #fff;
+}
+
+.squareValue{
+  float: left;
+  position: relative;
+  top: -10px;
+  left: -10px;
+}
+
+.boardView .squareValue{
+  margin: 0 auto;
+  text-align: center;
+  font-size: 35px;
+  margin-top: 40px;
+  top:0;
+  left:0;
+  float:none;
+}
+
+.squareTextContainer, .squareFormContainer{
+
+  position: relative;
+  height: 100px;
+
+}
+
+.editing .squareTextContainer{
+
+  display:none;
+
+}
+
+.columnTitle .squareTextContainer{
+  top: -4px;
+}
+.squareAnswer, .squareTitle, .squareQuestion, .squareForm{
+  height:100px;
+  display:table;
+  position:absolute;
+  width:100%;
+}
+
+
+
+.square p{
+  display: table-cell; 
+
+  vertical-align: middle;
+  text-align:center;
+}
+
+.square form{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.square .edit{
+  display:none;
+}
+
+.square.editing .edit{
+  display:block;
+}
+
+.square textarea{
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  height: 21px;
+  background: none;
+  color: #FFFF28;
+  font-size: 16px;
+  resize: none;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.squareToggle{
+  float: right;
+  position: relative;
+  top: -9px;
+  font-size: 11px;
+  z-index:10;
+  cursor:pointer;
+}
+
+
+
+/* Slider */
+.onoffswitch {
+    position: relative; width: 40px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 43px;
+}
+.onoffswitch-inner {
+    width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    float: left; width: 50%; height: 7px; padding: 0; line-height: 7px;
+    font-size: 13px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "";
+    padding-left: 14px;
+    background-color: #2FCCFF; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "";
+    padding-right: 14px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    width: 11px; margin: -2px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 43px;
+    position: absolute; top: 0; bottom: 0; right: 29px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}

@@ -1,0 +1,52 @@
+<div ng-controller="ProjectsController" ng-init="find()">
+  <ul class="unstyled">
+    <h2>BetaNYC Project List</h2>
+    <h3>Civic Tech Projects Currently being developed by the NYC civic tech community</h3>
+
+
+    <table id = "hack-night-projects" class="table dataTable">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Description</th>
+          <th>Stars</th>
+          <th>Forks</th>
+          <th>Issues</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="project in projects">
+          <td>           
+           <h3>
+            <a href="{{project.html_url}}">{{project.name}}</a>
+          </h3>                          
+          <a href="{{project.homepage}}">Website</a><br>
+          <strong>Last Updated</strong>{{project.updated_at}}<br>
+          <strong>Created</strong>{{project.created_at}}<br>
+          <strong>Language</strong>{{project.language}}
+        </td>
+        <td class=" sorting_1">           
+         <p>{{project.description}}</p>            
+        <h4>Contributors</h4>            
+        <p class="contributors">                              <a href="https://github.com/amtamayo" class="contributor-owner"><img class="img-thumbnail" src="https://gravatar.com/avatar/c82a0e1751e85f9cfd17ad6d1fab667c?d=https%3A%2F%2Fidenticons.github.com%2F84ef19cc0cba07982fefbecfd5a7b7ab.png&amp;r=x" alt="Owner: amtamayo"></a>                <span style="display: none;">amtamayo</span>               
+           </td>
+        <td >           
+         <a class="btn btn-default" href="{{project.html_url}}/stargazers">{{project.watchers_count}} <i class="icon-star"></i></a>          
+         </td>
+        <td class=" sorting_2">            <a class="btn btn-default" href="{{project.html_url}}/network">{{project.forks_count}} <i class="icon-code-fork"></i></a>          </td>
+        <td class=" ">            <a class="btn btn-default" href="{{project.html_url}}/issues">{{project.open_issues}} <i class="icon-exclamation-sign"></i></a>          </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+  <br>
+  <div ng-click = "create()"><a>Create a new game</a></div>
+</div>
+
+<a href="#!/games/{{ game._id }}">{{project.name}}</a>
+(<a href="#!/games/{{ game._id }}/edit">Edit</a>)
+(<a href="" ng-click="destroy(game)" >Remove</a>)
