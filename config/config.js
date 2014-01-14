@@ -30,7 +30,7 @@ module.exports = {
     }
   },
   production: {
-    db: 'mongodb://localhost/ngff',
+    db: 'mongodb://mainadmin:password123@alex.mongohq.com:10058/app21233314',
     root: rootPath,
     notifier: notifier,
     app: {
