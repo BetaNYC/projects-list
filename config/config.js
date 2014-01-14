@@ -14,7 +14,8 @@ var path = require('path')
 
 module.exports = {
   development: {
-    db: 'mongodb://localhost/ngff-dev',
+    db: 'mongodb://mainadmin:password123@alex.mongohq.com:10058/app21233314',
+    root: rootPath,
     root: rootPath,
     notifier: notifier,
     app: {
