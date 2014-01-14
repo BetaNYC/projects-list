@@ -1,4 +1,4 @@
-window.app = angular.module('ngProjects', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'ngProjects.controllers', 'ngProjects.directives', 'ngProjects.services']);
+window.app = angular.module('ngProjects', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'ngProjects.controllers', 'ngProjects.directives', 'ngProjects.services','relativeDate']);
 
 // bundling dependencies
 window.angular.module('ngProjects.controllers', ['ngProjects.controllers.projects']);

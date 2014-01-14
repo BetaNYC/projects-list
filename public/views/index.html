@@ -1,17 +1,17 @@
 <div ng-controller="ProjectsController" ng-init="find()">
   <ul class="unstyled">
     <h2>BetaNYC Project List</h2>
-    <h3>Civic Tech Projects Currently being developed by the NYC civic tech community</h3>
+    <p>Civic Tech Projects Currently being developed by the NYC civic tech community</p>
 
 
     <table id = "hack-night-projects" class="table dataTable">
       <thead>
         <tr>
-          <th>Project</th>
-          <th>Description</th>
-          <th>Stars</th>
-          <th>Forks</th>
-          <th>Issues</th>
+          <th style="width: 345px;">Project</th>
+          <th style="width: 400px;">Description</th>
+          <th style="width: 76px;">Stars</th>
+          <th style="width: 71px;">Forks</th>
+          <th style="width: 66px;">Issues</th>
         </tr>
       </thead>
       <tbody>
@@ -21,15 +21,17 @@
             <a href="{{project.html_url}}">{{project.name}}</a>
           </h3>                          
           <a href="{{project.homepage}}">Website</a><br>
-          <strong>Last Updated</strong>{{project.updated_at}}<br>
-          <strong>Created</strong>{{project.created_at}}<br>
-          <strong>Language</strong>{{project.language}}
+          <strong>Last Updated</strong> {{project.updated_at | relativeDate}}<br>
+          <strong>Created</strong> {{project.created_at | relativeDate}}<br>
+          <strong>Language</strong> {{project.language}}
         </td>
         <td class=" sorting_1">           
          <p>{{project.description}}</p>            
         <h4>Contributors</h4>            
-        <p class="contributors">                              <a href="https://github.com/amtamayo" class="contributor-owner"><img class="img-thumbnail" src="https://gravatar.com/avatar/c82a0e1751e85f9cfd17ad6d1fab667c?d=https%3A%2F%2Fidenticons.github.com%2F84ef19cc0cba07982fefbecfd5a7b7ab.png&amp;r=x" alt="Owner: amtamayo"></a>                <span style="display: none;">amtamayo</span>               
-           </td>
+        <p class="contributors">                              
+        <a ng-repeat ="contributor in project.contributors" href="{{contributor.html_url}}" class="contributor"><img class="img-thumbnail" src="{{contributor.avatar_url}}" ></a>                   
+        </p>           
+        </td>
         <td >           
          <a class="btn btn-default" href="{{project.html_url}}/stargazers">{{project.watchers_count}} <i class="icon-star"></i></a>          
          </td>
@@ -43,10 +45,4 @@
 
 
 
-  <br>
-  <div ng-click = "create()"><a>Create a new game</a></div>
-</div>
 
-<a href="#!/games/{{ game._id }}">{{project.name}}</a>
-(<a href="#!/games/{{ game._id }}/edit">Edit</a>)
-(<a href="" ng-click="destroy(game)" >Remove</a>)

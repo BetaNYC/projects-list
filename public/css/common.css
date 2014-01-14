@@ -1,12 +1,102 @@
+
+.content {
+    margin-top: 10px;
+    width: 100%;
+}
+
+body {
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+h2 {
+  font-size: 39px;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+th {
+  font-size: 17px;
+}
+
+.table td {
+  line-height: 24px;
+}
+
+.contributors img {
+width: 40px;
+}
+
+.img-thumbnail {
+display: inline-block;
+height: auto;
+max-width: 100%;
+padding: 4px;
+line-height: 1.428571429;
+background-color: #fff;
+border: 1px solid #ecf0f1;
+border-radius: 4px;
+-webkit-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+margin-right: 3px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-bottom: 0;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.btn-default {
+  color: #fff;
+  background-color: #95a5a6;
+  border-color: #95a5a6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .navbar .nav> li > a.brand {
     padding-left: 20px;
     margin-left: 0;
 }
 
-.content {
-    margin-top: 50px;
-    width: 100%;
-}
+
 
 footer {
    position:fixed;
