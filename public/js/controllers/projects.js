@@ -14,6 +14,28 @@ window.angular.module('ngProjects.controllers.projects', [])
       });
     };
 
+    $scope.destroy = function (project) {
+             project.$remove();
+      for (var i in $scope.projects) {
+        if ($scope.projects[i] == project) {
+          $scope.projects.splice(i, 1)
+        }
+      }
+    };
+
+     $scope.create = function () {
+     	var project = new Projects({	
+     	})
+
+     	project.html_url = $scope.newUrl;
+
+     	project.$save(function (response) {
+     	$scope.projects.push(project);
+     	$scope.newUrl = "";
+      });
+
+    };
+
 
 
 }]);

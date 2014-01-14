@@ -34,4 +34,10 @@ var mongoose = require('mongoose')
 
 });
 
+   ProjectSchema.statics = {
+  load: function (id, cb) {
+    this.findOne({ _id : id }).exec(cb);
+  }
+};
+
  mongoose.model('Project', ProjectSchema);

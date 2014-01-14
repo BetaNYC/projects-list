@@ -5,6 +5,11 @@ window.app.config(['$routeProvider', function($routeProvider) {
   { 
     templateUrl: 'views/index.html' 
   })
+
+  .when('/projects', 
+  { 
+    templateUrl: 'views/projects.html' 
+  })
   
 
 

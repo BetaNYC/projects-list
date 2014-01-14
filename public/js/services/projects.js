@@ -2,7 +2,7 @@ window.angular.module('ngProjects.services.projects', [])
   .factory('Projects', ['$resource',
     function($resource){
       return $resource(
-        'projects',
+        'projects/:projectId',
         {
           projectId:'@_id'
         },
