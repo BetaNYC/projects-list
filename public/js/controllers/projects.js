@@ -1,6 +1,6 @@
 window.angular.module('ngProjects.controllers.projects', [])
-.controller('ProjectsController', ['$scope','$routeParams','$location','Projects',
-  function ($scope, $routeParams, $location, Projects) {
+.controller('ProjectsController', ['$scope','$routeParams','$location','Projects','$http',
+  function ($scope, $routeParams, $location, Projects, $http) {
 
 
 
@@ -35,6 +35,14 @@ window.angular.module('ngProjects.controllers.projects', [])
       });
 
     };
+
+    $scope.update = function () {
+    
+
+      $http.get('/projects/update');
+      $location.path("/");
+      
+    }
 
 
 
