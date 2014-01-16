@@ -14,7 +14,7 @@ var path = require('path')
 
 module.exports = {
   development: {
-    db: 'mongodb://mainadmin:password123@alex.mongohq.com:10058/app21233314',
+    db: process.env.MONGOHQ_URI,
     root: rootPath,
     root: rootPath,
     notifier: notifier,
@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   production: {
-    db: 'mongodb://mainadmin:password123@alex.mongohq.com:10058/app21233314',
+    db: process.env.MONGOHQ_URI,
     root: rootPath,
     notifier: notifier,
     app: {

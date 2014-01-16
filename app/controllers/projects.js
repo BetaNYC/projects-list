@@ -20,34 +20,34 @@ setInterval(function() {
 
 }, the_interval);
 
-  exports.create = function(req, res) {
+exports.create = function(req, res) {
 
-    var project = new Project(req.body)
-    console.log(req.body)
+  var project = new Project(req.body)
 
 
-    project.save()
-    res.jsonp(project)
 
-  }
+  project.save()
+  res.jsonp(project)
+
+}
 
 
 exports.project = function (req, res, next, id){
-  console.log(id);
+
   var Project = mongoose.model('Project')
- 
+
   Project.load(id, function (err, project) {
     if (err) return next(err)
-    if (!project) return next(new Error('Failed to load project ' + id))
-    req.project = project
-    next()
-  })
+      if (!project) return next(new Error('Failed to load project ' + id))
+        req.project = project
+      next()
+    })
 }
 
 exports.update = function(req, res) {
 
-updateProjects(req,res);
- 
+  updateProjects(req,res);
+
 
 }
 
@@ -73,34 +73,35 @@ exports.list = function(req, res) {
 }
 
 function updateProjects(req,res) {
-Project.find().exec(function(err, projects) {
+  Project.find().exec(function(err, projects) {
    if (err) {
      res.render('error', {status: 500});
    } else {      
-      var currentList = [];
-      projects.forEach(function(project){
-        currentList.push(project.html_url);
-      })
-      console.log(currentList);
-       currentList.forEach(function(repoUrl) {
+    var currentList = [];
+    projects.forEach(function(project){
+      currentList.push(project.html_url);
+    })
+    console.log(currentList);
+    currentList.forEach(function(repoUrl) {
+      console.log("each");
 
-    repoUrl = repoUrl.split("/");
-    console.log(repoUrl);
-    queryPath = "/repos/" + repoUrl[3] + "/" + repoUrl[4];
-    
+      repoUrl = repoUrl.split("/");
 
-    var options = {
-      host: 'api.github.com',
-      path: queryPath + tokenParam,
-      headers: {
-        'User-Agent': 'chriswhong'
+      queryPath = "/repos/" + repoUrl[3] + "/" + repoUrl[4];
 
+      console.log(queryPath);
+      var options = {
+        host: 'api.github.com',
+        path: queryPath + tokenParam,
+        headers: {
+          'User-Agent': 'chriswhong'
+
+        }
       }
-    }
 
   //Get the data!
   https.get(options, function(res){
-    console.log(res.headers);
+    console.log(res);
     var data = '';
 
     res.on('data', function (chunk){
@@ -110,6 +111,7 @@ Project.find().exec(function(err, projects) {
     res.on('end',function(){
       data = JSON.parse(data);
 
+     
       addOrUpdate(data);
     })
 
@@ -117,54 +119,55 @@ Project.find().exec(function(err, projects) {
 
 
 })
-   }
- });
- 
+  }
+});
+
 }
 
 function addOrUpdate(data){
-
+  console.log(data.name);
+  console.log(data.html_url);
   Project.findOne({'html_url':data.html_url}, function(err,obj){
+
     if (err) {
       throw err;
     };
-    var project;
+    var project ;
 
 
 
 
 
 
-      project = obj;
+    project = obj;
 
-      project.id = data.id;
-      project.name = data.name;
-      project.description = data.description;
-      project.homepage = data.homepage;
-      project.html_url = data.html_url;
-      project.language = data.language;
-      project.watchers_count = data.watchers_count;
-      project.contributors_url = data.contributors_url;
-      project.forks_count = data.forks_count;
-      project.open_issues = data.open_issues;
-      project.created_at = data.created_at;
-      project.updated_at = data.updated_at;
-      project.pushed_at = data.pushed_at;
+    project.id = data.id;
+    project.name = data.name;
+    project.description = data.description;
+    project.homepage = data.homepage;
+    project.html_url = data.html_url;
+    project.language = data.language;
+    project.watchers_count = data.watchers_count;
+    project.contributors_url = data.contributors_url;
+    project.forks_count = data.forks_count;
+    project.open_issues = data.open_issues;
+    project.created_at = data.created_at;
+    project.updated_at = data.updated_at;
+    project.pushed_at = data.pushed_at;
 
-      project.owner.login = data.owner.login;
-      project.owner.html_url = data.owner.html_url;
-      project.owner.avatar_url = data.owner.avatar_url;
-      project.owner.type = data.owner.type;
-      
-      getContributors(data.contributors_url,function(){
-        console.log("Callback");
-        console.log(contributors);
-        project.contributors = contributors;
-        project.save()
-      })
+    project.owner.login = data.owner.login;
+    project.owner.html_url = data.owner.html_url;
+    project.owner.avatar_url = data.owner.avatar_url;
+    project.owner.type = data.owner.type;
+
+    getContributors(data.contributors_url,function(){
+
+      project.contributors = contributors;
+      project.save()
+    })
     
 
-      
+
 
     
   });
@@ -180,7 +183,6 @@ function getContributors(url,callback){
   contributorsUrl[5] + "/" + 
   contributorsUrl[6] + tokenParam;
 
-  console.log(contributorsUrl);
   
 
   var options = {
@@ -198,9 +200,9 @@ function getContributors(url,callback){
 
     res.on('end',function(){
       contributors = res.body;
-      console.log("about to parse");
+
       contributors = JSON.parse(contributors);
-      console.log(contributors);
+
       callback();
       
 
