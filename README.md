@@ -7,5 +7,7 @@ This is an adaptation of the [Open Gov Hack Night's Projects Page](https://githu
 
 The idea is to use the Github profile for each project as the information source.  Project name, owner, description, collaborators, issues, etc are pulled via the github api. 
 
-All humans need to do is determine what repos to include, all of which are in projects.json.
+All humans need to do is determine what repos to include.  There is a simple form to add a github project URL to the DB.  Once the url is in the DB, the app grabs data via the github API every 5 minutes.
+
+
 
