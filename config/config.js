@@ -14,7 +14,7 @@ var path = require('path')
 
 module.exports = {
   development: {
-    db: ENV['MONGOHQ_URI'],
+    db: process.env.MONGOHQ_URI || ENV['MONGOHQ_URI'],
     root: rootPath,
     root: rootPath,
     notifier: notifier,
@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   production: {
-    db: ENV['MONGOHQ_URI'],
+    db: process.env.MONGOHQ_URI || ENV['MONGOHQ_URI'],
     root: rootPath,
     notifier: notifier,
     app: {

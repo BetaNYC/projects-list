@@ -7,7 +7,7 @@
     <p>Civic Tech Projects Currently being developed by the NYC civic tech community</p>
   </div>
 
-  <table id = "hack-night-projects" class="table dataTable">
+  <table id = "hack-night-projects" class="table dataTable" ng-init="predicate = 'updated_at'; reverse=true">
     <thead>
       <tr>
         <th style="width: 345px;">Project</th>
@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="project in projects">
+      <tr ng-repeat="project in projects | orderBy:predicate:reverse" >
         <td>           
          <h3>
           <a href="{{project.html_url}}">{{project.name}}</a>

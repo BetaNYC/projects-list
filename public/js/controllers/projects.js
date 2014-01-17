@@ -11,6 +11,7 @@ window.angular.module('ngProjects.controllers.projects', [])
     $scope.find = function (query) {
       Projects.query(query, function (projects) {
         $scope.projects = projects;
+        console.log(projects);
       });
     };
 
