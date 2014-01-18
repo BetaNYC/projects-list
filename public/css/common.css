@@ -93,8 +93,13 @@ margin-right: 3px;
   margin-top: 36px;
 }
 
+.sortable-header {
+  cursor: pointer;
+}
 
-
+.sortable-header:hover {
+  text-decoration: underline;
+}
 
 
 
