@@ -4,6 +4,27 @@ var mongoose = require('mongoose')
   , Schema = mongoose.Schema;
 
 
+  mongoose.connection.on('error', function(err) {
+    console.error('MongoDB error: %s', err);
+  });
+  //mongoose.set('debug', true)
+
+
+  var NeedSchema = new Schema({
+      need: {type: String},
+  });
+  mongoose.model('Need', NeedSchema);
+
+   var TypeSchema = new Schema({
+      type: {type: String},
+  });
+  mongoose.model('Type', TypeSchema);
+
+   var CategorySchema = new Schema({
+      category: {type: String},
+  });
+  mongoose.model('Category', CategorySchema);
+
  var ProjectSchema = new Schema({
   id: {type: Number},
   name: {type: String},
@@ -29,7 +50,16 @@ var mongoose = require('mongoose')
     html_url: {type: String},
     avatar_url: {type: String},
     type: {type: String}
-  }]
+  }],
+  civicJson:{
+    status: {type: String},
+    thumbnailUrl: {type: String},
+    bornAt: {type: String},
+    geography: {type: String},
+    needs: [NeedSchema],
+    types: [TypeSchema],
+    categories: [CategorySchema]
+  }
   
 
 });
@@ -41,3 +71,6 @@ var mongoose = require('mongoose')
 };
 
  mongoose.model('Project', ProjectSchema);
+
+
+

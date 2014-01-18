@@ -5,8 +5,9 @@ var mongoose = require('mongoose')
 , fs = require('fs')
 , https = require('https')
 
+var Step = require('step');
+
 var currentList = [];
-var queryPath;
 var tokenParam = "?access_token=ad4a5a65354dc275060d333c956d1afcb9a8fe87";
 var contributors;
 
@@ -14,8 +15,8 @@ var minutes = 5,
 the_interval = minutes * 60 * 1000;
 
 setInterval(function() {
-  console.log("I am doing my 5-minute sync!");
-  
+
+
   updateProjects();
 
 }, the_interval);
@@ -46,6 +47,7 @@ exports.project = function (req, res, next, id){
 
 exports.update = function(req, res) {
 
+
   updateProjects(req,res);
 
 
@@ -72,25 +74,35 @@ exports.list = function(req, res) {
  });
 }
 
-function updateProjects(req,res) {
+function updateProjects(req,res,callback) {
+  var options,
+  queryPath;
+
+  res.send("Hello");
+
   Project.find().exec(function(err, projects) {
    if (err) {
      res.render('error', {status: 500});
    } else {      
     var currentList = [];
-    projects.forEach(function(project){
+    projects.forEach(function(project){  //push api urls to an array
       currentList.push(project.html_url);
     })
-    console.log(currentList);
+
+
+
     currentList.forEach(function(repoUrl) {
-      console.log("each");
+
 
       repoUrl = repoUrl.split("/");
 
+
+
       queryPath = "/repos/" + repoUrl[3] + "/" + repoUrl[4];
 
-      console.log(queryPath);
-      var options = {
+      
+
+      options = {
         host: 'api.github.com',
         path: queryPath + tokenParam,
         headers: {
@@ -99,116 +111,156 @@ function updateProjects(req,res) {
         }
       }
 
+      var data;
+
   //Get the data!
-  https.get(options, function(res){
-    console.log(res);
-    var data = '';
+  Step(
+    function getRepoJson() {
+      fetchJson(options,this)
+    },
 
-    res.on('data', function (chunk){
-      data += chunk;
-    });
+    function getCivicJson(response){
+      data = response;
+      options.path = queryPath + "/contents/civic.json" + tokenParam;
+      fetchJson(options,this)
+    },
+    function processCivicJson(response){
+      console.log("made it to 3rd fn");
+      if(!response.message){
 
-    res.on('end',function(){
-      data = JSON.parse(data);
-
-     
-      addOrUpdate(data);
-    })
-
-  })
+        var civicJson = new Buffer(response.content, 'base64').toString('ascii'); 
+        civicJson = JSON.parse(civicJson);
+        data.civicJson = civicJson;
 
 
-})
-  }
-});
+        var contributorsUrl = getContributorsUrl(data.contributors_url);
+        
 
-}
+        options.path = contributorsUrl + tokenParam;
 
-function addOrUpdate(data){
-  console.log(data.name);
-  console.log(data.html_url);
+        
+
+
+
+      }
+
+      fetchJson(options,this);
+
+    },
+    function gotContributors(response){
+
+
+      data.contributors = response;           
+      
+
+
+  console.log("addorupdate " + data.name + " " + data.html_url);
+
   Project.findOne({'html_url':data.html_url}, function(err,obj){
 
-    if (err) {
-      throw err;
-    };
-    var project ;
 
 
+    if(obj){
+
+      var project ;
+
+      project = obj;
+
+      project.id = data.id;
+      project.name = data.name;
+      project.description = data.description;
+      project.homepage = data.homepage;
+      project.html_url = data.html_url;
+      project.language = data.language;
+      project.watchers_count = data.watchers_count;
+      project.contributors_url = data.contributors_url;
+      project.forks_count = data.forks_count;
+      project.open_issues = data.open_issues;
+      project.created_at = data.created_at;
+      project.updated_at = data.updated_at;
+      project.pushed_at = data.pushed_at;
+
+      project.owner.login = data.owner.login;
+      project.owner.html_url = data.owner.html_url;
+      project.owner.avatar_url = data.owner.avatar_url;
+      project.owner.type = data.owner.type;
+      project.contributors = data.contributors;
+      project.civicJson = data.civicJson;
 
 
+      project.save();
 
+    } else {
+      console.log("failed on " + data.name);
+    }
 
-    project = obj;
-
-    project.id = data.id;
-    project.name = data.name;
-    project.description = data.description;
-    project.homepage = data.homepage;
-    project.html_url = data.html_url;
-    project.language = data.language;
-    project.watchers_count = data.watchers_count;
-    project.contributors_url = data.contributors_url;
-    project.forks_count = data.forks_count;
-    project.open_issues = data.open_issues;
-    project.created_at = data.created_at;
-    project.updated_at = data.updated_at;
-    project.pushed_at = data.pushed_at;
-
-    project.owner.login = data.owner.login;
-    project.owner.html_url = data.owner.html_url;
-    project.owner.avatar_url = data.owner.avatar_url;
-    project.owner.type = data.owner.type;
-
-    getContributors(data.contributors_url,function(){
-
-      project.contributors = contributors;
-      project.save()
-    })
+    
     
 
 
 
     
   });
+
+
+    }
+    )
+
+
+
+
+  
+
+
+
+
+})
+}
+});
+
+}
+
+function fetchJson(getOptions,callback){
+
+
+
+  https.get(getOptions, function(res){
+
+    var resData = '';
+
+    res.on('data', function (chunk){
+      resData += chunk;
+    });
+
+    res.on('end',function(){
+      resData = JSON.parse(resData);
+
+      callback(resData);
+    })
+    
+
+  })
+  
+
+}
+
+function addOrUpdate(data){
+
+
 }
 
 
-function getContributors(url,callback){ 
+
+function getContributorsUrl(url){ 
 
   contributorsUrl = url.split("/");
   contributorsUrl = "/" + 
   contributorsUrl[3] + "/" + 
   contributorsUrl[4] + "/" + 
   contributorsUrl[5] + "/" + 
-  contributorsUrl[6] + tokenParam;
+  contributorsUrl[6];
 
-  
-
-  var options = {
-    host: 'api.github.com',
-    path: contributorsUrl,
-    headers: {
-      'User-Agent': 'chriswhong'
-    }
-  }
-  https.get(options, function(res){
-    res.body = "";
-    res.on('data', function (chunk){
-      res.body += chunk;
-    });
-
-    res.on('end',function(){
-      contributors = res.body;
-
-      contributors = JSON.parse(contributors);
-
-      callback();
-      
-
-    })
-  })
-
+  return contributorsUrl;
 }
 
 
