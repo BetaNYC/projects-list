@@ -1,17 +1,13 @@
-
 {
 	"status": "Beta",
 	"thumbnailUrl": "http://betanyc.us/images/apple70Gray.png",
 	"bornAt": "BetaNYC Hacknights",
 	"geography": "NYC",
+	"type":"Web App",
 	"needs": [
 		{"need": "Web Designer"},
 		{"need": "Node Dev"},
 		{"need": "Angularjs Dev"}
-	],
-	"types": [
-		{"type": "web app"},
-		{"type": "tool"}
 	],
 	"categories": [
 		{"category": "community"},
