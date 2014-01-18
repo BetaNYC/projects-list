@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="project in projects">
+      <tr ng-repeat="project in projects track by project.id">
         <td>           
          <h3>
           <a href="{{project.html_url}}">{{project.name}}</a>
