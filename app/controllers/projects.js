@@ -75,10 +75,9 @@ exports.list = function(req, res) {
 }
 
 function updateProjects(req,res,callback) {
-  var options,
-  queryPath;
+ 
 
-  res.send("Hello");
+ 
 
   Project.find().exec(function(err, projects) {
    if (err) {
@@ -98,11 +97,11 @@ function updateProjects(req,res,callback) {
 
 
 
-      queryPath = "/repos/" + repoUrl[3] + "/" + repoUrl[4];
+      var queryPath = "/repos/" + repoUrl[3] + "/" + repoUrl[4];
 
       
 
-      options = {
+      var options = {
         host: 'api.github.com',
         path: queryPath + tokenParam,
         headers: {
@@ -125,7 +124,7 @@ function updateProjects(req,res,callback) {
       fetchJson(options,this)
     },
     function processCivicJson(response){
-      console.log("made it to 3rd fn");
+      console.log(response);
       if(!response.message){
 
         var civicJson = new Buffer(response.content, 'base64').toString('ascii'); 
@@ -133,16 +132,18 @@ function updateProjects(req,res,callback) {
         data.civicJson = civicJson;
 
 
-        var contributorsUrl = getContributorsUrl(data.contributors_url);
-        
-
-        options.path = contributorsUrl + tokenParam;
-
+       
         
 
 
 
       }
+
+       var contributorsUrl = getContributorsUrl(data.contributors_url);
+        
+
+        options.path = contributorsUrl + tokenParam;
+
 
       fetchJson(options,this);
 
@@ -154,7 +155,7 @@ function updateProjects(req,res,callback) {
       
 
 
-  console.log("addorupdate " + data.name + " " + data.html_url);
+  //console.log("addorupdate " + data.name + " " + data.html_url);
 
   Project.findOne({'html_url':data.html_url}, function(err,obj){
 
@@ -180,7 +181,9 @@ function updateProjects(req,res,callback) {
       project.updated_at = data.updated_at;
       project.pushed_at = data.pushed_at;
 
+      console.log(data.owner.login);
       project.owner.login = data.owner.login;
+      console.log(project.owner.login);
       project.owner.html_url = data.owner.html_url;
       project.owner.avatar_url = data.owner.avatar_url;
       project.owner.type = data.owner.type;
@@ -225,6 +228,7 @@ function fetchJson(getOptions,callback){
 
 
   https.get(getOptions, function(res){
+    console.log(getOptions.path);
 
     var resData = '';
 

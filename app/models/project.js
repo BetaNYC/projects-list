@@ -3,10 +3,6 @@ var mongoose = require('mongoose')
   , config = require('../../config/config')[env]
   , Schema = mongoose.Schema;
 
-
-  mongoose.connection.on('error', function(err) {
-    console.error('MongoDB error: %s', err);
-  });
   //mongoose.set('debug', true)
 
 
@@ -15,10 +11,7 @@ var mongoose = require('mongoose')
   });
   mongoose.model('Need', NeedSchema);
 
-   var TypeSchema = new Schema({
-      type: {type: String},
-  });
-  mongoose.model('Type', TypeSchema);
+
 
    var CategorySchema = new Schema({
       category: {type: String},
@@ -39,12 +32,12 @@ var mongoose = require('mongoose')
   created_at: {type: String},
   updated_at: {type: String},
   pushed_at: {type: String},
-  owner: [{
+  owner: {
     login: {type: String},
     html_url: {type: String},
     avatar_url: {type: String},
     type: {type: String}
-  }],
+  },
   contributors:[{
     login: {type: String},
     html_url: {type: String},
@@ -56,8 +49,8 @@ var mongoose = require('mongoose')
     thumbnailUrl: {type: String},
     bornAt: {type: String},
     geography: {type: String},
+    type: {type: String},
     needs: [NeedSchema],
-    types: [TypeSchema],
     categories: [CategorySchema]
   }
   

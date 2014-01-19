@@ -24,12 +24,82 @@ h3 {
 }
 
 h4 {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 500;
 }
 
 th {
   font-size: 17px;
+}
+
+.type, .status{
+ 
+  display: inline-block;
+  color: white;
+  padding: 1px 10px;
+  border-radius: 4px;
+  margin-top: 9px;
+  margin-bottom: 10px;
+  margin-right: 4px;
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+.typeText{
+  display:inline-block;
+}
+
+.type{
+ background: #00B30F;
+}
+
+.status{
+   background: #ED9823;
+}
+
+
+.need, .category{
+  background-color: #95a5a6;
+  display: inline-block;
+  color: #fff;
+  padding: 1px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-right:4px;
+  margin-bottom: 4px;
+}
+
+.thumbNail{
+  height: 180px;
+  width: 180px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 10px;
+}
+
+.projectInfo{
+  font-size: 13px;
+  line-height: 15px;
+}
+.owner img{
+  border: 1px solid #414141;
+}
+
+.githubLinkImage{
+  height: 20px;
+  width: 20px;
+  background-size: cover;
+  display:inline-block;
+  margin-right: 7px;
+}
+.githubLinkText{
+  display: inline-block;
+  top: -4px;
+  position: relative;
+}
+
+.githubLink{
+  font-size:16px;
 }
 
 .table td {
@@ -55,24 +125,26 @@ margin-right: 3px;
 }
 
 .btn {
-  display: inline-block;
-  padding: 10px 15px;
-  margin-bottom: 0;
-  font-size: 15px;
-  font-weight: normal;
-  line-height: 1.428571429;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+
+display: inline-block;
+padding: 2px 10px;
+margin-top:8px;
+margin-bottom: 0;
+font-size: 15px;
+font-weight: normal;
+line-height: 1.428571429;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+cursor: pointer;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
 }
 
 .btn-default {
