@@ -1,4 +1,5 @@
 <div ng-controller="ProjectsController" ng-init="find()">
+
   <div ng-hide="authSuccess">
     <input ng-model="password">
     <span class="help-inline" ng-show="authError">Password Incorrect</span>
@@ -9,6 +10,7 @@
     <div ng-repeat="project in projects">
       <a href="" ng-click="destroy(project)" >Delete</a> {{project.html_url}}
     </div>
+
     <form>
     <textarea ng-model="newUrl" style = "width: 500px; height: 20px; resize:none;">Add New</textarea>
     <button ng:click="create()">Save</button>
@@ -16,4 +18,5 @@
 
     <button ng-click="update()">Update all and go to Projects list</button>
   </div>
+
 </div>

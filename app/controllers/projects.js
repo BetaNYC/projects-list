@@ -91,8 +91,6 @@ exports.auth = function(req, res) {
 function updateProjects(req,res,callback) {
  
 
- 
-
   Project.find().exec(function(err, projects) {
    if (err) {
      res.render('error', {status: 500});
