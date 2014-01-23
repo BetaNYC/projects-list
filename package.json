@@ -33,6 +33,7 @@
     , "forever": "latest"
     , "mean-logger": "latest"
     , "bower": "latest"
+    , "nconf": "latest"
   }
   , "devDependencies": {
         "supertest": "latest"

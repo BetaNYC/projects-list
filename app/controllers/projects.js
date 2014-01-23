@@ -5,6 +5,10 @@ var mongoose = require('mongoose')
 , fs = require('fs')
 , https = require('https')
 
+// var nconf = require('nconf');
+// nconf.use('file', { file: './config.json' });
+// nconf.load();
+
 var Step = require('step');
 
 var currentList = [];
@@ -74,9 +78,18 @@ exports.list = function(req, res) {
  });
 }
 
-function updateProjects(req,res,callback) {
- 
 
+exports.auth = function(req, res) {
+  var password = process.env.FAKE_PASSWORD || ENV['FAKE_PASSWORD']
+  if (req.body.password == password) {
+    res.jsonp(1);
+  } else {
+    res.render('error', {status: 403});
+  }
+}
+
+
+function updateProjects(req,res,callback) {
  
 
   Project.find().exec(function(err, projects) {

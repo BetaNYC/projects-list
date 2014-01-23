@@ -6,6 +6,22 @@ window.angular.module('ngProjects.controllers.projects', [])
 
     //$scope.global = Global;
 
+    $scope.authSuccess = false;
+    $scope.authError = false;
+    $scope.password = '';
+
+    $scope.submitPassword = function (password) {
+      var postData = { 'password': password };
+
+      $http({method: 'POST', url: '/projects/auth', data: postData}).
+        success(function(data, status, headers, config) {
+          $scope.authSuccess = true;
+        }).
+        error(function(data, status, headers, config) {
+          $scope.password = '';
+          $scope.authError = true;
+        });
+    };
 
 
     $scope.find = function (query) {
