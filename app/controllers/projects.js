@@ -181,9 +181,9 @@ function updateProjects(req,res,callback) {
       project.updated_at = data.updated_at;
       project.pushed_at = data.pushed_at;
 
-      console.log(data.owner.login);
+
       project.owner.login = data.owner.login;
-      console.log(project.owner.login);
+      
       project.owner.html_url = data.owner.html_url;
       project.owner.avatar_url = data.owner.avatar_url;
       project.owner.type = data.owner.type;
