@@ -5,9 +5,9 @@ var mongoose = require('mongoose')
 , fs = require('fs')
 , https = require('https')
 
-var nconf = require('nconf');
-nconf.use('file', { file: './config.json' });
-nconf.load();
+// var nconf = require('nconf');
+// nconf.use('file', { file: './config.json' });
+// nconf.load();
 
 var Step = require('step');
 
@@ -80,7 +80,8 @@ exports.list = function(req, res) {
 
 
 exports.auth = function(req, res) {
-  if (req.body.password == nconf.get('password')) {
+  var password = process.env.FAKE_PASSWORD || ENV['FAKE_PASSWORD']
+  if (req.body.password == password) {
     res.jsonp(1);
   } else {
     res.render('error', {status: 403});
