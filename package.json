@@ -34,7 +34,8 @@
     , "mean-logger": "latest"
     , "bower": "latest"
     , "nconf": "latest"
-    , "dotenv": "latest
+    , "dotenv": "latest"
+    , "step": "latest"
   }
   , "devDependencies": {
         "supertest": "latest"
