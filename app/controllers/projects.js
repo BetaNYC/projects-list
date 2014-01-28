@@ -80,7 +80,7 @@ exports.list = function(req, res) {
 
 
 exports.auth = function(req, res) {
-  var password = process.env.FAKE_PASSWORD || ENV['FAKE_PASSWORD']
+  var password = process.env.PW || ENV['PW']
   if (req.body.password == password) {
     res.jsonp(1);
   } else {
