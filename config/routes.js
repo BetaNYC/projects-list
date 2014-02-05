@@ -1,4 +1,3 @@
-
 var async = require('async')
 
 module.exports = function (app, passport, auth) {
@@ -7,6 +6,7 @@ module.exports = function (app, passport, auth) {
   var projects = require('../app/controllers/projects')
   app.get('/projects/update', projects.update)
   app.get('/projects', projects.list)
+  app.get('/projects.json', projects.json)
   app.post('/projects',projects.create)
   app.del('/projects/:projectId',projects.destroy)
   app.post('/projects/auth', projects.auth)
