@@ -93,13 +93,13 @@ exports.json = function(req, res) {
   Project.find().exec(function(err, projects) {
     if (err) {
       res.render('error', {status: 500});
-    } else { 
-      var urls = projects.map(function (e) {
-        return e.html_url;
-      })
+    } else {      
+      var urls = projects.map(function (e){
+        return e.html_url
+      });
       res.jsonp(urls);
     }
- });
+  });
 }
 
 
