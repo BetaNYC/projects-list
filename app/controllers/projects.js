@@ -196,7 +196,7 @@ function updateProjects(req,res,callback) {
       project.id = data.id;
       project.name = data.name;
       project.description = data.description;
-      project.homepage = data.homepage ? data.homepage : data.html_url;
+      project.homepage = data.homepage;
       project.html_url = data.html_url;
       project.language = data.language;
       project.watchers_count = data.watchers_count;

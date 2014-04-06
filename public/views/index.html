@@ -23,9 +23,15 @@
 
          <div class = "thumbNail" style = "background-image: url('{{project.civicJson.thumbnailUrl}}')"></div>
        </td>
-       <td>           
-         <h3>
-          <a href="{{project.homepage}}" target="_blank">{{project.name}}</a></h3>  
+       <td>             
+
+          <!-- Conditionally creates a link for the project homepage if one is present -->
+          <div ng-if="project.homepage">
+            <h3><a href="{{project.homepage}}" target="_blank">{{project.name}}</a></h3>
+          </div>
+          <div ng-if="!project.homepage">
+            <h3>{{project.name}}</h3>
+          </div>
 
           <h4>{{project.description}}</h4> 
 
