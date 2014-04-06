@@ -20,7 +20,6 @@ the_interval = minutes * 60 * 1000;
 
 setInterval(function() {
 
-
   updateProjects();
 
 }, the_interval);
@@ -80,7 +79,7 @@ exports.list = function(req, res) {
 
 
 exports.auth = function(req, res) {
-  var password = process.env.FAKE_PASSWORD || ENV['FAKE_PASSWORD']
+  var password = process.env.PW || ENV['PW']
   if (req.body.password == password) {
     res.jsonp(1);
   } else {
@@ -208,9 +207,9 @@ function updateProjects(req,res,callback) {
       project.updated_at = data.updated_at;
       project.pushed_at = data.pushed_at;
 
-      console.log(data.owner.login);
+
       project.owner.login = data.owner.login;
-      console.log(project.owner.login);
+      
       project.owner.html_url = data.owner.html_url;
       project.owner.avatar_url = data.owner.avatar_url;
       project.owner.type = data.owner.type;

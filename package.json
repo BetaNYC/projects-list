@@ -15,7 +15,7 @@
   , "dependencies": {
       "express": "latest"
     , "jade": "latest"
-    , "mongoose": "latest"
+    , "mongoose": "3.8.x"
     , "connect-mongo": "latest"
     , "connect-flash": "latest"
     , "passport": "latest"
@@ -34,6 +34,8 @@
     , "mean-logger": "latest"
     , "bower": "latest"
     , "nconf": "latest"
+    , "dotenv": "latest"
+    , "step": "latest"
   }
   , "devDependencies": {
         "supertest": "latest"
