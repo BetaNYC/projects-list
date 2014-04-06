@@ -18,7 +18,7 @@ module.exports = {
     root: rootPath,
     notifier: notifier,
     app: {
-      name: 'ngProjects - Development'
+      name: 'BetaNYC Projects - Development'
     }
   },
   test: {
@@ -26,7 +26,7 @@ module.exports = {
     root: rootPath,
     notifier: notifier,
     app: {
-      name: 'ngProjects - Test'
+      name: 'BetaNYC Projects - Test'
     }
   },
   production: {
@@ -34,7 +34,7 @@ module.exports = {
     root: rootPath,
     notifier: notifier,
     app: {
-      name: 'ngProjects - Production'
+      name: 'BetaNYC Projects'
     }
   }
 }
