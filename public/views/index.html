@@ -25,20 +25,20 @@
        </td>
        <td>           
          <h3>
-          <a href="{{project.homepage}}">{{project.name}}</a></h3>  
+          <a href="{{project.homepage}}" target="_blank">{{project.name}}</a></h3>  
 
           <h4>{{project.description}}</h4> 
 
-          <div class = "githubLink"><a href="{{project.html_url}}"> <div class = "githubLinkImage" style = "background-image:url('http://jmdobry.github.io/talks/2013/designing-for-testability/images/github_icon_32.png')"></div><div class = "githubLinkText">View Github Repo</div></a></div>
+          <div class = "githubLink"><a href="{{project.html_url}}" target="_blank"> <div class = "githubLinkImage" style = "background-image:url('http://jmdobry.github.io/talks/2013/designing-for-testability/images/github_icon_32.png')"></div><div class = "githubLinkText">View Github Repo</div></a></div>
 
           <div class = "projectInfo">
             <strong>Last Updated</strong> {{project.updated_at | relativeDate}}<br>
             <strong>Created</strong> {{project.created_at | relativeDate}}<br>
             <strong>Language</strong> {{project.language}}<br>
-            <a class="btn btn-default" href="{{project.html_url}}/stargazers">{{project.watchers_count}} <i class="icon-star icon-white"></i></a>      
+            <a class="btn btn-default" href="{{project.html_url}}/stargazers" target="_blank">{{project.watchers_count}} <i class="icon-star icon-white"></i></a>      
 
-            <a class="btn btn-default" href="{{project.html_url}}/network">{{project.forks_count}} <i class="icon-code-fork icon-white"></i></a>          
-            <a class="btn btn-default" href="{{project.html_url}}/issues">{{project.open_issues}} <i class="icon-exclamation-sign icon-white"></i></a> <br/>
+            <a class="btn btn-default" href="{{project.html_url}}/network" target="_blank">{{project.forks_count}} <i class="icon-code-fork icon-white"></i></a>          
+            <a class="btn btn-default" href="{{project.html_url}}/issues" target="_blank">{{project.open_issues}} <i class="icon-exclamation-sign icon-white"></i></a> <br/>
             
           </div>
 
@@ -50,7 +50,7 @@
          <div ng-hide="!project.civicJson.status"class = "typeText">Status:</div><div ng-hide="!project.civicJson.status" class = "status">{{project.civicJson.status}}</div>
          <h4>Contributors</h4>            
          <p class="contributors">                              
-          <a ng-repeat ="contributor in project.contributors" href="{{contributor.html_url}}" class="contributor" ng-class="{owner: contributor.login==project.owner.login}"><img class="img-thumbnail" src="{{contributor.avatar_url}}" ></a>                   
+          <a ng-repeat ="contributor in project.contributors" href="{{contributor.html_url}}" class="contributor" ng-class="{owner: contributor.login==project.owner.login}" target="_blank"><img class="img-thumbnail" src="{{contributor.avatar_url}}" ></a>                   
         </p> 
         <h4>Needs</h4>            
          <p class="needs">                              
@@ -69,7 +69,7 @@
 </table>
 
 <div class="footer">
-  <p class="pull-right">Inspired by <a href = "http://opengovhacknight.org/projects.html">opengovhacknight.org's Projects Page</a> | ©2014 BetaNYC | <a href="https://github.com/betanyc"><i class="icon-github"></i> Pull requests welcome!</a></p>
+  <p class="pull-right">Inspired by <a href = "http://opengovhacknight.org/projects.html" target="_blank">opengovhacknight.org's Projects Page</a> | ©2014 BetaNYC | <a href="https://github.com/betanyc" target="_blank"><i class="icon-github"></i> Pull requests welcome!</a></p>
 </div>
 
 

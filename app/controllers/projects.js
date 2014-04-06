@@ -20,7 +20,6 @@ the_interval = minutes * 60 * 1000;
 
 setInterval(function() {
 
-
   updateProjects();
 
 }, the_interval);
@@ -197,7 +196,7 @@ function updateProjects(req,res,callback) {
       project.id = data.id;
       project.name = data.name;
       project.description = data.description;
-      project.homepage = data.homepage;
+      project.homepage = data.homepage ? data.homepage : data.html_url;
       project.html_url = data.html_url;
       project.language = data.language;
       project.watchers_count = data.watchers_count;
