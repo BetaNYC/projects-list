@@ -7,7 +7,7 @@ This document outlines what type of apps, hacks, and tools (for this document kn
  * All promoted tools *need* to have an up-to-date civic.json file.
  * All promoted tools *need* have a GitHub repo with an active issues page. This URL should be featured on the tools' about page. _Note: you do not need to share your code, but you do need to use github_.
  * Projects *should* have an about page or github readme file that clearly names a project maintainer, the maintainer's email address, and that the project is supported by BetaNYC, with a link to [BetaNYC's webpage](http://www.beta.nyc).
-* BetaNYC reserves the right to remove its support of any tool at any time.
+ * BetaNYC reserves the right to remove its support of any tool at any time.
 
 ## Hosting 
  * Tools that need Amazon, OpenShift, or Digital Ocean hosting, can apply for hosting by contacting the [projects page's maintainers](projects@beta.NYC).
