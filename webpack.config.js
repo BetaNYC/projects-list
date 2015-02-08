@@ -23,10 +23,8 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js$/, loaders: ['react-hot','jsx?harmony'], exclude: /(node_modules|bootstrap-sass\.config.*)/ },
-      { test: /\.woff$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-      { test: /\.ttf$/, loader: "file-loader" },
-      { test: /\.eot$/, loader: "file-loader" },
-      { test: /\.svg$/, loader: "file-loader" },
+      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'

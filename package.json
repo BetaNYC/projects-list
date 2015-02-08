@@ -20,6 +20,8 @@
     "webpack": "^1.5.1",
     "webpack-dev-server": "1.6.4",
     "bootstrap-sass-loader": "~0.0.6",
+    "font-awesome": "4.2.0",
+    "font-awesome-webpack": "~0.0.2",
     "sass-loader": "0.4.0-beta.1",
     "es6-loader": "^0.2.0",
     "css-loader": "^0.9.1",
@@ -28,8 +30,14 @@
     "imports-loader": "~0.6.3",
     "jquery": "~1.11.2",
     "flux": "*",
+    "object-assign": "2.0.0",
     "react-date-picker": "~1.4.0",
-    "url-loader": "^0.5.5"
+    "url-loader": "^0.5.5",
+    "pg": "4.1.1",
+    "pg-query-stream": "0.7.0",
+    "express": "4.0.0",
+    "through2": "0.6.3",
+    "underscore": "1.7.0"
   },
   "dependencies": {
     "react": "^0.12.0"
