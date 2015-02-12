@@ -1,0 +1,15 @@
+{
+  "name": "MyIDNYC",
+  "status": "Beta",
+  "bornAt": "BetaNYC Hacknights",
+  "geography": "NYC",
+  "politicalEntity":"",
+  "type":"Web App",
+  "needs": [
+    {"need": "Web Designer"}
+  ],
+  "categories": [
+      {"category": "Community"},
+      {"category": "NYC"}
+  ]
+}
