@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "idnyc",
+    "host": "127.0.0.1",
+    "dialect": "postgresql"
+  },
+  "production": {
+    "username": "postgres",
+    "password": null,
+    "database": "idnyc_production",
+    "host": "127.0.0.1",
+    "dialect": "postgresql"
+  }
+}

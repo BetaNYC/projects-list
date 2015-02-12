@@ -22,8 +22,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['react-hot','jsx?harmony'], exclude: /(node_modules|bootstrap-sass\.config.*)/ },
-      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.js$/, loaders: ['react-hot','jsx?harmony&stripTypes'], exclude: /(node_modules|bootstrap(-sass)?\.config.*)/ },
+      { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
       {
         test: /\.css$/,
@@ -34,8 +34,13 @@ module.exports = {
         test: /\.(png|jpg)$/,
         loader: 'url-loader?limit=10000'
       },
+      // {
+      //   test: /bootstrap-sass\/assets\/javascripts\//,
+      //   // This is needed so that each bootstrap js file required by bootstrap-webpack has access to the jQuery object
+      //   loader: 'imports?jQuery=jquery'
+      // },
       {
-        test: /bootstrap-sass\/assets\/javascripts\//,
+        test: /bootstrap\/js\//,
         // This is needed so that each bootstrap js file required by bootstrap-webpack has access to the jQuery object
         loader: 'imports?jQuery=jquery'
       },
@@ -43,6 +48,11 @@ module.exports = {
         test: /\.scss$/,
         // Query parameters are passed to node-sass
         loader: 'style!css!sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules'))
+      },
+      {
+        test: /\.less$/,
+        // Query parameters are passed to node-sass
+        loader: 'style!css!less?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules'))
       }
     ]
   }

@@ -1,5 +1,5 @@
 'use strict';
-require('./app.scss')
+require('./app.less')
 require('font-awesome-webpack')
 
 var React = require('react');
@@ -8,14 +8,12 @@ var ServiceSelector = React.createClass({
   render(){
     return (
       <div className='form-group'>
-        <div className='col-lg-12'>
-          <label>Please select a service</label>
-          <select className='form-control'>
-            <option>New Applicant</option>
-            <option>New Applicant with ASL Interpreter</option>
-            <option>Second Submission</option>
-          </select>
-        </div>
+        <label>Please select a service</label>
+        <select className='form-control'>
+          <option>New Applicant</option>
+          <option>New Applicant with ASL Interpreter</option>
+          <option>Second Submission</option>
+        </select>
       </div>
     )
   }
@@ -24,7 +22,6 @@ var BoroSelector = React.createClass({
   render(){
     return (
       <div className='form-group'>
-        <div className='col-lg-12'>
           <label>Please select a boro</label>
           <select className='form-control'>
             <option>All</option>
@@ -34,7 +31,6 @@ var BoroSelector = React.createClass({
             <option>Staten Island</option>
             <option>The Bronx</option>
           </select>
-        </div>
       </div>
     )
   }
@@ -46,14 +42,12 @@ var DateSelector = React.createClass({
   render(){
     return (
       <div className='form-group'>
-        <div className='col-lg-12'>
           <label>Show me available slots after</label>
 
           <input type='date' className='form-control' />
           <p className='help-block bg-warning' style={{padding:"5px 10px", marginTop:10}}>
             The data is <b>10</b> minutes old. Actual dates may be different.
           </p>
-        </div>
       </div>
     )
   }
