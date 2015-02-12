@@ -5,8 +5,7 @@
   "private": false,
   "author": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
+    "node": "0.10.35"
   },
   "scripts": {
     "start": "NODE_ENV=development ./node_modules/.bin/nodemon server.js",
@@ -15,7 +14,7 @@
   "dependencies": {
     "express": "3.19.0",
     "jade": "latest",
-    "mongoose": "3.8.x",
+    "mongoose": "3.8.0",
     "connect-mongo": "latest",
     "connect-flash": "latest",
     "passport": "latest",
