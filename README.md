@@ -18,4 +18,4 @@ open http://localhost:3000
 
 ### Preview
 
-[Imgur](http://i.imgur.com/ANlSHgo.png)
+![Imgur](http://i.imgur.com/ANlSHgo.png)
