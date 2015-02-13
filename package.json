@@ -1,0 +1,46 @@
+{
+  "name": "myidnyc",
+  "version": "1.0.0",
+  "description": "A better IdNYC",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/volkanunsal/myidnyc.git"
+  },
+  "keywords": [],
+  "author": "Volkan Unsal <spocksplanet@gmail.com> (http://github.com/volkanunsal)",
+  "license": "MIT",
+  "homepage": "https://github.com/volkanunsal/myidnyc",
+  "devDependencies": {
+    "react": "^0.12.0",
+    "jsx-loader": "^0.12.2",
+    "react-hot-loader": "^1.1.1",
+    "webpack": "^1.5.1",
+    "webpack-dev-server": "1.6.4",
+    "bootstrap-webpack": "~0.0.4",
+    "font-awesome": "4.2.0",
+    "font-awesome-webpack": "~0.0.2",
+    "less-loader": "0.2.0",
+    "6to5-loader": "^3.0.0",
+    "css-loader": "^0.9.1",
+    "style-loader": "^0.8.3",
+    "file-loader": "^0.8.1",
+    "imports-loader": "~0.6.3",
+    "jquery": "~1.11.2",
+    "flux": "*",
+    "object-assign": "2.0.0",
+    "url-loader": "^0.5.5"
+  },
+  "dependencies": {
+    "express": "4.0.0",
+    "pg": "4.1.1",
+    "pg-query-stream": "0.7.0",
+    "sequelize": "2.0.1",
+    "sequelize-cli": "^1.2.0",
+    "through2": "0.6.3",
+    "underscore": "1.7.0"
+  },
+  "engines": {}
+}

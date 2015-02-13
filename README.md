@@ -1,13 +1,23 @@
 betanyc-projects-list
 =====================
 
-A simple listing tool to keep track of current civic tech projects of the BetaNYC community.  
+A simple listing tool to keep track of current civic tech projects of the BetaNYC community.
 
 This is an adaptation of the [Open Gov Hack Night's Projects Page](https://github.com/open-city/open-gov-hack-night) in Chicago, recreated using the [MEAN Stack](http://www.mean.io).
 
-The idea is to use the Github profile for each project as the information source.  Project name, owner, description, collaborators, issues, etc are pulled via the github api. 
+The idea is to use the Github profile for each project as the information source.  Project name, owner, description, collaborators, issues, etc are pulled via the github api.
 
 All humans need to do is determine what repos to include.  There is a simple form to add a github project URL to the DB.  Once the url is in the DB, the app grabs data via the github API every 5 minutes.
 
 
 
+### Usage
+
+```
+brew install npm
+brew install nvm
+nvm install iojs
+npm install
+npm start
+open http://localhost:3000
+```
