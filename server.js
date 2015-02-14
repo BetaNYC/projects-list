@@ -14,7 +14,7 @@ if(process.env.NODE_ENV === 'production'){
     // , contentBase: "/"
     // webpack-dev-middleware options
     // , quiet: true
-    , noInfo: true
+    // , noInfo: true
     , watchDelay: 100
     , headers: { "X-Custom-Header": "yes" }
     , stats: { colors: true }
