@@ -6,7 +6,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './assets/index'
+    './src/index'
   ],
   output: {
     path: __dirname + '/assets/',
@@ -22,9 +22,15 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['react-hot','jsx?harmony&stripTypes'], exclude: /(node_modules|bootstrap(-sass)?\.config.*)/ },
-      { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+      { test: /\.js$/, loaders: ['react-hot','6to5','jsx?harmony&stripTypes'], exclude: /(node_modules|bootstrap(-sass)?\.config.*)/ },
+
+      // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
+      // loads bootstrap's css.
+      { test: /\.woff2?(\?v=.+)?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.ttf(\?v=.+)?$/,    loader: "url?limit=10000&minetype=application/octet-stream" },
+      { test: /\.eot(\?v=.+)?$/,    loader: "file" },
+      { test: /\.svg(\?v=.+)?$/,    loader: "url?limit=10000&minetype=image/svg+xml" },
+
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
@@ -52,7 +58,7 @@ module.exports = {
       {
         test: /\.less$/,
         // Query parameters are passed to node-sass
-        loader: 'style!css!less?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules'))
+        loader: 'style!css!less'
       }
     ]
   }

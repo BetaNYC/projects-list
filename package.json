@@ -1,7 +1,7 @@
 {
-  "name": "myidnyc",
+  "name": "BetaNYCprojects",
   "version": "1.0.0",
-  "description": "A better IdNYC",
+  "description": "BetaNYC projects page",
   "scripts": {
     "start": "node server.js"
   },
@@ -14,7 +14,7 @@
   "license": "MIT",
   "homepage": "https://github.com/volkanunsal/myidnyc",
   "devDependencies": {
-    "react": "^0.12.0",
+    "react": "0.13.0-beta.1",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
     "webpack": "^1.5.1",
@@ -22,7 +22,7 @@
     "bootstrap-webpack": "~0.0.4",
     "font-awesome": "4.2.0",
     "font-awesome-webpack": "~0.0.2",
-    "less-loader": "0.2.0",
+    "less-loader": "webpack/less-loader#d7710cd6a8da4ad55e58588259f5df95fa3bd56d",
     "6to5-loader": "^3.0.0",
     "css-loader": "^0.9.1",
     "style-loader": "^0.8.3",
@@ -30,17 +30,15 @@
     "imports-loader": "~0.6.3",
     "jquery": "~1.11.2",
     "flux": "*",
+    "moment": "~2.9.0",
+    "eventemitter3": "~0.1.6",
     "object-assign": "2.0.0",
-    "url-loader": "^0.5.5"
-  },
-  "dependencies": {
-    "express": "4.0.0",
-    "pg": "4.1.1",
-    "pg-query-stream": "0.7.0",
-    "sequelize": "2.0.1",
-    "sequelize-cli": "^1.2.0",
-    "through2": "0.6.3",
+    "url-loader": "^0.5.5",
     "underscore": "1.7.0"
   },
-  "engines": {}
+  "dependencies": {
+  },
+  "engines": {
+    "iojs":"1.2.0"
+  }
 }

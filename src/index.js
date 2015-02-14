@@ -1,6 +1,6 @@
 'use strict';
 // require("bootstrap-sass-loader!../bootstrap-sass.config.js");
-require("bootstrap-webpack!../bootstrap.config.js");
+require("bootstrap-webpack!../config/bootstrap.config.js");
 
 
 var React = require('react'),

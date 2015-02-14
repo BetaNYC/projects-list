@@ -8,14 +8,14 @@ if(process.env.NODE_ENV === 'production'){
 
 }else{
   var server = new WebpackDevServer(webpack(config), {
-    publicPath: config.output.publicPath,
-    hot: true
+    publicPath: config.output.publicPath
+    , hot: true
     // // webpack-dev-server options
-    // contentBase: "/assets",
+    // , contentBase: "/"
     // webpack-dev-middleware options
-    // , quiet: false,
-    // noInfo: false,
-    // watchDelay: 300,
+    // , quiet: true
+    , noInfo: true
+    , watchDelay: 100
     , headers: { "X-Custom-Header": "yes" }
     , stats: { colors: true }
 
@@ -29,4 +29,4 @@ if(process.env.NODE_ENV === 'production'){
     console.log('Listening at localhost:3000');
   });
 }
-  
+
