@@ -19,7 +19,7 @@ var App = React.createClass({
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
                 </button>
-                <a className="navbar-brand" href="#">
+                <a className="navbar-brand" href="http://betanyc.us/">
                   <img src='http://betanyc.us/images/betanyc_white_sm.png' height='99%'/>
                 </a>
               </div>
@@ -39,13 +39,10 @@ var App = React.createClass({
             <div className='row'>
               <div className='col-lg-8'>
                 <h1>
-                  Civic Tech Projects <span className='mega-octicon octicon-code' style={{fontSize:'inherit'}} />
+                  Civic Tech
                 </h1>
                 <p>
-                  Currently being developed by the New York civic tech community.
-                </p>
-                <p>
-                  Simply add a <a href="https://github.com/BetaNYC/civic.json">civic.json</a> file to your Github repo to list your project on this site.
+                  Simply add a <a href="https://github.com/BetaNYC/civic.json">civic.json</a> file to your Github repo to add your project to this list.
                 </p>
                 <p  >
                   Want to help out? Check out the projects below.

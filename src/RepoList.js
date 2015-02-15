@@ -50,7 +50,7 @@ class RepoList extends React.Component {
             <div className='panel panel-default'>
               <table className='table table-condensed'>
                 <tbody>
-                  <tr className='bg-warning text-muted'>
+                  <tr className='text-muted'>
                     <th className='text-center'>
                       Labels <a className='fa fa-caret-down' href='javascript:;'/>
                     </th>
