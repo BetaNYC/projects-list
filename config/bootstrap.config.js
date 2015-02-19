@@ -1,13 +1,13 @@
 module.exports = {
   scripts: {
     // add every bootstrap script you need
-    'transition': true,
-    'alert': true,
+    'transition': false,
+    'alert': false,
     'button': false,
     'carousel': false,
-    'collapse': true,
-    'dropdown': true,
-    'modal': true,
+    'collapse': false,
+    'dropdown': false,
+    'modal': false,
     'tooltip': false,
     'popover': false,
     'scrollspy': false,

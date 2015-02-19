@@ -1,9 +1,11 @@
 'use strict';
-// require("bootstrap-sass-loader!../bootstrap-sass.config.js");
+// Global styles
 require("bootstrap-webpack!../config/bootstrap.config.js");
-
+require('font-awesome-webpack');
 
 var React = require('react'),
-    App = require('./app');
+    router = require('./router');
 
-React.render(<App />, document.body);
+router.run((Handler, state) => {
+  React.render(<Handler {...state} />, document.body);
+});
