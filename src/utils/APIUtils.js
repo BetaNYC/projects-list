@@ -11,10 +11,12 @@ var humps = require('humps'),
 
 var API_ROOT = 'https://api.github.com/';
 
-var search = new Schema('search', { idAttribute: 'id' });
+var repo = new Schema('repo', { idAttribute: 'id' });
+var issue = new Schema('issue', { idAttribute: 'id' });
+var content = new Schema('content', { idAttribute: 'name' });
 
-repo.define({
-  owner: user
+issue.define({
+  owner: repo
 });
 
 var APIUtils = {
@@ -42,14 +44,14 @@ var APIUtils = {
     };
   },
 
-  normalizeSearchResponse(response) {
+  normalizeIssueResponse(response) {
     return assign(
       normalize(camelizeKeys(response.body), search),
       APIUtils.extractPagination(response)
     );
   },
 
-  normalizeSearchArrayResponse(response) {
+  normalizeIssueArrayResponse(response) {
     return assign(
       normalize(camelizeKeys(response.body), arrayOf(search)),
       APIUtils.extractPagination(response)
