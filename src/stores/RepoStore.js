@@ -2,12 +2,13 @@
 "use strict"
 var React = require('react');
 // var {moment} = require('moment');
-var objectAssign = require('object-assign'),
+var objectAssign  = require('object-assign'),
     AppDispatcher = require('dispatchers/AppDispatcher'),
     {createStore} = require('utils/StoreUtils');
+    
 
-
-var GITHUB_SEARCH_URL = 'https://api.github.com/search/repositories?q=civic&filename:civic.json+sort=stars&order=desc&client_id=a81bb8768be5bb8012d0&client_secret=b4e7a1a9e782537908ed4af80ad172932fc384af';
+var GITHUB_API = 'https://api.github.com/search/repositories';
+var query = '?q=civic&filename:civic.json+sort=stars&order=desc&client_id=a81bb8768be5bb8012d0&client_secret=b4e7a1a9e782537908ed4af80ad172932fc384af'
 
 
 var _repos = {};

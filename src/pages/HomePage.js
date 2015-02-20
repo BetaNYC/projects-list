@@ -1,8 +1,13 @@
 var React = require('react');
-var RepoListComponent = require('components/RepoListComponent');
-var RepoSearchFieldComponent = require('components/RepoSearchFieldComponent');
+var {PropTypes} = React;
+var ResultListComponent = require('components/ResultListComponent');
+var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
 
 module.exports = React.createClass({
+  propTypes: {
+    params: PropTypes.object.isRequired,
+    query: PropTypes.object.isRequired
+  },
   render(){
     return (<div>
       <div className='jumbotron'>
@@ -13,7 +18,7 @@ module.exports = React.createClass({
                 Civic Tech Project Finder
               </h1>
               <p>
-                Simply add a <a href="https://github.com/BetaNYC/civic.json">civic.json</a> file to your Github repo to add your project to this list.
+                Simply add a <a href="https://github.com/BetaNYC/civic.json">civic.json</a> file to your Github repo, and <a href=''>submit a pull request</a> to add your project to this list.
               </p>
               <p>
                 Want to help out? Check out the projects below.
@@ -29,8 +34,8 @@ module.exports = React.createClass({
       <div className='container'>
         <div className='row'>
           <div className='col-lg-8'>
-            <RepoSearchFieldComponent/>
-            <RepoListComponent/>
+            <ResultSearchFieldComponent {...this.props}/>
+            <ResultListComponent  {...this.props}/>
           </div>
           <div className='col-lg-4 text-center'>
             <small style={{margin:'10px 0 0 0', paddingBottom:6,borderBottom: 'solid 1px #ccc', display: 'block'}}>

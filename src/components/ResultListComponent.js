@@ -30,7 +30,8 @@ var SortButton = <div className='dropdown'>
   </ul>
 </div>
 
-var RepoList = React.createClass({
+var ResultListComponent;
+module.exports = ResultListComponent = React.createClass({
   mixins: [createStoreMixin(RepoStore)],
   getStateFromStores(props){
     return {
@@ -131,13 +132,8 @@ var RepoList = React.createClass({
         {tableBody}
       </tbody>
     </table>
-    // <h3 className='text-center'>
-    //   <span className='mega-octicon octicon-location text-info'/>
-    //   <div style={{marginTop:10}} className='small'>New York</div>
-    // </h3>
   }
 });
 
 
 
-module.exports = RepoList;

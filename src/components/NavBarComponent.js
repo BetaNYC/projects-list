@@ -1,6 +1,6 @@
 var React = require('react');
-
-module.exports = React.createClass({
+var NavBarComponent;
+module.exports = NavBarComponent = React.createClass({
   render: function() {
     return <header className='navbar navbar-default navbar-inverse navbar-static navbar-top' style={{marginBottom:0}}>
       <div className='container-fluid'>
