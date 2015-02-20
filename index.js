@@ -1,6 +1,6 @@
 'use strict';
 // Global styles
-require("bootstrap-webpack!../config/bootstrap.config.js");
+require("bootstrap-webpack!./config/bootstrap.config.js");
 require('font-awesome-webpack');
 
 var React = require('react'),

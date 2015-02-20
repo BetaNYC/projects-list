@@ -8,7 +8,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:4000',
     'webpack/hot/only-dev-server',
-    './src/index'
+    './index'
   ],
   output: {
     path: __dirname + '/assets/',
@@ -21,7 +21,7 @@ module.exports = {
   ],
   resolve: {
     extensions: ['', '.js', '.coffee'],
-    root: [__dirname + '/src']
+    root: [__dirname]
   },
   module: {
     loaders: [
