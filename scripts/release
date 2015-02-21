@@ -4,5 +4,5 @@ set -e
 
 PRERELEASE=true webpack -p --color --display-error-details
 git add . --all && git commit -am "PRERELEASE"
-github subtree --prefix assets origin gh-pages
-rm assets/*
+git subtree --prefix assets origin gh-pages
+rm -f assets/*
