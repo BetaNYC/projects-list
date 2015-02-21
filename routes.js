@@ -9,16 +9,10 @@ if ('production' !== process.env.NODE_ENV) {
   // Clear the browser console.
   console.clear();
 }
-
-
-var basePath = '/';
-if (__PRERELEASE__) {
-  basePath = '/betanyc-projects-list/';
-}
-
+  
 
 module.exports = (
-  <Route name='app' path={basePath} handler={App}>
-    <Route name='homePage' path={basePath}  handler={HomePage} />
+  <Route name='app' path='/' handler={App}>
+    <Route name='homePage' path='/'  handler={HomePage} />
   </Route>
 );
