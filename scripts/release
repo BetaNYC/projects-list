@@ -2,7 +2,7 @@
 
 set -e
 
-PRERELEASE=true webpack -p --color --display-error-details
+PRERELEASE_BUILD=true webpack -p --color --display-error-details
 git subtree push --prefix public origin gh-pages
 # rm -f assets/*
 git push origin `git subtree split --prefix public origin HEAD`:gh-pages --force
