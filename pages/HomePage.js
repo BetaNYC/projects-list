@@ -3,7 +3,6 @@ var {PropTypes} = React;
 var ResultListComponent = require('components/ResultListComponent');
 var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
 
-
 module.exports = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
@@ -23,6 +22,7 @@ module.exports = React.createClass({
               </p>
               <p>
                 Want to help out? Check out the projects below.
+
               </p>
             </div>
             <div className='col-lg-4 text-center'>
