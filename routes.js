@@ -5,17 +5,15 @@ var React = require('react'),
     App = require('./App'),
     HomePage = require('pages/HomePage');
 
-if ('production' !== process.env.NODE_ENV) {
+if (__PRERELEASE__) {
   // Clear the browser console.
   console.clear();
 }
 
 
-var basePath = '/';
-  
 
 module.exports = (
-  <Route name='app' path={basePath} handler={App}>
-    <Route name='homePage' path={basePath}  handler={HomePage} />
+  <Route name='app' path='/' handler={App}>
+    <Route name='homePage' path='/'  handler={HomePage} />
   </Route>
 );
