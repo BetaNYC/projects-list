@@ -6,8 +6,12 @@ var objectAssign  = require('object-assign'),
     AppDispatcher = require('dispatchers/AppDispatcher'),
     {createStore} = require('utils/StoreUtils');
 
-var _repos = {};
 
+var GITHUB_ID_OF_THIS_REPO = 15855011;
+
+
+var _repos = {};
+  
 var RepoStore = createStore({
   contains(fullName, fields) {
     return isInBag(_repos, fullName, fields);

@@ -3,6 +3,7 @@ var {PropTypes} = React;
 var ResultListComponent = require('components/ResultListComponent');
 var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
 
+
 module.exports = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
@@ -23,7 +24,6 @@ module.exports = React.createClass({
               <p>
                 Want to help out? Check out the projects below.
               </p>
-
             </div>
             <div className='col-lg-4 text-center'>
               <img src={require('images/city.svg')} style={{width:280,marginTop:30}}/>
