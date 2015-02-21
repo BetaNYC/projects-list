@@ -67,7 +67,7 @@ module.exports = {
   output: {
     path: __dirname + '/public/assets/',
     filename: 'bundle.js',
-    publicPath: '/assets/'
+    publicPath: basePath + '/assets/'
   },
   plugins: plugins,
   resolve: {
