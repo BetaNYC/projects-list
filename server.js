@@ -4,7 +4,7 @@ var config = require('./webpack.config');
 
 
 
-if(__PRERELEASE__){
+if('production' == process.env.NODE_ENV){
 
 }else{
   var server = new WebpackDevServer(webpack(config), {
