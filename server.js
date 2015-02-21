@@ -11,7 +11,7 @@ if(process.env.NODE_ENV === 'production'){
     publicPath: config.output.publicPath
     , hot: true
     // // webpack-dev-server options
-    // , contentBase: "/"
+    , contentBase: "./public"
     // webpack-dev-middleware options
     // , quiet: true
     // , noInfo: true
