@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-PRERELEASE=true webpack -p --color --display-error-details
-git add . --all && git commit -am "PRERELEASE"
-git subtree --prefix assets origin gh-pages
-rm -f assets/*
