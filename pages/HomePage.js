@@ -18,7 +18,7 @@ module.exports = React.createClass({
                 Civic Tech Project Finder
               </h1>
               <p>
-                Simply add a <a href="https://github.com/BetaNYC/civic.json">civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-projects-list/'>create an issue</a> to add your project to this list.
+                Simply add a <a href="http://codefordc.org/resources/builder.html" target='_blank'>civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-projects-list/edit/master/REPOS'>open a pull request</a> to add your project to this list.
               </p>
               <p>
                 Want to help out? Check out the projects below.

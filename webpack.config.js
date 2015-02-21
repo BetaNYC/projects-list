@@ -18,10 +18,8 @@ var plugins = [
   ];
 
 var entries = ['./index'];
-var basePath = '/';
 
 if(isPrerelease){
-  basePath = '/betanyc-projects-list/';
   // Minimize all javascript output of chunks. Loaders are switched into minimizing mode. You can pass an object containing UglifyJs options.
   var uglifyPlugin = webpack.optimize.UglifyJsPlugin;
   plugins.push(
@@ -67,7 +65,7 @@ module.exports = {
   output: {
     path: __dirname + '/public/assets/',
     filename: 'bundle.js',
-    publicPath: basePath + '/assets/'
+    publicPath: '/assets/'
   },
   plugins: plugins,
   resolve: {
