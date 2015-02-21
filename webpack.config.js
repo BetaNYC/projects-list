@@ -1,24 +1,73 @@
 var webpack = require('webpack');
 var path = require('path');
+var commonsPlugin = webpack.optimize.CommonsChunkPlugin;
+var dirDescription = webpack.ResolverPlugin.DirectoryDescriptionFilePlugin;
 
+// The build is DEV by default
+var isDev = JSON.stringify(JSON.parse(process.env.DEV_BUILD || 'true'));
+// Pass the BUILD_RELEASE flag to pack it for production
+var isPrerelease = JSON.stringify(JSON.parse(process.env.PRERELEASE_BUILD || 'false'));
+
+var definePlugin = new webpack.DefinePlugin({
+  __DEV__: isDev,
+  __PRERELEASE__: isPrerelease
+});
+
+var plugins = [
+    definePlugin,
+  ];
+  
+var entries = ['./index'];
+
+if(isPrerelease === 'true'){
+  // Minimize all javascript output of chunks. Loaders are switched into minimizing mode. You can pass an object containing UglifyJs options.
+  var uglifyPlugin = webpack.optimize.UglifyJsPlugin;
+  plugins.push(
+    new uglifyPlugin({
+      compress: {
+        warnings: false,
+        drop_console: true,
+        dead_code: true
+      }
+    })
+  );
+
+  var CompressionPlugin = require("compression-webpack-plugin");
+  plugins.push(
+    new CompressionPlugin({
+        asset: "{file}.gz",
+        algorithm: "gzip",
+        regExp: /\.js$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8
+    })
+  );
+
+  // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
+  // plugins.push(new webpack.optimize.DedupePlugin());
+
+
+} else {
+  plugins.concat([
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
+  ]);
+  entries.concat([
+    'webpack-dev-server/client?http://localhost:4000',
+    'webpack/hot/only-dev-server'
+  ]);
+}
 
 
 module.exports = {
   devtool: 'eval',
-  entry: [
-    'webpack-dev-server/client?http://localhost:4000',
-    'webpack/hot/only-dev-server',
-    './index'
-  ],
+  entry: entries,
   output: {
     path: __dirname + '/assets/',
     filename: 'bundle.js',
     publicPath: '/assets/'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
+  plugins: plugins,
   resolve: {
     extensions: ['', '.js', '.coffee'],
     root: [__dirname]
