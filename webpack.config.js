@@ -16,7 +16,7 @@ var definePlugin = new webpack.DefinePlugin({
 var plugins = [
     definePlugin,
   ];
-  
+
 var entries = ['./index'];
 
 if(isPrerelease === 'true'){
@@ -63,9 +63,9 @@ module.exports = {
   devtool: 'eval',
   entry: entries,
   output: {
-    path: __dirname + '/assets/',
+    path: __dirname + '/public/assets/',
     filename: 'bundle.js',
-    publicPath: '/assets/'
+    publicPath: '/public/assets/'
   },
   plugins: plugins,
   resolve: {
