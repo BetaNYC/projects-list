@@ -124,9 +124,9 @@ var ResultListItemComponent = React.createClass({
     return <tr key={this.props.key} >
         <td colSpan={2}>
           <h2>
-            <a href={repo.html_url} target="_blank">{repo.name}</a>
-            <a href={repo.owner.html_url} title={repo.owner.login} className='pull-right'>
-              <img src={repo.owner.avatar_url} width={50}/>
+            <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
+            <a href={repo.owner.htmlUrl} title={repo.owner.login} className='pull-right'>
+              <img src={repo.owner.avatarUrl} width={50}/>
             </a>
           </h2>
           <ul className='list-inline'>
