@@ -9,7 +9,7 @@ var humps = require('humps'),
     assign = require('object-assign'),
     superagent = require('superagent');
 
-var API_ROOT = 'https://api.github.com/';
+var API_ROOT = 'https://api.github.com';
 var API_KEY = {client_id: 'a81bb8768be5bb8012d0', client_secret: 'b4e7a1a9e782537908ed4af80ad172932fc384af'};
 
 var seeds   = new Schema('seeds', { idAttribute: 'id' });
@@ -27,7 +27,8 @@ var APIUtils = {
     return superagent(endpoint).query(API_KEY);
   },
   decodeField(field, encoding){
-    return window.atob(field)
+    if(field)
+      return window.atob(field)
   },
   extractPagination(response) {
     var link = response.headers.link;

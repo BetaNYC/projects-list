@@ -1,7 +1,11 @@
 var React = require('react');
 var {PropTypes} = React;
+var RepoStore = require('stores/RepoStore');
+var SeedStore = require('stores/SeedStore');
+var RepoActionCreators = require('actions/RepoActionCreators');
 var ResultListComponent = require('components/ResultListComponent');
 var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
+var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
 
 module.exports = React.createClass({
@@ -15,6 +19,11 @@ module.exports = React.createClass({
       SeedStore
     )
   ],
+
+  getStateFromStores(props: mixed): mixed{
+    return {}
+  },
+
   componentDidMount() {
     this.queryDidChange(this.props);
   },
@@ -69,7 +78,7 @@ module.exports = React.createClass({
 
             <ResultSearchFieldComponent/>
             <ResultListComponent/>
-            
+
 
 
           </div>

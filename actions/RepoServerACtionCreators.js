@@ -27,7 +27,7 @@ var RepoServerActionCreators = {
     });
   },
 
-  handleRepoSearchError(err) {
+  handleRepoSearchError(...err) {
     console.log(err);
 
     AppDispatcher.handleServerAction({

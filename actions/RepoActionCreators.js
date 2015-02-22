@@ -2,16 +2,16 @@
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
-    GithubAPI = require('utils/GithubAPI'),
+    GithubAPI = require('apis/GithubAPI'),
+    SeedStore = require('stores/SeedStore'),
     invariant = require('react/lib/invariant');
 
 var RepoActionCreators = {
-
   requestRepoSearch({q,sort,order}){
     var seedRepos = SeedStore.getAll();
-    if!(sort)
+    if(!sort)
       sort = 'star';
-    if!(order)
+    if(!order)
       order = 'desc';
     invariant(seedRepos.length > 0, 'The seed repos must contain at least one repo.')
 

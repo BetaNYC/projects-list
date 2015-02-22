@@ -148,7 +148,7 @@ module.exports = ResultListComponent = React.createClass({
   ],
   getStateFromStores(props: mixed): mixed{
     return {
-      repos: RepoStore.getAll()
+      repos: RepoStore.getAllRepos()
     }
   },
   render(): any {

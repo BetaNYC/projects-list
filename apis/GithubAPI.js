@@ -15,10 +15,10 @@ var GithubAPI = {
     var q = '/repos/BetaNYC/betanyc-projects-list/contents/REPOS';
     request(q).end(function(res) {
       if(!res.ok){
-        RepoServerActionCreators.handleSearchError(err);
+        RepoServerActionCreators.handleSeedReposError(res.text);
       }
       var response = normalizeRepoContentResponse(res);
-      RepoServerActionCreators.handleSeedsSuccess(response);
+      RepoServerActionCreators.handleSeedReposSuccess(response);
     })
   },
 
@@ -28,7 +28,7 @@ var GithubAPI = {
 
     request(qs).end(function(res) {
         if(!res.ok){
-          RepoServerActionCreators.handleSearchError(err);
+          RepoServerActionCreators.handleRepoSearchError(q, sort, order, repos, res.text);
         }
         var response = normalizeRepoArrayResponse(res);
         RepoServerActionCreators.handleSearchSuccess(response);
@@ -40,7 +40,7 @@ var GithubAPI = {
     var q = '/repos/'+fullName+'/contents' + path;
     request(q).end(function(res) {
       if(!res.ok){
-        RepoServerActionCreators.handleRepoContentError(err);
+        RepoServerActionCreators.handleRepoContentError(res.text);
       }
       var response = normalizeRepoContentResponse(res);
       // Add the fullName to the response to make it findable.
@@ -53,7 +53,7 @@ var GithubAPI = {
     var q = '/repos/'+fullName+'/issues';
     request(q).end(function(res) {
       if(!res.ok){
-        IssueServerActionCreators.handleIssuesError(err);
+        IssueServerActionCreators.handleIssuesError(res.text);
       }
       var response = normalizeIssueArrayResponse(res);
       RepoServerActionCreators.handleIssuesSuccess(response);
