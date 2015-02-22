@@ -10,14 +10,13 @@ var humps = require('humps'),
     superagent = require('superagent');
 
 var API_ROOT = 'https://api.github.com/';
+var API_KEY = {client_id: 'a81bb8768be5bb8012d0', client_secret: 'b4e7a1a9e782537908ed4af80ad172932fc384af'};
 
-var repo = new Schema('repo', { idAttribute: 'id' });
-var issue = new Schema('issue', { idAttribute: 'id' });
-var content = new Schema('content', { idAttribute: 'name' });
+var seeds   = new Schema('seeds', { idAttribute: 'id' });
+var repo    = new Schema('repo', { idAttribute: 'fullName' });
+var issue   = new Schema('issue', { idAttribute: 'id' });
+var content = new Schema('content', { idAttribute: 'url' });
 
-issue.define({
-  owner: repo
-});
 
 var APIUtils = {
   request(endpoint) {
@@ -25,9 +24,11 @@ var APIUtils = {
       endpoint = API_ROOT + endpoint;
     }
 
-    return superagent(endpoint);
+    return superagent(endpoint).query(API_KEY);
   },
-
+  decodeField(field, encoding){
+    return window.atob(field)
+  },
   extractPagination(response) {
     var link = response.headers.link;
     if (!link) {
@@ -45,30 +46,26 @@ var APIUtils = {
   },
 
   normalizeIssueResponse(response) {
-    return assign(
-      normalize(camelizeKeys(response.body), search),
-      APIUtils.extractPagination(response)
-    );
+    return assign(normalize(camelizeKeys(response.body), issue), APIUtils.extractPagination(response));
   },
 
   normalizeIssueArrayResponse(response) {
-    return assign(
-      normalize(camelizeKeys(response.body), arrayOf(search)),
-      APIUtils.extractPagination(response)
-    );
+    return assign(normalize(camelizeKeys(response.body), arrayOf(issue)), APIUtils.extractPagination(response));
+  },
+
+  normalizeRepoContentResponse(response) {
+    return assign(normalize(camelizeKeys(response.body), content), APIUtils.extractPagination(response));
   },
 
   normalizeRepoResponse(response) {
     return assign(
-      normalize(camelizeKeys(response.body), repo),
-      APIUtils.extractPagination(response)
+      normalize(camelizeKeys(response.body), repo), APIUtils.extractPagination(response)
     );
   },
 
   normalizeRepoArrayResponse(response) {
     return assign(
-      normalize(camelizeKeys(response.body), arrayOf(repo)),
-      APIUtils.extractPagination(response)
+      normalize(camelizeKeys(response.body), arrayOf(repo)), APIUtils.extractPagination(response)
     );
   }
 };

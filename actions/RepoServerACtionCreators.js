@@ -1,40 +1,40 @@
 'use strict';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher'),
-    ActionTypes = require('../constants/ActionTypes');
+var AppDispatcher = require('dispatcher/AppDispatcher'),
+    ActionTypes = require('constants/ActionTypes');
 
 var RepoServerActionCreators = {
-  handleRepoSuccess(response) {
+  handleSeedReposSuccess(response) {
+
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPO_SUCCESS,
+      type: ActionTypes.REQUEST_SEEDS_SUCCESS,
       response: response
     });
   },
 
-  handleRepoError(err) {
+  handleSeedReposError(err) {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPO_ERROR
+      type: ActionTypes.REQUEST_SEEDS_ERROR
     });
   },
 
-  handleReposPageSuccess(login, response) {
+  handleRepoSearchSuccess(response) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPOS_PAGE_SUCCESS,
-      login: login,
+      type: ActionTypes.REQUEST_REPO_SEARCH_SUCCESS,
       response: response
     });
   },
 
-  handleReposPageError(login, err) {
+  handleRepoSearchError(err) {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPOS_PAGE_ERROR,
-      login: login
+      type: ActionTypes.REQUEST_REPO_SEARCH_ERROR
     });
   }
+
 };
 
 module.exports = RepoServerActionCreators;

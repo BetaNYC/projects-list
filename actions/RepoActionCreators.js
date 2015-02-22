@@ -1,47 +1,36 @@
 'use strict';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher'),
-    ActionTypes = require('../constants/ActionTypes'),
-    RepoAPI = require('../utils/RepoAPI'),
-    ReposByUserStore = require('../stores/ReposByUserStore'),
-    RepoStore = require('../stores/RepoStore');
-    
-var RepoActionCreators = {
-  requestRepo(fullName, fields) {
-    if (RepoStore.contains(fullName, fields)) {
-      return;
-    }
+var AppDispatcher = require('dispatcher/AppDispatcher'),
+    ActionTypes = require('constants/ActionTypes'),
+    GithubAPI = require('utils/GithubAPI'),
+    invariant = require('react/lib/invariant');
 
-    // Although this action is currently not handled by any store,
-    // it is fired for consistency. You might want to use it later,
-    // e.g. to show a spinner or have a more detailed log.
+var RepoActionCreators = {
+
+  requestRepoSearch(q){
+    var seedRepos = SeedStore.getAll();
+
+    invariant(seedRepos.length > 0, 'The seed repos must contain at least one repo.')
 
     AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_REPO,
-      fullName: fullName
+      type: ActionTypes.REQUEST_REPO_SEARCH,
+      seedRepos: seedRepos,
+      q: q
     });
 
-    RepoAPI.requestRepo(fullName);
+    GithubAPI.searchRepos(q,repos);
   },
 
-  requestReposPage(login, isInitialRequest) {
-    if (ReposByUserStore.isExpectingPage(login) ||
-        ReposByUserStore.isLastPage(login)) {
-      return;
-    }
-
-    if (isInitialRequest && ReposByUserStore.getPageCount(login) > 0) {
-      return;
-    }
+  requestSeedRepos(){
+    if (SeedStore.wasFetchedRecently()) { return; }
 
     AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_STARRED_REPOS_PAGE,
-      login: login
+      type: ActionTypes.REQUEST_SEEDS
     });
 
-    var nextPageUrl = ReposByUserStore.getNextPageUrl(login);
-    RepoAPI.requestReposPage(login, nextPageUrl);
+    GithubAPI.requestSeedRepos();
   }
+
 };
 
 module.exports = RepoActionCreators;

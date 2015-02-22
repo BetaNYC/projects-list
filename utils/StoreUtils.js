@@ -8,6 +8,10 @@ var { EventEmitter } = require('events'),
     CHANGE_EVENT = 'change';
 
 var StoreUtils = {
+  extractRepoNames(content){
+    // Magic REPO file parser.
+    return content.split('β\n')[1].split('\n');;
+  },
   createStore(spec) {
     var store = assign({
       emitChange() {

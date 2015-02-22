@@ -4,6 +4,7 @@
 
 var React = require('react');
 var RepoStore = require('stores/RepoStore');
+var IssuesByRepoStore = require('stores/IssuesByRepoStore');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEmpty = require('lodash/lang/isEmpty');
 var moment = require('moment');
@@ -29,6 +30,28 @@ var SortButton = <div className='dropdown'>
     </li>
   </ul>
 </div>
+
+var ResultListItemComponent = React.createClass({
+  componetDidMount(){
+    this.requestIssues();
+  },
+  componetWillReceiveProps(nextProps){
+    this.requestIssues();
+  },
+  requestIssues(){
+    if(IssuesByRepoStore.getIssuesByRepo(this.props.fullName).length == 0){
+      return;
+    }
+    IssuesActionCreators.requestRepoIssues(this.props.fullName);
+  },
+  requestReadmeFile(){
+    if(ContentByRepoStore.get(this.props.fullName)){ return; }
+    ContentActionCreators.requestRepoContent(this.props.fullName, '/README.md');
+  },
+  render(){
+    return null
+  }
+})
 
 var ResultListComponent;
 module.exports = ResultListComponent = React.createClass({

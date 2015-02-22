@@ -1,6 +1,7 @@
 'use strict';
 
-var _ = require('lodash'),
+var union = require('lodash/array/union'),
+    without = require('lodash/array/without'),
     invariant = require('react/lib/invariant');
 
 class PaginatedList {
@@ -32,11 +33,11 @@ class PaginatedList {
   }
 
   prepend(id) {
-    this._ids = _.union([id], this._ids);
+    this._ids = union([id], this._ids);
   }
 
   remove(id) {
-    this._ids = _.without(this._ids, id);
+    this._ids = without(this._ids, id);
   }
 
   expectPage() {
@@ -53,7 +54,7 @@ class PaginatedList {
     invariant(this._isExpectingPage, 'Cannot call receivePage without prior expectPage call.');
 
     if (newIds.length) {
-      this._ids = _.union(this._ids, newIds);
+      this._ids = union(this._ids, newIds);
     }
 
     this._isExpectingPage = false;

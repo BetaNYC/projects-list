@@ -1,44 +1,35 @@
 /* @flow */
 "use strict"
 var React = require('react');
-// var {moment} = require('moment');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('dispatchers/AppDispatcher'),
-    {createStore} = require('utils/StoreUtils');
+    {createStore,extractRepoNames} = require('utils/StoreUtils'),
+    {decodeField} = require('utils/APIUtils');
 
+var _repoNames: array = [];
 
-var GITHUB_ID_OF_THIS_REPO = 15855011;
-
-
-var _repos = {};
-  
-var RepoStore = createStore({
-  contains(fullName, fields) {
-    return isInBag(_repos, fullName, fields);
+var SeedStore = createStore({
+  wasFetchedRecently(){
+    false
   },
-
-  get(fullName) {
-    return _repos[fullName];
-  },
-
-  getAllRepos(): Array<any> {
-    return _repos;
-  }
+  getAll(){return _repoNames}
 
 });
 
-RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
+SeedStore.dispatchToken = AppDispatcher.register((payload)=> {
   var action = payload.action,
       response = action.response,
       entities = response && response.entities,
-      fetchedRepos = entities && entities.repos;
+      fetchedSeeds = entities && entities.seeds;
 
-  if (fetchedRepos) {
-    mergeIntoBag(_repos, fetchedRepos);
-    RepoStore.emitChange();
+  if (fetchedSeeds) {
+    // Decode the content && parse the field to extract the repo names as an array
+    _repoNames = extractRepoNames(decodeField(fetchedSeeds.content, 'base64'));
+    // TODO: create a timestamp for when the seeds were fetched
+    SeedStore.emitChange();
   }
 });
 
 
 
-module.exports = RepoStore;
+module.exports = SeedStore;

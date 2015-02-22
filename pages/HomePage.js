@@ -8,6 +8,29 @@ module.exports = React.createClass({
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired
   },
+
+  componentDidMount() {
+    this.queryDidChange(this.props);
+  },
+
+  parseQuery(props) {
+    props = props || this.props;
+    return props.params.q;
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.parseQuery(nextProps) !== this.parseQuery(this.props)) {
+      this.setState(this.getStateFromStores(nextProps));
+      this.queryDidChange(nextProps);
+    }
+  },
+
+  queryDidChange(props) {
+    var query = this.parseQuery(props);
+
+    RepoActionCreators.requestRepoSearch(query);
+  },
+
   render(){
     return (<div>
       <div className='jumbotron'>

@@ -1,35 +1,34 @@
-'use strict';
+/* @flow */
+"use strict"
+var React = require('react');
+var objectAssign  = require('object-assign'),
+    AppDispatcher = require('dispatchers/AppDispatcher'),
+    RepoStore = require('stores/RepoStore'),
+    {createStore,extractRepoNames} = require('utils/StoreUtils');
+    
+var _repos = {};
 
-var AppDispatcher = require('dispatcher/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes'),
-    UserStore = require('UserStore'),
-    { createIndexedListStore, createListActionHandler } = PaginatedStoreUtils;
-
-var StargazersByRepoStore = createIndexedListStore({
-  getUsers(repoFullName) {
-    return this.getIds(repoFullName).map(UserStore.get);
+var ContentByRepoStore = createStore({
+  getContent(repoId): mixed {
+    return (_repos[repoId] && _repos[repoId].content) || {};
   }
+
 });
 
-var handleListAction = createListActionHandler({
-  request: ActionTypes.REQUEST_STARGAZER_PAGE,
-  success: ActionTypes.REQUEST_STARGAZER_PAGE_SUCCESS,
-  error: ActionTypes.REQUEST_STARGAZER_PAGE_ERROR,
-});
-
-AppDispatcher.register(function (payload) {
+ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
   AppDispatcher.waitFor([RepoStore.dispatchToken]);
 
   var action = payload.action,
-      content = action.content;
+      response = action.response,
+      entities = response && response.entities,
+      fetchedRepos = entities && entities.repos;
 
-  if (content) {
-    // handleListAction(
-    //   action,
-    //   StargazersByRepoStore.getList(content),
-    //   StargazersByRepoStore.emitChange
-    // );
+  if (fetchedRepos) {
+    mergeIntoBag(_repos, fetchedRepos);
+    ContentByRepoStore.emitChange();
   }
 });
 
-module.exports = StargazersByRepoStore;
+
+
+module.exports = ContentByRepoStore;

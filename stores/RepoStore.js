@@ -1,9 +1,9 @@
 /* @flow */
 "use strict"
 var React = require('react');
-// var {moment} = require('moment');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('dispatchers/AppDispatcher'),
+    SeedStore = require('stores/SeedStore'),
     {createStore} = require('utils/StoreUtils');
 
 var _repos = {};
@@ -24,6 +24,8 @@ var RepoStore = createStore({
 });
 
 RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
+  AppDispatcher.waitFor([SeedStore.dispatchToken]);
+
   var action = payload.action,
       response = action.response,
       entities = response && response.entities,

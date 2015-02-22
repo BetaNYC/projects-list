@@ -4,7 +4,7 @@ var StoreUtils = require('utils/StoreUtils'),
     PaginatedList = require('utils/PaginatedList'),
     invariant = require('react/lib/invariant'),
     assign = require('object-assign'),
-    createStore = StoreUtils.createStore;
+    {createStore} = StoreUtils;
 
 var PROXIED_PAGINATED_LIST_METHODS = [
   'getIds', 'getPageCount', 'getNextPageUrl',
