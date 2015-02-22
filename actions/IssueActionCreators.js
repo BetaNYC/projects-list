@@ -6,6 +6,9 @@ var AppDispatcher = require('dispatcher/AppDispatcher'),
 
 var IssueActionCreators = {
   requestRepoIssues(fullName){
+    if(IssuesByRepoStore.getIssuesByRepo(fullName).length == 0){
+      return;
+    }
 
     AppDispatcher.handleViewAction({
       type: ActionTypes.REQUEST_REPO_ISSUES,

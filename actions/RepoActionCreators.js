@@ -7,18 +7,23 @@ var AppDispatcher = require('dispatcher/AppDispatcher'),
 
 var RepoActionCreators = {
 
-  requestRepoSearch(q){
+  requestRepoSearch({q,sort,order}){
     var seedRepos = SeedStore.getAll();
-
+    if!(sort)
+      sort = 'star';
+    if!(order)
+      order = 'desc';
     invariant(seedRepos.length > 0, 'The seed repos must contain at least one repo.')
 
     AppDispatcher.handleViewAction({
       type: ActionTypes.REQUEST_REPO_SEARCH,
       seedRepos: seedRepos,
-      q: q
+      q: q,
+      sort: sort,
+      order: order
     });
 
-    GithubAPI.searchRepos(q,repos);
+    GithubAPI.searchRepos(q,sort,order,repos);
   },
 
   requestSeedRepos(){

@@ -1,5 +1,7 @@
 'use strict';
 var RepoServerActionCreators = require('actions/RepoServerActionCreators');
+var IssueServerActionCreators = require('../actions/IssueServerActionCreators');
+  
 var {
   request,
   normalizeIssueArrayResponse,
@@ -8,6 +10,7 @@ var {
 } = require('utils/APIUtils');
 
 var GithubAPI = {
+
   requestSeedRepos(){
     var q = '/repos/BetaNYC/betanyc-projects-list/contents/REPOS';
     request(q).end(function(res) {
@@ -18,9 +21,10 @@ var GithubAPI = {
       RepoServerActionCreators.handleSeedsSuccess(response);
     })
   },
-  searchRepos(q,repos){
+
+  searchRepos(q: string, sort: string, order: string, repos: array){
     var repoQ = repos.map((repo)=>{return '+repo:' + repo}).join('');
-    var qs = '/search/repositories?q=' + q + repoQ + '+fork:true+sort:stars&order=desc';
+    var qs = '/search/repositories?q=' + q + repoQ + '+fork:true+sort:'+ sort +'&order=' + order;
 
     request(qs).end(function(res) {
         if(!res.ok){
@@ -30,6 +34,7 @@ var GithubAPI = {
         RepoServerActionCreators.handleSearchSuccess(response);
     });
   },
+
   getRepoContentsAtPath(fullName, path){
     if(!path){path='/readme'}
     var q = '/repos/'+fullName+'/contents' + path;
@@ -38,6 +43,8 @@ var GithubAPI = {
         RepoServerActionCreators.handleRepoContentError(err);
       }
       var response = normalizeRepoContentResponse(res);
+      // Add the fullName to the response to make it findable.
+      response.fullName = fullName;
       RepoServerActionCreators.handleRepoContentSuccess(response);
     })
   },

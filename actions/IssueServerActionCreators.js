@@ -3,7 +3,7 @@
 var AppDispatcher = require('dispatcher/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes');
 
-var IssueServerActionCreator = {
+var IssueServerActionCreators = {
   handleIssuesSuccess(response) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.REQUEST_ISSUES_SUCCESS,
@@ -20,4 +20,4 @@ var IssueServerActionCreator = {
   }
 }
 
-module.exports = IssueServerActionCreator;
+module.exports = IssueServerActionCreators;

@@ -2,24 +2,30 @@ var React = require('react');
 var {PropTypes} = React;
 var ResultListComponent = require('components/ResultListComponent');
 var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
+var isEqual = require('lodash/lang/isEqual');
 
 module.exports = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired
   },
-
+  mixins: [
+    createStoreMixin(
+      RepoStore,
+      SeedStore
+    )
+  ],
   componentDidMount() {
     this.queryDidChange(this.props);
   },
 
-  parseQuery(props) {
+  parseQuery(props: mixed): mixed {
     props = props || this.props;
-    return props.params.q;
+    return props.params;
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.parseQuery(nextProps) !== this.parseQuery(this.props)) {
+    if (!isEqual(this.parseQuery(nextProps), this.parseQuery(this.props))) {
       this.setState(this.getStateFromStores(nextProps));
       this.queryDidChange(nextProps);
     }
@@ -28,10 +34,12 @@ module.exports = React.createClass({
   queryDidChange(props) {
     var query = this.parseQuery(props);
 
+    RepoActionCreators.requestSeedRepos();
     RepoActionCreators.requestRepoSearch(query);
   },
 
   render(){
+
     return (<div>
       <div className='jumbotron'>
         <div className='container'>
@@ -57,8 +65,13 @@ module.exports = React.createClass({
       <div className='container'>
         <div className='row'>
           <div className='col-lg-8'>
-            <ResultSearchFieldComponent {...this.props}/>
-            <ResultListComponent  {...this.props}/>
+
+
+            <ResultSearchFieldComponent/>
+            <ResultListComponent/>
+            
+
+
           </div>
           <div className='col-lg-4 text-center'>
             <small style={{margin:'10px 0 0 0', paddingBottom:6,borderBottom: 'solid 1px #ccc', display: 'block'}}>

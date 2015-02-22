@@ -2,25 +2,24 @@
 "use strict"
 var React = require('react');
 var objectAssign  = require('object-assign'),
-    AppDispatcher = require('dispatchers/AppDispatcher'),
-    SeedStore = require('stores/SeedStore'),
-    {createStore} = require('utils/StoreUtils');
+    AppDispatcher = require('../dispatchers/AppDispatcher'),
+    SeedStore = require('../stores/SeedStore'),
+    {createStore, isInBag, mergeIntoBag} = require('../utils/StoreUtils');
 
 var _repos = {};
 
 var RepoStore = createStore({
-  contains(fullName, fields) {
+  contains(fullName: string, fields: mixed): bool {
     return isInBag(_repos, fullName, fields);
   },
 
-  get(fullName) {
+  get(fullName): mixed {
     return _repos[fullName];
   },
 
-  getAllRepos(): Array<any> {
+  getAllRepos(): mixed {
     return _repos;
   }
-
 });
 
 RepoStore.dispatchToken = AppDispatcher.register((payload)=> {

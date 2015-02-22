@@ -7,26 +7,26 @@ var AppDispatcher = require('dispatcher/AppDispatcher'),
 
 var IssuesByRepoStore = createIndexedListStore({
   getIssuesByRepo(repoFullName) {
-    return this.getIds(repoFullName).map(RepoStore.get);
+    return this.getIds(repoFullName).map(IssueStore.get);
   }
 });
 
 var handleListAction = createListActionHandler({
   request: ActionTypes.REQUEST_CONTENT,
   success: ActionTypes.REQUEST_CONTENT_SUCCESS,
-  error: ActionTypes.REQUEST_CONTENT_ERROR,
+  error:   ActionTypes.REQUEST_CONTENT_ERROR,
 });
 
 AppDispatcher.register(function (payload) {
   AppDispatcher.waitFor([RepoStore.dispatchToken]);
 
   var action = payload.action,
-      content = action.content;
+      fullName = action.fullName;
 
-  if (content) {
+  if (fullName) {
     handleListAction(
       action,
-      IssuesByRepoStore.getList(content),
+      IssuesByRepoStore.getList(fullName),
       IssuesByRepoStore.emitChange
     );
   }

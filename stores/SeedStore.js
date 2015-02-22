@@ -2,11 +2,11 @@
 "use strict"
 var React = require('react');
 var objectAssign  = require('object-assign'),
-    AppDispatcher = require('dispatchers/AppDispatcher'),
-    {createStore,extractRepoNames} = require('utils/StoreUtils'),
-    {decodeField} = require('utils/APIUtils');
+    AppDispatcher = require('../dispatchers/AppDispatcher'),
+    {createStore,extractRepoNames} = require('../utils/StoreUtils'),
+    {decodeField} = require('../utils/APIUtils');
 
-var _repoNames: array = [];
+var _repoNames: Array<string> = [];
 
 var SeedStore = createStore({
   wasFetchedRecently(){
