@@ -27,8 +27,8 @@ module.exports = ResultSearchFieldComponent = React.createClass
     `<div className='input-group'>
       <input type='search' className='form-control input-lg' placeholder='Search' name='q' value={this.state.value} onChange={this.onChange} onKeyDown={this.onKeyDown} ref='q' />
       <div className='input-group-addon'>
-        <a className='btn '>
-          <span className='fa fa-search' onClick={this.runQuery}/>
+        <a className='btn' onClick={this.runQuery}>
+          <span className='fa fa-search'/>
         </a>
       </div>
     </div>`

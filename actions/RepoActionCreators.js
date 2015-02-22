@@ -8,22 +8,50 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
 
 var RepoActionCreators = {
   requestRepoSearch({q,sort,order}){
-    var seedRepos = SeedStore.getAll();
+    if(!q)
+      q = '';
     if(!sort)
       sort = 'star';
     if(!order)
       order = 'desc';
-    invariant(seedRepos.length > 0, 'The seed repos must contain at least one repo.')
 
-    AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_REPO_SEARCH,
-      seedRepos: seedRepos,
-      q: q,
-      sort: sort,
-      order: order
-    });
 
-    GithubAPI.searchRepos(q,sort,order,repos);
+    var repos = SeedStore.getAll();
+    if(repos && repos.length > 0){
+
+      AppDispatcher.handleViewAction({
+        type: ActionTypes.REQUEST_REPO_SEARCH,
+        q: q,
+        sort: sort,
+        order: order
+      });
+      GithubAPI.searchRepos(q,sort,order,repos);
+    } else{
+
+      var {
+        request,
+        normalizeRepoContentResponse
+      } = require('utils/APIUtils');
+
+      var seedQ = '/repos/BetaNYC/betanyc-projects-list/contents/REPOS';
+      request(seedQ).end(function(res) {
+        if(!res.ok){}
+        var _repoNames;
+        var values = require('lodash/object/values');
+        var {extractRepoNames} = require('../utils/StoreUtils');
+        var response = normalizeRepoContentResponse(res);
+        var entities = response.entities;
+        var fetchedSeeds = entities && values(values(entities)[0])
+        var {decodeField} = require('../utils/APIUtils');
+
+        if (fetchedSeeds) {
+          // Decode the content && parse the field to extract the repo names as an array
+          _repoNames = extractRepoNames(decodeField(fetchedSeeds[0].content, 'base64'));
+          // TODO: create a timestamp for when the seeds were fetched
+          GithubAPI.searchRepos(q,sort,order,_repoNames);
+        }
+      })
+    }
   },
 
   requestSeedRepos(){

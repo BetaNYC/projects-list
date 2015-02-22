@@ -2,23 +2,17 @@ var webpack = require('webpack');
 var path = require('path');
 var commonsPlugin = webpack.optimize.CommonsChunkPlugin;
 var dirDescription = webpack.ResolverPlugin.DirectoryDescriptionFilePlugin;
-
 // The build is DEV by default
 var isDev = JSON.stringify(JSON.parse(process.env.DEV_BUILD || 'true'));
 // Pass the BUILD_RELEASE flag to pack it for production
 var isPrerelease = JSON.stringify(JSON.parse(process.env.PRERELEASE_BUILD || 'false'));
-
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: isDev,
   __PRERELEASE__: isPrerelease
 });
-
-var plugins = [
-    definePlugin,
-  ];
-
+var plugins = [ definePlugin ];
 var entries = ['./index'];
-
+var serverBase = "http://localhost:4000";
 if(isPrerelease){
   // Minimize all javascript output of chunks. Loaders are switched into minimizing mode. You can pass an object containing UglifyJs options.
   var uglifyPlugin = webpack.optimize.UglifyJsPlugin;
@@ -31,7 +25,6 @@ if(isPrerelease){
       }
     })
   );
-
   var CompressionPlugin = require("compression-webpack-plugin");
   plugins.push(
     new CompressionPlugin({
@@ -42,30 +35,27 @@ if(isPrerelease){
         minRatio: 0.8
     })
   );
-
   // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
   // plugins.push(new webpack.optimize.DedupePlugin());
-
-
 } else {
   plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
   ]);
   entries.concat([
-    'webpack-dev-server/client?http://localhost:4000',
+    'webpack-dev-server/client?'+serverBase,
     'webpack/hot/only-dev-server'
   ]);
 }
-
-
+  
 module.exports = {
   devtool: 'eval',
   entry: entries,
   output: {
-    path: __dirname + '/public/assets/',
+    path: __dirname + '/public/assets',
     filename: 'bundle.js',
-    publicPath: '/assets/'
+    publicPath: '/assets/',
+    serverBase: serverBase
   },
   plugins: plugins,
   resolve: {
@@ -101,21 +91,6 @@ module.exports = {
         test: /\.(png|jpg)$/,
         loader: 'url-loader?limit=8962'
       },
-      // {
-      //   test: /bootstrap-sass\/assets\/javascripts\//,
-      //   // This is needed so that each bootstrap js file required by bootstrap-webpack has access to the jQuery object
-      //   loader: 'imports?jQuery=jquery'
-      // },
-      // {
-      //   test: /bootstrap\/js\//,
-      //   // This is needed so that each bootstrap js file required by bootstrap-webpack has access to the jQuery object
-      //   loader: 'imports?jQuery=jquery'
-      // },
-      // {
-      //   test: /\.scss$/,
-      //   // Query parameters are passed to node-sass
-      //   loader: 'style!css!sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules'))
-      // },
       {
         test: /\.less$/,
         // Query parameters are passed to node-sass

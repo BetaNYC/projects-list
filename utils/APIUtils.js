@@ -66,7 +66,7 @@ var APIUtils = {
 
   normalizeRepoArrayResponse(response) {
     return assign(
-      normalize(camelizeKeys(response.body), arrayOf(repo)), APIUtils.extractPagination(response)
+      normalize(camelizeKeys(response.body.items), arrayOf(repo)), APIUtils.extractPagination(response)
     );
   }
 };

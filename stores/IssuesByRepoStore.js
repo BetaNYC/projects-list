@@ -3,7 +3,9 @@
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
     RepoStore = require('stores/RepoStore'),
+    IssueStore = require('../stores/IssueStore'),
     { createIndexedListStore, createListActionHandler } = require('utils/PaginatedStoreUtils');
+
 
 var IssuesByRepoStore = createIndexedListStore({
   getIssuesByRepo(repoFullName) {

@@ -7,30 +7,32 @@ var ResultListComponent = require('components/ResultListComponent');
 var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
+var AppDispatcher = require('dispatchers/AppDispatcher');
 
+var count = 0;
 module.exports = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired
   },
   mixins: [
-    createStoreMixin(
-      RepoStore,
-      SeedStore
-    )
+    createStoreMixin( RepoStore, SeedStore )
   ],
 
   getStateFromStores(props: mixed): mixed{
-    return {}
+    return {
+      seeds: SeedStore.getAll()
+    }
   },
 
   componentDidMount() {
+    RepoActionCreators.requestSeedRepos();
     this.queryDidChange(this.props);
   },
 
   parseQuery(props: mixed): mixed {
     props = props || this.props;
-    return props.params;
+    return props.query;
   },
 
   componentWillReceiveProps(nextProps) {
@@ -42,27 +44,29 @@ module.exports = React.createClass({
 
   queryDidChange(props) {
     var query = this.parseQuery(props);
-
-    RepoActionCreators.requestSeedRepos();
     RepoActionCreators.requestRepoSearch(query);
   },
 
   render(){
-
+    // <div className='panel panel-default'>
+    //   <div className='panel-heading'>
+    //     <h5 className='panel-title'>Community News</h5>
+    //   </div>
+    //   <div className='panel-body'>
+    //   </div>
+    // </div>
+    
     return (<div>
       <div className='jumbotron'>
         <div className='container'>
           <div className='row'>
             <div className='col-lg-8'>
-              <h1 style={{textTransform: 'uppercase'}}>
-                Civic Tech Project Finder
-              </h1>
+              <h1 style={{textTransform: 'uppercase'}}> Civic Tech Project Finder </h1>
               <p>
                 Simply add a <a href="http://codefordc.org/resources/builder.html" target='_blank'>civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-projects-list/edit/master/REPOS'>open a pull request</a> to add your project to this list.
               </p>
               <p>
                 Want to help out? Check out the projects below.
-
               </p>
             </div>
             <div className='col-lg-4 text-center'>
@@ -75,11 +79,8 @@ module.exports = React.createClass({
         <div className='row'>
           <div className='col-lg-8'>
 
-
-            <ResultSearchFieldComponent/>
+            <ResultSearchFieldComponent {...this.props}/>
             <ResultListComponent/>
-
-
 
           </div>
           <div className='col-lg-4 text-center'>
@@ -98,17 +99,9 @@ module.exports = React.createClass({
                 </li>
               </ul>
             </div>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>
-                <h5 className='panel-title'>Community News</h5>
-              </div>
-              <div className='panel-body'>
-              </div>
-            </div>
+
           </div>
         </div>
-
-
       </div>
     </div>)
   }

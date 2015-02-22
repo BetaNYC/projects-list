@@ -11,13 +11,16 @@ var IssueActionCreators = require('../actions/IssueActionCreators');
 var ContentActionCreators = require('../actions/ContentActionCreators');
 var createStoreMixin = require('../mixins/createStoreMixin');
 var isEmpty = require('lodash/lang/isEmpty');
+var forEach = require('lodash/collection/forEach');
+var toArray = require('lodash/lang/toArray');
+var map = require('lodash/collection/map');
 var moment = require('moment');
 var README = '/README.md';
 
 var IssueListHeader = React.createClass({
   render(){
     return <tr className='text-muted'>
-      <th className='text-center'>
+      <th className='text-left'>
         <div className='dropdown'>
           <a className='fa fa-caret-down'
             data-toggle='dropdown'
@@ -62,12 +65,12 @@ var IssueList = React.createClass({
   },
   getStateFromStores(props){
     return {
-      issues: IssuesByRepoStore.getIssuesByRepo(props.fullName),
+      issues: toArray(IssuesByRepoStore.getIssuesByRepo(props.fullName)),
       readme: ContentByRepoStore.getContent(props.fullName, README)
     }
   },
   render(){
-    var issues = this.state.issues.map(issue => {
+    var issues = map(this.state.issues, issue => {
       issue.labels.map(label => {return <span className='label' style={{backgroundColor: issue.color}}>{label.name}</span> });
       return <tr>
         <td style={{verticalAlign:'middle', width:30}}>
@@ -80,14 +83,16 @@ var IssueList = React.createClass({
           </a>
         </td>
       </tr>
-
     });
+
+    if(issues.length == 0){return null;}
+
     return <table className='table table-condensed'>
-            <tbody>
-              <IssueListHeader {...this.props} />
-              {issues}
-            </tbody>
-          </table>
+      <tbody>
+        <IssueListHeader {...this.props} />
+        {issues}
+      </tbody>
+    </table>
   }
 });
 var ResultListItemComponent = React.createClass({
@@ -114,7 +119,8 @@ var ResultListItemComponent = React.createClass({
     }
   },
   render(){
-    var repo = this.props.repo;
+    var repo = this.props;
+    if(!repo){return null;}
     return <tr key={this.props.key} >
         <td colSpan={2}>
           <h2>
@@ -124,17 +130,15 @@ var ResultListItemComponent = React.createClass({
             </a>
           </h2>
           <ul className='list-inline'>
-            <li title='stargazers'>{repo.stargazers_count} <span className='octicon-star octicon'/></li>
-            <li title='watchers'>{repo.watchers_count} <span className='octicon-eye-watch octicon'/></li>
+            <li title='stargazers'>{repo.stargazersCount} <span className='octicon-star octicon'/></li>
+            <li title='watchers'>{repo.watchersCount} <span className='octicon-eye-watch octicon'/></li>
             <li title='forks'>{repo.forks} <span className='octicon-repo-forked octicon'/></li>
-            <li title='open issues'>{repo.open_issues} <span className='octicon-issue-opened octicon'/></li>
+            <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
           </ul>
 
-          <p><small>Last updated {moment(repo.updated_at).fromNow()}</small></p>
+          <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
           <p>{repo.description}</p>
-          <hr/>
           <p>{this.props.readme}</p>
-
           <IssueList {...repo} />
         </td>
     </tr>
@@ -148,7 +152,7 @@ module.exports = ResultListComponent = React.createClass({
   ],
   getStateFromStores(props: mixed): mixed{
     return {
-      repos: RepoStore.getAllRepos()
+      repos: toArray(RepoStore.getAllRepos())
     }
   },
   render(): any {
@@ -167,7 +171,7 @@ module.exports = ResultListComponent = React.createClass({
         <td  colSpan={2} style={{height:100, verticalAlign:'middle'}} className='text-center'>No repos found</td>
       </tr>
     }else{
-      tableBody = this.state.repos.map((repo,i)=> {
+      tableBody = map(this.state.repos, (repo,i)=> {
         return <ResultListItemComponent {...repo} key={i} />;
       });
     }
