@@ -1,8 +1,8 @@
 'use strict';
 
-var AppDispatcher = require('dispatcher/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes'),
-    GithubAPI = require('utils/GithubAPI'),
+var AppDispatcher = require('dispatchers/AppDispatcher'),
+    ActionTypes = require('../constants/ActionTypes'),
+    GithubAPI = require('apis/GithubAPI'),
     ContentByRepoStore = require('stores/ContentByRepoStore');
 
 var ContentActionCreators = {

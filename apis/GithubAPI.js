@@ -1,7 +1,7 @@
 'use strict';
 var RepoServerActionCreators = require('actions/RepoServerActionCreators');
 var IssueServerActionCreators = require('../actions/IssueServerActionCreators');
-  
+
 var {
   request,
   normalizeIssueArrayResponse,
@@ -62,4 +62,4 @@ var GithubAPI = {
 };
 
 
-
+module.exports = GithubAPI;

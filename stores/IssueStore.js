@@ -1,6 +1,6 @@
 'use strict';
 
-var AppDispatcher = require('dispatcher/AppDispatcher'),
+var AppDispatcher = require('dispatchers/AppDispatcher'),
     { createStore, mergeIntoBag, isInBag } = require('utils/StoreUtils');
 
 var _issues = {};

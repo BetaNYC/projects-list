@@ -1,6 +1,6 @@
 'use strict';
 
-var AppDispatcher = require('dispatcher/AppDispatcher'),
+var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
     GithubAPI = require('utils/GithubAPI'),
     invariant = require('react/lib/invariant');
