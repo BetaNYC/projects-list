@@ -10,7 +10,7 @@ var { EventEmitter } = require('events'),
 var StoreUtils = {
   extractRepoNames(content){
     // Magic REPO file parser.
-    return content.split('β\n')[1].split('\n');;
+    return content.split('-beta-\n')[1].split('\n');;
   },
   createStore(spec) {
     var store = assign({
