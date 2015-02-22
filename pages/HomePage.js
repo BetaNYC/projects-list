@@ -55,7 +55,7 @@ module.exports = React.createClass({
     //   <div className='panel-body'>
     //   </div>
     // </div>
-    
+
     return (<div>
       <div className='jumbotron'>
         <div className='container'>
@@ -63,7 +63,7 @@ module.exports = React.createClass({
             <div className='col-lg-8'>
               <h1 style={{textTransform: 'uppercase'}}> Civic Tech Project Finder </h1>
               <p>
-                Simply add a <a href="http://codefordc.org/resources/builder.html" target='_blank'>civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-projects-list/edit/master/REPOS'>open a pull request</a> to add your project to this list.
+                Simply add a <a href="http://codefordc.org/resources/builder.html" target='_blank'>civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-project-repos/edit/master/REPOS' target='_blank'>open a pull request</a> to add your project to this list.
               </p>
               <p>
                 Want to help out? Check out the projects below.

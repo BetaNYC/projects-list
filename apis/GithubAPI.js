@@ -13,7 +13,7 @@ var {
 
 var GithubAPI = {
   requestSeedRepos(){
-    var seedQuery = '/repos/BetaNYC/betanyc-projects-list/contents/REPOS';
+    var seedQuery = '/repos/BetaNYC/betanyc-project-repos/contents/REPOS';
     request(seedQuery).end(function(res) {
       if(!res.ok){
         RepoServerActionCreators.handleSeedReposError(res.text);
