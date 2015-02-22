@@ -7,4 +7,5 @@ PRERELEASE_BUILD='true' webpack -p --color --display-error-details
 git add .
 git commit -am 'release build'
 git subtree push --prefix public origin gh-pages
+git checkout master
 git branch -D release
