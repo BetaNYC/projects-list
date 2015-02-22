@@ -47,14 +47,14 @@ if(isPrerelease){
     'webpack/hot/only-dev-server'
   ]);
 }
-  
+
 module.exports = {
   devtool: 'eval',
   entry: entries,
   output: {
-    path: __dirname + '/public/assets',
+    path: __dirname + '/public/assets/',
     filename: 'bundle.js',
-    publicPath: '/assets/',
+    publicPath: './assets/',
     serverBase: serverBase
   },
   plugins: plugins,
