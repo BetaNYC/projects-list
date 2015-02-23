@@ -54,7 +54,7 @@ module.exports = {
   output: {
     path: __dirname + '/public/assets/',
     filename: 'bundle.js',
-    publicPath: (isDev ? '/assets/' : './assets/'),
+    publicPath: (isPrerelease ? './assets/' : '/assets/'),
     // This is my custom config –– not required by Webpack.
     serverBase: serverBase
   },
