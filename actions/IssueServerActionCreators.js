@@ -1,12 +1,16 @@
 'use strict';
 
-var AppDispatcher = require('dispatchers/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes');
+var AppDispatcher = require('dispatchers/AppDispatcher');
+
+const {
+  REQUEST_ISSUES_SUCCESS,
+  REQUEST_ISSUES_ERROR
+} = require('constants/ActionTypes');
 
 var IssueServerActionCreators = {
   handleIssuesSuccess(response) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_ISSUES_SUCCESS,
+      type: REQUEST_ISSUES_SUCCESS,
       response: response
     });
   },
@@ -15,7 +19,7 @@ var IssueServerActionCreators = {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_ISSUES_ERROR
+      type: REQUEST_ISSUES_ERROR
     });
   }
 }

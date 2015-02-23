@@ -1,7 +1,6 @@
 'use strict';
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes'),
     GithubAPI = require('apis/GithubAPI'),
     RepoStore = require('stores/RepoStore'),
     values = require('lodash/object/values'),
@@ -14,7 +13,7 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
 const {
   REQUEST_REPO_SEARCH,
   REQUEST_SEEDS
-} = ActionTypes;
+} = require('constants/ActionTypes');
 
 var RepoActionCreators = {
   requestRepoSearch({q,sort,order}){

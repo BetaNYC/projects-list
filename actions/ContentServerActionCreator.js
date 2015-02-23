@@ -1,13 +1,18 @@
 'use strict';
 
-var AppDispatcher = require('dispatchers/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes');
+var AppDispatcher = require('dispatchers/AppDispatcher');
+
+const {
+  REQUEST_REPO_CONTENT_SUCCESS,
+  REQUEST_REPO_CONTENT_ERROR
+} = require('constants/ActionTypes');
+  
 
 var ContentServerActionCreator = {
 
   handleRepoContentSuccess(response) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPO_CONTENT_SUCCESS,
+      type: REQUEST_REPO_CONTENT_SUCCESS,
       response: response
     });
   },
@@ -16,7 +21,7 @@ var ContentServerActionCreator = {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPO_CONTENT_ERROR
+      type: REQUEST_REPO_CONTENT_ERROR
     });
   }
 }

@@ -1,14 +1,20 @@
 'use strict';
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes'),
     GithubAPI = require('apis/GithubAPI');
 
+const {
+  REQUEST_SEEDS_SUCCESS,
+  REQUEST_SEEDS_ERROR,
+  REQUEST_REPO_SEARCH_SUCCESS,
+  REQUEST_REPO_SEARCH_ERROR
+} = require('constants/ActionTypes');
+  
 var RepoServerActionCreators = {
   handleSeedReposSuccess(response) {
-    
+
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_SEEDS_SUCCESS,
+      type: REQUEST_SEEDS_SUCCESS,
       response: response
     });
 
@@ -18,13 +24,13 @@ var RepoServerActionCreators = {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_SEEDS_ERROR
+      type: REQUEST_SEEDS_ERROR
     });
   },
 
   handleRepoSearchSuccess(response) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPO_SEARCH_SUCCESS,
+      type: REQUEST_REPO_SEARCH_SUCCESS,
       response: response
     });
   },
@@ -33,7 +39,7 @@ var RepoServerActionCreators = {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_REPO_SEARCH_ERROR
+      type: REQUEST_REPO_SEARCH_ERROR
     });
   }
 

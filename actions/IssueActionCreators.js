@@ -1,8 +1,11 @@
 'use strict';
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
-    ActionTypes = require('../constants/ActionTypes'),
     GithubAPI = require('apis/GithubAPI');
+
+const {
+  REQUEST_REPO_ISSUES
+} = require('../constants/ActionTypes');
 
 var IssueActionCreators = {
   requestRepoIssues(fullName){
@@ -11,7 +14,7 @@ var IssueActionCreators = {
     }
 
     AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_REPO_ISSUES,
+      type: REQUEST_REPO_ISSUES,
       fullName: fullName
     });
 
