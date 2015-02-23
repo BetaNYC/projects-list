@@ -10,9 +10,10 @@ if('production' == process.env.NODE_ENV){
     // // webpack-dev-server options
     , contentBase: "./public"
     // webpack-dev-middleware options
-    , quiet: true
-    // , noInfo: true
+    , quiet: false
+    , noInfo: false
     , watchDelay: 100
+    // , lazy: true
     , headers: { "X-Custom-Header": "yes" }
     , stats: { colors: true }
 

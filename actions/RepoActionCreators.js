@@ -3,67 +3,47 @@
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
     GithubAPI = require('apis/GithubAPI'),
-    SeedStore = require('stores/SeedStore'),
-    invariant = require('react/lib/invariant');
+    RepoStore = require('stores/RepoStore'),
+    values = require('lodash/object/values'),
+    invariant = require('react/lib/invariant'),
+    {extractRepoNames} = require('../utils/StoreUtils'),
+    {decodeField} = require('../utils/APIUtils'),
+    {handleRepoSearchSuccess, handleRepoSearchError} = require('actions/RepoServerActionCreators'),
+    {handleSeedReposError, handleSeedReposSuccess} = require('actions/RepoServerActionCreators');
+
+const {
+  REQUEST_REPO_SEARCH,
+  REQUEST_SEEDS
+} = ActionTypes;
 
 var RepoActionCreators = {
   requestRepoSearch({q,sort,order}){
-    if(!q)
-      q = '';
-    if(!sort)
-      sort = 'star';
-    if(!order)
-      order = 'desc';
+    q = q || '';
+    sort = sort || 'star';
+    order = order || 'desc';
 
-
-    var repos = SeedStore.getAll();
+    let repos = RepoStore.getAll();
     if(repos && repos.length > 0){
-
-      AppDispatcher.handleViewAction({
-        type: ActionTypes.REQUEST_REPO_SEARCH,
-        q: q,
-        sort: sort,
-        order: order
-      });
-      GithubAPI.searchRepos(q,sort,order,repos);
+      AppDispatcher.handleViewAction({ type: REQUEST_REPO_SEARCH, q, sort, order });
+      GithubAPI.searchRepos({q, sort, order, repos, success: handleRepoSearchSuccess, error: handleRepoSearchError });
     } else{
-
-      var {
-        request,
-        normalizeRepoContentResponse
-      } = require('utils/APIUtils');
-
-      var seedQ = '/repos/BetaNYC/betanyc-projects-list/contents/REPOS';
-      request(seedQ).end(function(res) {
-        if(!res.ok){}
-        var _repoNames;
-        var values = require('lodash/object/values');
-        var {extractRepoNames} = require('../utils/StoreUtils');
-        var response = normalizeRepoContentResponse(res);
-        var entities = response.entities;
-        var fetchedSeeds = entities && values(values(entities)[0])
-        var {decodeField} = require('../utils/APIUtils');
-
-        if (fetchedSeeds) {
-          // Decode the content && parse the field to extract the repo names as an array
-          _repoNames = extractRepoNames(decodeField(fetchedSeeds[0].content, 'base64'));
-          // TODO: create a timestamp for when the seeds were fetched
-          GithubAPI.searchRepos(q,sort,order,_repoNames);
-        }
-      })
+      GithubAPI.requestRepoNames({success: (response)=> {
+        let {entities} = response;
+        let {content} = entities || {};
+        // Decode the content && parse the field to extract the repo names as an array
+        repos = extractRepoNames(decodeField(values(content)[0].content, 'base64'));
+        // TODO: create a timestamp for when the seeds were fetched
+        GithubAPI.searchRepos({q, sort, order, repos, success: handleRepoSearchSuccess, error: handleRepoSearchError });
+      }});
     }
   },
 
-  requestSeedRepos(){
-    if (SeedStore.wasFetchedRecently()) { return; }
+  requestRepoNames(){
+    if (RepoStore.wasFetchedRecently()) { return; }
 
-    AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_SEEDS
-    });
-
-    GithubAPI.requestSeedRepos();
+    AppDispatcher.handleViewAction({ type: REQUEST_SEEDS });
+    GithubAPI.requestRepoNames({error: handleSeedReposError, success: handleSeedReposSuccess});
   }
-
 };
 
 module.exports = RepoActionCreators;

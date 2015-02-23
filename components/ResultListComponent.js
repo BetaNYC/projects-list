@@ -4,7 +4,7 @@
 
 var React = require('react');
 var {PropTypes} = React;
-var RepoStore = require('../stores/RepoStore');
+var RepoSearchStore = require('../stores/RepoSearchStore');
 var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 var ContentByRepoStore = require('../stores/ContentByRepoStore');
 var IssueActionCreators = require('../actions/IssueActionCreators');
@@ -98,7 +98,7 @@ var IssueList = React.createClass({
 var ResultListItemComponent = React.createClass({
   mixins: [
     createStoreMixin(
-      RepoStore,
+      RepoSearchStore,
       IssuesByRepoStore,
       ContentByRepoStore
     )
@@ -148,11 +148,11 @@ var ResultListItemComponent = React.createClass({
 var ResultListComponent;
 module.exports = ResultListComponent = React.createClass({
   mixins: [
-    createStoreMixin(RepoStore)
+    createStoreMixin(RepoSearchStore)
   ],
   getStateFromStores(props: mixed): mixed{
     return {
-      repos: toArray(RepoStore.getAllRepos())
+      repos: toArray(RepoSearchStore.getAllRepos())
     }
   },
   render(): any {

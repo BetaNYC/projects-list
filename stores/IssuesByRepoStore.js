@@ -2,34 +2,36 @@
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
-    RepoStore = require('stores/RepoStore'),
+    RepoSearchStore = require('stores/RepoSearchStore'),
     IssueStore = require('../stores/IssueStore'),
     { createIndexedListStore, createListActionHandler } = require('utils/PaginatedStoreUtils');
 
+const {
+  REQUEST_REPO_CONTENT,
+  REQUEST_REPO_CONTENT_SUCCESS,
+  REQUEST_REPO_CONTENT_ERROR
+} = ActionTypes;
 
 var IssuesByRepoStore = createIndexedListStore({
   getIssuesByRepo(repoFullName) {
     return this.getIds(repoFullName).map(IssueStore.get);
   }
 });
+
 var handleListAction = createListActionHandler({
-  request: ActionTypes.REQUEST_REPO_CONTENT,
-  success: ActionTypes.REQUEST_REPO_CONTENT_SUCCESS,
-  error:   ActionTypes.REQUEST_REPO_CONTENT_ERROR,
+  request: REQUEST_REPO_CONTENT,
+  success: REQUEST_REPO_CONTENT_SUCCESS,
+  error:   REQUEST_REPO_CONTENT_ERROR,
 });
 
 AppDispatcher.register(function (payload) {
-  AppDispatcher.waitFor([RepoStore.dispatchToken]);
+  AppDispatcher.waitFor([RepoSearchStore.dispatchToken]);
 
-  var action = payload.action,
-      fullName = action.fullName;
+  let {action} = payload || {},
+      {fullName} = action || {};
 
   if (fullName) {
-    handleListAction(
-      action,
-      IssuesByRepoStore.getList(fullName),
-      IssuesByRepoStore.emitChange
-    );
+    handleListAction( action, IssuesByRepoStore.getList(fullName), IssuesByRepoStore.emitChange );
   }
 });
 

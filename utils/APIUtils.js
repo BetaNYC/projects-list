@@ -13,7 +13,7 @@ var API_ROOT = 'https://api.github.com';
 var API_KEY = {client_id: 'a81bb8768be5bb8012d0', client_secret: 'b4e7a1a9e782537908ed4af80ad172932fc384af'};
 
 var seeds   = new Schema('seeds', { idAttribute: 'id' });
-var repo    = new Schema('repo', { idAttribute: 'fullName' });
+var repoSearch    = new Schema('repoSearch', { idAttribute: 'fullName' });
 var issue   = new Schema('issue', { idAttribute: 'id' });
 var content = new Schema('content', { idAttribute: 'url' });
 
@@ -58,15 +58,15 @@ var APIUtils = {
     return assign(normalize(camelizeKeys(response.body), content), APIUtils.extractPagination(response));
   },
 
-  normalizeRepoResponse(response) {
+  normalizeRepoSearchResponse(response) {
     return assign(
-      normalize(camelizeKeys(response.body), repo), APIUtils.extractPagination(response)
+      normalize(camelizeKeys(response.body), repoSearch), APIUtils.extractPagination(response)
     );
   },
 
-  normalizeRepoArrayResponse(response) {
+  normalizeRepoSearchArrayResponse(response) {
     return assign(
-      normalize(camelizeKeys(response.body.items), arrayOf(repo)), APIUtils.extractPagination(response)
+      normalize(camelizeKeys(response.body.items), arrayOf(repoSearch)), APIUtils.extractPagination(response)
     );
   }
 };

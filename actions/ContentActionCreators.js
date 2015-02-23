@@ -3,10 +3,11 @@
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('../constants/ActionTypes'),
     GithubAPI = require('apis/GithubAPI'),
-    ContentByRepoStore = require('stores/ContentByRepoStore');
+    ContentByRepoStore = require('stores/ContentByRepoStore'),
+    {handleRepoContentError, handleRepoContentSuccess} = require('actions/RepoServerActionCreators');
 
 var ContentActionCreators = {
-  requestRepoContent(fullName,path){
+  requestRepoContent(fullName, path){
     if(ContentByRepoStore.getContent(fullName,path)){ return; }
 
     AppDispatcher.handleViewAction({
@@ -15,7 +16,7 @@ var ContentActionCreators = {
       path: path
     });
 
-    GithubAPI.getRepoContentsAtPath(fullName,path);
+    GithubAPI.getRepoContentsAtPath({fullName, path, error: handleRepoContentError, success: handleRepoContentSuccess});
   }
 }
 module.exports = ContentActionCreators;

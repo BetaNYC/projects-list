@@ -3,36 +3,33 @@
 var React = require('react');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('../dispatchers/AppDispatcher'),
-    ActionTypes = require('constants/ActionTypes'),
-    SeedStore = require('../stores/SeedStore'),
-    GithubAPI = require('../apis/GithubAPI'),
+    ActionTypes = require('../constants/ActionTypes'),
+    {createStore,extractRepoNames} = require('../utils/StoreUtils'),
     values = require('lodash/object/values'),
-    {createStore, isInBag, mergeIntoBag, extractRepoNames} = require('../utils/StoreUtils'),
+    isEmpty = require('lodash/lang/isEmpty'),
     {decodeField} = require('../utils/APIUtils');
 
-var _repos = {};
-var _repoNames = [];
+var _repoNames: Array<string> = [];
 
 var RepoStore = createStore({
-  contains(fullName: string, fields: mixed): bool { return isInBag(_repos, fullName, fields); },
-  get(fullName): mixed { return _repos[fullName]; },
-  getAllRepos(): mixed { return _repos; }
+  wasFetchedRecently(){ false },
+  getAll(){return _repoNames}
 });
 
-
-var q, sort, order;
 RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
-  AppDispatcher.waitFor([SeedStore.dispatchToken]);
 
-  var action = payload.action,
-      response = action.response,
-      entities = response && response.entities,
-      fetchedRepos = entities && entities.repo,
-      fetchedSeeds = entities && values(values(entities)[0]);
+  let {action} = payload,
+      {response} = action || {},
+      {entities} = response || {},
+      {repo} = entities || {};
 
-  if (fetchedRepos) {
-    // mergeIntoBag(_repos, fetchedRepos);
-    _repos = fetchedRepos;
+
+  if (repo) {
+    console.log(values(repo), entities)
+
+    // Decode the content && parse the field to extract the repo names as an array
+    _repoNames = extractRepoNames(decodeField(repo[0].content, 'base64'));
+    // TODO: create a timestamp for when the seeds were fetched
     RepoStore.emitChange();
   }
 });

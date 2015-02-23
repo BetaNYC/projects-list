@@ -1,7 +1,7 @@
 var React = require('react');
 var {PropTypes} = React;
+var RepoSearchStore = require('stores/RepoSearchStore');
 var RepoStore = require('stores/RepoStore');
-var SeedStore = require('stores/SeedStore');
 var RepoActionCreators = require('actions/RepoActionCreators');
 var ResultListComponent = require('components/ResultListComponent');
 var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
@@ -16,17 +16,17 @@ module.exports = React.createClass({
     query: PropTypes.object.isRequired
   },
   mixins: [
-    createStoreMixin( RepoStore, SeedStore )
+    createStoreMixin( RepoSearchStore, RepoStore )
   ],
 
   getStateFromStores(props: mixed): mixed{
     return {
-      seeds: SeedStore.getAll()
+      seeds: RepoStore.getAll()
     }
   },
 
   componentDidMount() {
-    RepoActionCreators.requestSeedRepos();
+    RepoActionCreators.requestRepoNames();
     this.queryDidChange(this.props);
   },
 

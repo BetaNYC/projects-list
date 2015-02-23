@@ -3,7 +3,7 @@
 var React = require('react');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('../dispatchers/AppDispatcher'),
-    RepoStore = require('../stores/RepoStore'),
+    RepoSearchStore = require('../stores/RepoSearchStore'),
     {decodeField} = require('../utils/APIUtils'),
     {createStore,extractRepoNames} = require('../utils/StoreUtils');
 
@@ -16,18 +16,17 @@ var ContentByRepoStore = createStore({
 });
 
 ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
-  AppDispatcher.waitFor([RepoStore.dispatchToken]);
+  AppDispatcher.waitFor([RepoSearchStore.dispatchToken]);
 
-  var action = payload.action,
-      response = action.response,
-      entities = response && response.entities,
-      fetchedContent = entities && entities.content;
+  let {action} = payload,
+      {response} = action || {},
+      {entities} = response || {},
+      {content} = entities || {};
 
-  if (fetchedContent) {
+  if (content) {
     var res = {};
-    res[fetchedContent.path] = decodeField(fetchedContent.content, 'base64');
+    res[content.path] = decodeField(content.content, 'base64');
     _repos[response.fullName] = res;
-
     ContentByRepoStore.emitChange();
   }
 });

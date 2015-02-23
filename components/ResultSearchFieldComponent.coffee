@@ -1,5 +1,5 @@
 React = require('react')
-RepoStore = require('stores/RepoStore')
+RepoSearchStore = require('stores/RepoSearchStore')
 createStoreMixin = require('mixins/createStoreMixin')
 {Navigation} = require('react-router')
 
@@ -7,7 +7,7 @@ createStoreMixin = require('mixins/createStoreMixin')
 isEmpty = require('lodash/lang/isEmpty')
 
 module.exports = ResultSearchFieldComponent = React.createClass
-  mixins: [createStoreMixin(RepoStore),Navigation]
+  mixins: [createStoreMixin(RepoSearchStore),Navigation]
   getInitialState: -> {value: @props.query?.q}
   getStateFromStores: (props)->
     repos: []
