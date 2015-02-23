@@ -84,7 +84,7 @@ module.exports = React.createClass({
 
           </div>
           <div className='col-lg-4 text-center'>
-            <small style={{margin:'10px 0 0 0', paddingBottom:6,borderBottom: 'solid 1px #ccc', display: 'block'}}>
+            <small style={{margin:'10px 0 34px 0', paddingBottom:6,borderBottom: 'solid 1px #ccc', display: 'block'}}>
               a <a href='http://beta.nyc'><img src = "https://cloud.githubusercontent.com/assets/94735/6129864/4562ab74-b10f-11e4-83bf-2cc54a1e102c.png"  style={{margin: '0 -7px 0 -7px', maxWidth: 30}}/>etaNYC</a> project
             </small>
             <div className='panel panel-default'>
