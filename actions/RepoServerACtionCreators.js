@@ -9,13 +9,13 @@ const {
   REQUEST_REPO_SEARCH_SUCCESS,
   REQUEST_REPO_SEARCH_ERROR
 } = require('constants/ActionTypes');
-  
+
 var RepoServerActionCreators = {
   handleSeedReposSuccess(response) {
 
     AppDispatcher.handleServerAction({
       type: REQUEST_SEEDS_SUCCESS,
-      response: response
+      response
     });
 
   },
@@ -31,7 +31,7 @@ var RepoServerActionCreators = {
   handleRepoSearchSuccess(response) {
     AppDispatcher.handleServerAction({
       type: REQUEST_REPO_SEARCH_SUCCESS,
-      response: response
+      response
     });
   },
 

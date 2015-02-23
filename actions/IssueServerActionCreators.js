@@ -11,7 +11,7 @@ var IssueServerActionCreators = {
   handleIssuesSuccess(response) {
     AppDispatcher.handleServerAction({
       type: REQUEST_ISSUES_SUCCESS,
-      response: response
+      response
     });
   },
 

@@ -12,13 +12,7 @@ const {
 var ContentActionCreators = {
   requestRepoContent(fullName, path){
     if(ContentByRepoStore.getContent(fullName,path)){ return; }
-
-    AppDispatcher.handleViewAction({
-      type: REQUEST_REPO_CONTENT,
-      fullName: fullName,
-      path: path
-    });
-
+    AppDispatcher.handleViewAction({ type: REQUEST_REPO_CONTENT, fullName, path });
     GithubAPI.getRepoContentsAtPath({fullName, path, error: handleRepoContentError, success: handleRepoContentSuccess});
   }
 }

@@ -6,14 +6,14 @@ const {
   REQUEST_REPO_CONTENT_SUCCESS,
   REQUEST_REPO_CONTENT_ERROR
 } = require('constants/ActionTypes');
-  
+
 
 var ContentServerActionCreator = {
 
   handleRepoContentSuccess(response) {
     AppDispatcher.handleServerAction({
       type: REQUEST_REPO_CONTENT_SUCCESS,
-      response: response
+      response
     });
   },
 
