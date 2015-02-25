@@ -24,9 +24,6 @@ module.exports = SearchFieldComponent = React.createClass({
   },
   onKeyDown(e) {
     // Instant search FTW!
-    // if (e.which === 13) {
-    //   this.runQuery({q:this.refs.q.value});
-    // }
   },
   clearQuery(){
     this.runQuery({});
@@ -50,7 +47,7 @@ module.exports = SearchFieldComponent = React.createClass({
         className='form-control input-lg'
         placeholder='Search'
         name='q'
-        value={this.state.value}
+        value={this.props.query.q}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
         ref='q'

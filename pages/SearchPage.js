@@ -9,7 +9,6 @@ var SearchFilterListComponent = require('components/SearchFilterListComponent');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
 var isEmpty = require('lodash/lang/isEmpty');
-var AppDispatcher = require('dispatchers/AppDispatcher');
 var {Link} = require('react-router');
 var PureRenderMixin = React.addons;
 
@@ -53,14 +52,6 @@ module.exports = SearchPage = React.createClass({
   },
 
   render(){
-    // <div className='panel panel-default'>
-    //   <div className='panel-heading'>
-    //     <h5 className='panel-title'>Community News</h5>
-    //   </div>
-    //   <div className='panel-body'>
-    //   </div>
-    // </div>
-
     return (<div>
       <ol className="breadcrumb">
         <li>
@@ -68,7 +59,9 @@ module.exports = SearchPage = React.createClass({
             Home
           </Link>
         </li>
-        <li className="active">Search</li>
+        <li className="active">
+          Civic Projects
+        </li>
       </ol>
       <div className='container' style={{marginTop: 20}}>
         <div className='row'>

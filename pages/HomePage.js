@@ -3,11 +3,8 @@ var {PropTypes} = React;
 var RepoSearchStore = require('stores/RepoSearchStore');
 var RepoStore = require('stores/RepoStore');
 var RepoActionCreators = require('actions/RepoActionCreators');
-var ResultListComponent = require('components/ResultListComponent');
-var SearchFieldComponent = require('components/SearchFieldComponent');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
-var AppDispatcher = require('dispatchers/AppDispatcher');
 var Holder = require("imports?this=>window!Holder/holder");
 var {Link} = require('react-router');
 
@@ -23,7 +20,6 @@ module.exports = HomePage = React.createClass({
 
   getStateFromStores(props: mixed): mixed{
     return {
-      seeds: RepoStore.getAll()
     }
   },
 
@@ -52,14 +48,6 @@ module.exports = HomePage = React.createClass({
 
   render(){
 
-    // <div className='panel panel-default'>
-    //   <div className='panel-heading'>
-    //     <h5 className='panel-title'>Community News</h5>
-    //   </div>
-    //   <div className='panel-body'>
-    //   </div>
-    // </div>
-
     return (<div>
       <div className='jumbotron'>
         <div className='container'>
@@ -70,7 +58,7 @@ module.exports = HomePage = React.createClass({
                 Simply add a <a href="http://codefordc.org/resources/builder.html" target='_blank'>civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-project-repos/edit/master/REPOS' target='_blank'>open a pull request</a> to add your project to this list.
               </p>
               <p>
-                Want to help out? Check out the projects below.
+                Want to help out? Check out the collections below.
               </p>
             </div>
             <div className='col-lg-4 text-center'>

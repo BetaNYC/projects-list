@@ -5,9 +5,7 @@
 var React = require('react/addons');
 var {PropTypes} = React;
 var RepoSearchStore = require('../stores/RepoSearchStore');
-var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 var ContentByRepoStore = require('../stores/ContentByRepoStore');
-var IssueActionCreators = require('../actions/IssueActionCreators');
 var ContentActionCreators = require('../actions/ContentActionCreators');
 var createStoreMixin = require('../mixins/createStoreMixin');
 var isEmpty = require('lodash/lang/isEmpty');
@@ -16,90 +14,12 @@ var toArray = require('lodash/lang/toArray');
 var map = require('lodash/collection/map');
 var moment = require('moment');
 var README = '/README.md';
+var {Link} = require('react-router');
 
-var IssueListHeader = React.createClass({
-  render(){
-    return <tr className='text-muted'>
-      <th className='text-left'>
-        <div className='dropdown'>
-          <a className='fa fa-caret-down'
-            data-toggle='dropdown'
-            href='javascript:;'
-            aria-haspopup="true"
-            aria-expanded="false"/> Labels
-
-          <ul className="dropdown-menu" role="menu">
-            <li role="presentation" className='active'>
-              <a role="menuitem" tabIndex="-1" href="javascript:;">
-                Help wanted
-              </a>
-            </li>
-            <li role="presentation">
-              <a role="menuitem" tabIndex="-1" href="javascript:;">
-                Question
-              </a>
-            </li>
-          </ul>
-        </div>
-      </th>
-      <th></th>
-      <th></th>
-    </tr>
-  }
-});
-
-var IssueList = React.createClass({
-  mixins: [
-    createStoreMixin(
-      IssuesByRepoStore
-    )
-  ],
-  componetDidMount(){
-    this.requestIssues();
-  },
-  componetWillReceiveProps(nextProps){
-    this.requestIssues();
-  },
-  requestIssues(){
-    IssueActionCreators.requestRepoIssues(this.props.fullName);
-  },
-  getStateFromStores(props){
-    return {
-      issues: toArray(IssuesByRepoStore.getIssuesByRepo(props.fullName)),
-      readme: ContentByRepoStore.getContent(props.fullName, README)
-    }
-  },
-  render(){
-    var issues = map(this.state.issues, issue => {
-      issue.labels.map(label => {return <span className='label' style={{backgroundColor: issue.color}}>{label.name}</span> });
-      return <tr>
-        <td style={{verticalAlign:'middle', width:30}}>
-          {issue.labels}
-        </td>
-        <td>{issue.title}</td>
-        <td style={{verticalAlign:'middle', width:30}}>
-          <a href={issue.url} target='_blank'>
-            <span className='fa fa-external-link'/>
-          </a>
-        </td>
-      </tr>
-    });
-
-    if(issues.length == 0){return null;}
-
-    return <table className='table table-condensed'>
-      <tbody>
-        <IssueListHeader {...this.props} />
-        {issues}
-      </tbody>
-    </table>
-  }
-});
 var ResultListItemComponent = React.createClass({
   mixins: [
     createStoreMixin(
       RepoSearchStore,
-      IssuesByRepoStore,
       ContentByRepoStore
     )
   ],
@@ -121,10 +41,13 @@ var ResultListItemComponent = React.createClass({
   render(){
     var repo = this.props;
     if(!repo){return null;}
+    // <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
     return <tr key={this.props.key} >
         <td colSpan={2}>
           <h2>
-            <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
+            <Link to='projectPage' params={{owner: repo.owner.login, repoName: repo.name}}>{repo.name}
+            </Link>
+
             <a href={repo.owner.htmlUrl} title={repo.owner.login} className='pull-right'>
               <img src={repo.owner.avatarUrl} width={50}/>
             </a>
@@ -139,7 +62,6 @@ var ResultListItemComponent = React.createClass({
           <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
           <p>{repo.description}</p>
           <p>{this.props.readme}</p>
-          <IssueList {...repo} />
         </td>
     </tr>
   }

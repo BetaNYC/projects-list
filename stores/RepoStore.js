@@ -25,8 +25,6 @@ RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
 
 
   if (repo) {
-    console.log(values(repo), entities)
-
     // Decode the content && parse the field to extract the repo names as an array
     _repoNames = extractRepoNames(decodeField(repo[0].content, 'base64'));
     // TODO: create a timestamp for when the seeds were fetched
