@@ -43,26 +43,31 @@ var ResultListItemComponent = React.createClass({
     if(!repo){return null;}
     // <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
     return <tr key={this.props.key} >
-        <td colSpan={2}>
-          <h2>
-            <Link to='projectPage' params={{owner: repo.owner.login, repoName: repo.name}}>{repo.name}
-            </Link>
+      <td colSpan={2} style={{position: 'relative'}}>
+        <Link to='projectPage'
+          params={{owner: repo.owner.login, repoName: repo.name}}
+          style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%'}} />
 
-            <a href={repo.owner.htmlUrl} title={repo.owner.login} className='pull-right'>
-              <img src={repo.owner.avatarUrl} width={50}/>
-            </a>
-          </h2>
-          <ul className='list-inline'>
-            <li title='stargazers'>{repo.stargazersCount} <span className='octicon-star octicon'/></li>
-            <li title='watchers'>{repo.watchersCount} <span className='octicon-eye-watch octicon'/></li>
-            <li title='forks'>{repo.forks} <span className='octicon-repo-forked octicon'/></li>
-            <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
-          </ul>
+        <h2>
+          <Link to='projectPage' params={{owner: repo.owner.login, repoName: repo.name}}>{repo.name}
+          </Link>
 
-          <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
-          <p>{repo.description}</p>
-          <p>{this.props.readme}</p>
-        </td>
+          <a href={repo.owner.htmlUrl} title={repo.owner.login} className='pull-right'>
+            <img src={repo.owner.avatarUrl} width={50}/>
+          </a>
+        </h2>
+        <ul className='list-inline'>
+          <li title='stargazers'>{repo.stargazersCount} <span className='octicon-star octicon'/></li>
+          <li title='watchers'>{repo.watchersCount} <span className='octicon-eye-watch octicon'/></li>
+          <li title='forks'>{repo.forks} <span className='octicon-repo-forked octicon'/></li>
+          <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
+        </ul>
+
+        <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
+        <p>{repo.description}</p>
+        <p>{this.props.readme}</p>
+
+      </td>
     </tr>
   }
 })
