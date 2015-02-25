@@ -3,7 +3,7 @@
 require("bootstrap-webpack!./config/bootstrap.config.js");
 require('font-awesome-webpack');
 
-var React = require('react'),
+var React = require('react/addons'),
     router = require('./router');
 
 router.run((Handler, state) => {

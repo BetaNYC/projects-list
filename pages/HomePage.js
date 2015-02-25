@@ -1,16 +1,18 @@
-var React = require('react');
+var React = require('react/addons');
 var {PropTypes} = React;
 var RepoSearchStore = require('stores/RepoSearchStore');
 var RepoStore = require('stores/RepoStore');
 var RepoActionCreators = require('actions/RepoActionCreators');
 var ResultListComponent = require('components/ResultListComponent');
-var ResultSearchFieldComponent = require('components/ResultSearchFieldComponent');
+var SearchFieldComponent = require('components/SearchFieldComponent');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
 var AppDispatcher = require('dispatchers/AppDispatcher');
+var Holder = require("imports?this=>window!Holder/holder");
+var {Link} = require('react-router');
 
-var count = 0;
-module.exports = React.createClass({
+var HomePage;
+module.exports = HomePage = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired
@@ -26,6 +28,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount() {
+    Holder.run()
     RepoActionCreators.requestRepoNames();
     this.queryDidChange(this.props);
   },
@@ -48,6 +51,7 @@ module.exports = React.createClass({
   },
 
   render(){
+
     // <div className='panel panel-default'>
     //   <div className='panel-heading'>
     //     <h5 className='panel-title'>Community News</h5>
@@ -71,35 +75,65 @@ module.exports = React.createClass({
             </div>
             <div className='col-lg-4 text-center'>
               <img src={require('images/city.svg')} style={{width:280,marginTop:30}}/>
+              <small style={{margin:'10px 0 34px 0', paddingBottom:6,borderBottom: 'solid 1px #ccc', display: 'block'}}>
+                a <a href='http://beta.nyc'><img src = "https://cloud.githubusercontent.com/assets/94735/6129864/4562ab74-b10f-11e4-83bf-2cc54a1e102c.png"  style={{margin: '0 -7px 0 -7px', maxWidth: 30}}/>etaNYC</a> project
+              </small>
             </div>
           </div>
         </div>
       </div>
       <div className='container'>
         <div className='row'>
-          <div className='col-lg-8'>
-
-            <ResultSearchFieldComponent {...this.props}/>
-            <ResultListComponent/>
-
+          <div className='col-lg-2'>
+            <Link to="searchPage" query={{cat: 'data-journalism'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/sky/text:Civic Hacking 101"/>
+            </Link>
+          </div>
+          <div className='col-lg-6'>
+            <Link to="searchPage" query={{cat: 'education'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Education Apps"/>
+            </Link>
           </div>
           <div className='col-lg-4 text-center'>
-            <small style={{margin:'10px 0 34px 0', paddingBottom:6,borderBottom: 'solid 1px #ccc', display: 'block'}}>
-              a <a href='http://beta.nyc'><img src = "https://cloud.githubusercontent.com/assets/94735/6129864/4562ab74-b10f-11e4-83bf-2cc54a1e102c.png"  style={{margin: '0 -7px 0 -7px', maxWidth: 30}}/>etaNYC</a> project
-            </small>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>
-                <h5 className='panel-title'>Promoted projects</h5>
-              </div>
-              <ul className='list-group'>
-                <li className='list-group-item'>
-                  <a href='https://github.com/codeforamerica/civic-tech-patterns' target='_blank'>
-                    codeforamerica/civic-tech-patterns
-                  </a>
-                </li>
-              </ul>
-            </div>
-
+            <Link to="searchPage" query={{cat: 'crime-data'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/social/text:Crime data"/>
+            </Link>
+          </div>
+        </div>
+        <div className='row' style={{marginTop: 20}}>
+          <div className='col-lg-4'>
+            <Link to="searchPage" query={{cat: 'transportation'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Transportation hacks"/>
+            </Link>
+          </div>
+          <div className='col-lg-3'>
+            <Link to="searchPage" query={{cat: 'parks'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/sky/text:Parks"/>
+            </Link>
+          </div>
+          <div className='col-lg-5 text-center'>
+            <Link to="searchPage" query={{cat: 'data-journalism'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Data Journalism"/>
+            </Link>
+          </div>
+        </div>
+        <div className='row' style={{marginTop: 20, marginBottom: 20}}>
+          <div className='col-lg-12'>
+            <Link to="searchPage" query={{cat: '311-hacks'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/gray/text:311 hacks"/>
+            </Link>
+          </div>
+        </div>
+        <div className='row' style={{marginTop: 20, marginBottom: 20}}>
+          <div className='col-lg-4'>
+            <Link to="searchPage" query={{cat: 'poverty'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/social/text:Poverty"/>
+            </Link>
+          </div>
+          <div className='col-lg-8'>
+            <Link to="searchPage" query={{cat: 'tools'}}>
+              <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Tools for Hackers"/>
+            </Link>
           </div>
         </div>
       </div>

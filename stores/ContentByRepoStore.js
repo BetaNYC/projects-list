@@ -1,6 +1,6 @@
 /* @flow */
 "use strict"
-var React = require('react');
+var React = require('react/addons');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('../dispatchers/AppDispatcher'),
     RepoSearchStore = require('../stores/RepoSearchStore'),

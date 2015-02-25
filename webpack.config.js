@@ -54,7 +54,7 @@ module.exports = {
   output: {
     path: __dirname + '/public/assets/',
     filename: 'bundle.js',
-    publicPath: (isPrerelease ? './assets/' : '/assets/'),
+    publicPath: (isPrerelease == 'true' ? './assets/' : '/assets/'),
     // This is my custom config –– not required by Webpack.
     serverBase: serverBase
   },
@@ -67,13 +67,13 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['react-hot','jsx?harmony&stripTypes'],
+        loaders: ['react-hot','babel','jsx?harmony&stripTypes'],
         exclude: /(node_modules|bootstrap(-sass)?\.config.*)/
       },
       // Pattern matches the coffeescript files
       {
         test: /\.coffee$/,
-        loaders: ['react-hot','jsx?harmony&stripTypes', 'coffee']
+        loaders: ['react-hot','babel','jsx?harmony&stripTypes', 'coffee']
       },
 
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)

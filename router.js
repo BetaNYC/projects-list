@@ -4,7 +4,7 @@ var { create: createRouter, HistoryLocation, HashLocation } = require('react-rou
     routes = require('./routes');
 
 var router = createRouter({
-  location: __PRERELEASE__ ? HashLocation : HistoryLocation,
+  location: HashLocation,
   routes: routes
 });
 

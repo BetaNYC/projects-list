@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var NavBarComponent;
 module.exports = NavBarComponent = React.createClass({
   render: function() {

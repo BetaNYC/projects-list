@@ -4,7 +4,7 @@
 require('./app.less');
 
 
-var React = require('react'),
+var React = require('react/addons'),
     NavBarComponent = require('./components/NavBarComponent'),
     HomePage = require('pages/HomePage'),
     DocumentTitle = require('react-document-title'),

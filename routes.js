@@ -1,9 +1,10 @@
 'use strict';
 
-var React = require('react'),
+var React = require('react/addons'),
     { Route, DefaultRoute } = require('react-router'),
     App = require('./App'),
-    HomePage = require('pages/HomePage');
+    HomePage = require('pages/HomePage'),
+    SearchPage = require('pages/SearchPage');
 
 if (__PRERELEASE__) {
   // Clear the browser console.
@@ -15,5 +16,6 @@ if (__PRERELEASE__) {
 module.exports = (
   <Route name='app' path='/' handler={App}>
     <Route name='homePage' path='/'  handler={HomePage} />
+    <Route name='searchPage' path='/search'  handler={SearchPage} />
   </Route>
 );

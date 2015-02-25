@@ -35,7 +35,7 @@ module.exports = {
     "input-groups": true,
     "navs": true,
     "navbar": true,
-    "breadcrumbs": false,
+    "breadcrumbs": true,
     "pagination": true,
     "pager": true,
     "labels": true,
