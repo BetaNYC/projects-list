@@ -7,7 +7,7 @@ var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
 var Holder = require("imports?this=>window!Holder/holder");
 var {Link} = require('react-router');
-  
+
 var HomePage;
 module.exports = HomePage = React.createClass({
   propTypes: {
@@ -73,53 +73,53 @@ module.exports = HomePage = React.createClass({
       <div className='container'>
         <div className='row'>
           <div className='col-lg-2'>
-            <Link to="searchPage" query={{cat: 'data-journalism'}}>
+            <Link to="searchPage" query={{category: 'data-journalism'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/sky/text:Civic Hacking 101"/>
             </Link>
           </div>
           <div className='col-lg-6'>
-            <Link to="searchPage" query={{cat: 'education'}}>
+            <Link to="searchPage" query={{category: 'education'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Education Apps"/>
             </Link>
           </div>
           <div className='col-lg-4 text-center'>
-            <Link to="searchPage" query={{cat: 'crime-data'}}>
+            <Link to="searchPage" query={{category: 'crime-data'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/social/text:Crime data"/>
             </Link>
           </div>
         </div>
         <div className='row' style={{marginTop: 20}}>
           <div className='col-lg-4'>
-            <Link to="searchPage" query={{cat: 'transportation'}}>
+            <Link to="searchPage" query={{category: 'transportation'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Transportation hacks"/>
             </Link>
           </div>
           <div className='col-lg-3'>
-            <Link to="searchPage" query={{cat: 'parks'}}>
+            <Link to="searchPage" query={{category: 'parks'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/sky/text:Parks"/>
             </Link>
           </div>
           <div className='col-lg-5 text-center'>
-            <Link to="searchPage" query={{cat: 'data-journalism'}}>
+            <Link to="searchPage" query={{category: 'data-journalism'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Data Journalism"/>
             </Link>
           </div>
         </div>
         <div className='row' style={{marginTop: 20, marginBottom: 20}}>
           <div className='col-lg-12'>
-            <Link to="searchPage" query={{cat: '311-hacks'}}>
+            <Link to="searchPage" query={{category: '311-hacks'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/gray/text:311 hacks"/>
             </Link>
           </div>
         </div>
         <div className='row' style={{marginTop: 20, marginBottom: 20}}>
           <div className='col-lg-4'>
-            <Link to="searchPage" query={{cat: 'poverty'}}>
+            <Link to="searchPage" query={{category: 'poverty'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/social/text:Poverty"/>
             </Link>
           </div>
           <div className='col-lg-8'>
-            <Link to="searchPage" query={{cat: 'tools'}}>
+            <Link to="searchPage" query={{category: 'tools'}}>
               <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Tools for Hackers"/>
             </Link>
           </div>

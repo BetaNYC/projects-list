@@ -48,10 +48,10 @@ module.exports = SearchPage = React.createClass({
     return props.query;
   },
 
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.parseQuery(nextProps), this.parseQuery())) {
-      this.setState(this.getStateFromStores(nextProps));
-      this.queryDidChange(nextProps);
+  componentWillReceiveProps(np,ns) {
+    if (!isEqual(this.parseQuery(np), this.parseQuery())) {
+      this.setState(this.getStateFromStores(np));
+      this.queryDidChange(np);
     }
   },
 

@@ -16,10 +16,10 @@ const {
 var RepoActionCreators;
 
 export default RepoActionCreators = {
-  requestProjects({q,sort_by,sort_dir}){
-    AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_SEARCH, q, sort_by, sort_dir });
+  requestProjects({q,sort_by,sort_dir, category}){
+    AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_SEARCH, q, sort_by, sort_dir, category });
 
-    CfAPI.requestProjects({q, sort_by: sort_by, sort_dir: sort_dir, success: handleProjectSearchSuccess, error: handleProjectSearchError });
+    CfAPI.requestProjects({q, sort_by, sort_dir, category, success: handleProjectSearchSuccess, error: handleProjectSearchError });
   }
 };
 

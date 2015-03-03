@@ -59,8 +59,8 @@ var ProjectListItemComponent = React.createClass({
           <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
         </ul>
 
-        <p><small>Last updated {moment(project.updatedAt).fromNow()}</small></p>
-        <p>{project.description}</p>
+        <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
+        <p>{repo.description}</p>
         <p>{this.props.readme}</p>
 
       </td>
@@ -80,9 +80,7 @@ module.exports = ProjectListComponent = React.createClass({
     var {projects} = this.props;
     var {total} = this.props;
 
-    if(isEmpty(projects))
-      return null
-
+    
     var tableHeader = <tr>
       <th style={{verticalAlign:'middle'}}>
         {total} projects found.
