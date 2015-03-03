@@ -24,14 +24,21 @@ var ProjectListItemComponent = React.createClass({
 
   getStateFromStores(props: mixed): mixed{
     return {
-      repo: RepoStore.get(this.props.githubDetails)
     }
   },
 
   componentDidUpdate(){
-    let {query} = this.props;
+    this.highlightText()
+  },
+
+  highlightText(){
+    let {query} = this.props || {};
     let {q} = query;
-    var node = this.refs.projectListItem.getDOMNode();
+    let {projectListItem} = this.refs;
+    if(!projectListItem)
+      return;
+    var node = projectListItem.getDOMNode();
+
     if(q)
       $(node).blast({ search: q }, true);
     else
@@ -41,8 +48,8 @@ var ProjectListItemComponent = React.createClass({
   render(){
     var project = this.props;
     if(!project){return null;}
-    if(!this.state.repo){return null;}
-    var {repo} = this.state;
+    var repo = RepoStore.get(this.props.githubDetails);
+    if(!repo){return null;}
 
     var owner = UserStore.get(repo.owner);
     var ownerLogin = owner.login;
