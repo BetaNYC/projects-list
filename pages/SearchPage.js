@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var {PropTypes} = React;
+
 // Helpers
 var isEqual = require('lodash/lang/isEqual');
 var isEmpty = require('lodash/lang/isEmpty');
@@ -89,7 +90,7 @@ module.exports = SearchPage = React.createClass({
           <div className='col-lg-9'>
 
             <SearchFieldComponent {...this.props}/>
-            <ProjectListComponent projects={projects} total={projectsCount} />
+            <ProjectListComponent projects={projects} total={projectsCount} query={this.props.query} />
 
             {(projectsCount > 0 && nextPageNum) ? <a className='btn btn-block btn-primary' onClick={this.requestNextPage} style={{marginBottom: 40}}>Load more</a> : null}
           </div>

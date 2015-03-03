@@ -16,7 +16,7 @@ const {
 
 var _projects: Array<mixed> = [];
 var _projectsCount: number = 0;
-var _nextPageNum:number = 2;
+var _nextPageNum = 2;
 
 var ProjectStore = createStore({
   getAll(){return _projects},
@@ -48,6 +48,8 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
     parser.href = nextPageUrl;
     let {page} = Qs.parse(parser.search.slice(1));
     _nextPageNum = page;
+  }else{
+    _nextPageNum = null;
   }
 
   switch(action.type){
@@ -68,9 +70,6 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
         let new_projects = result.map( (item)=> {return projects[item] });
         _projects = _projects.concat(new_projects);
         announce = true;
-      }
-      if(!nextPageUrl){
-        _nextPageNum = null;
       }
       break;
 

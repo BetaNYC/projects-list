@@ -7,6 +7,7 @@ var forEach = require('lodash/collection/forEach');
 var toArray = require('lodash/lang/toArray');
 var map = require('lodash/collection/map');
 var moment = require('moment');
+require('blast-text');
 
 // Stores
 var RepoStore = require('../stores/RepoStore');
@@ -27,6 +28,16 @@ var ProjectListItemComponent = React.createClass({
     }
   },
 
+  componentDidUpdate(){
+    let {query} = this.props;
+    let {q} = query;
+    var node = this.refs.projectListItem.getDOMNode();
+    if(q)
+      $(node).blast({ search: q }, true);
+    else
+      $(node).blast(false);
+  },
+
   render(){
     var project = this.props;
     if(!project){return null;}
@@ -39,7 +50,7 @@ var ProjectListItemComponent = React.createClass({
     var ownerAvatarUrl = owner.avatarUrl;
 
     return <tr key={this.props.key} >
-      <td colSpan={2} style={{position: 'relative'}}>
+      <td colSpan={2} style={{position: 'relative'}} ref='projectListItem'>
         <Link to='projectPage'
           params={{owner: ownerLogin, repoName: project.name}}
           style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%'}} />
@@ -97,7 +108,7 @@ module.exports = ProjectListComponent = React.createClass({
       </tr>
     }else{
       tableBody = map(projects, (project,i)=> {
-        return <ProjectListItemComponent {...project} key={i} />;
+        return <ProjectListItemComponent {...project} query={this.props.query} key={i} />;
       });
     }
 

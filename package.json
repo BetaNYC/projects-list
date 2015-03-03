@@ -19,6 +19,7 @@
     "coffee-script": "~1.9.0",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
+    "blast-text": "^2.0.0",
     "webpack": "^1.5.1",
     "webpack-dev-server": "1.6.4",
     "bootstrap-webpack": "~0.0.4",
@@ -46,7 +47,7 @@
     "eventemitter3": "~0.1.6",
     "object-assign": "2.0.0",
     "url-loader": "^0.5.5",
-    "lunr": "^0.5.7"
+    "zeptojs": "~1.1.4"
   },
   "dependencies": {
   },

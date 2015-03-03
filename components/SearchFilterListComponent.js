@@ -1,10 +1,22 @@
 var React = require('react/addons');
 var {Link} = require('react-router');
+  
 
 var SearchFilterListComponent;
 module.exports = SearchFilterListComponent = React.createClass({
+  propTypes: {
+    params: React.PropTypes.object.isRequired,
+    query: React.PropTypes.object.isRequired
+  },
   render(){
+    var {query} = this.props;
+    var {category} = query;
+    var removeFiltersBtn= category ? <Link to='searchPage' query={{}} className='btn  btn-block text-danger' style={{boxShadow: 'none'}}>
+                  Remove filters <span className='fa fa-times fa-fw'/>
+                </Link> : null;
+
     return <div className='list-group text-left'>
+
                 <Link to='searchPage' className='list-group-item' query={{category:'crime', q: this.props.query.q}}>
                   <span className='fa fa-tag fa-fw'/> Crime
                 </Link>
@@ -44,7 +56,7 @@ module.exports = SearchFilterListComponent = React.createClass({
                 <Link to='searchPage' className='list-group-item' query={{category:'tools', q: this.props.query.q}}>
                   <span className='fa fa-tag fa-fw'/> {"Hacker's toolkit"}
                 </Link>
-
+                {removeFiltersBtn}
               </div>
   }
 });
