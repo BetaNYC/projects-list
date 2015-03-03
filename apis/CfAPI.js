@@ -31,13 +31,13 @@ var normalizeProjectArrayResponse = (response) => {
 
 // Main
 var CfAPI = {
-  requestProjects({q, sort_by, sort_dir, category, success, error}){
+  requestProjects({q, sort_by, sort_dir, category, page, success, error}){
     var qs = '/projects';
     var per_page = 10;
 
-    request(API_ROOT + qs).query({q,sort_by,sort_dir, categories: category, per_page}).end((res)=> {
+    request(API_ROOT + qs).query({q,sort_by,sort_dir, categories: category, per_page, page}).end((res)=> {
         var {ok} = res;
-        if(!ok){ error({q, sort_by, sort_dir, category, repos, err: res.text}); }
+        if(!ok){ error({q, sort_by, sort_dir, category, page, err: res.text}); }
         success(normalizeProjectArrayResponse(res));
     });
   }

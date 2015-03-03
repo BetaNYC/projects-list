@@ -40,6 +40,7 @@
     "lodash": "~3.2.0",
     "immutable": "^3.4.1",
     "flux": "*",
+    "qs": "^2.3.3",
     "Holder": "imsky/holder",
     "moment": "~2.9.0",
     "eventemitter3": "~0.1.6",

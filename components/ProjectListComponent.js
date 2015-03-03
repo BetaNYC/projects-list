@@ -80,7 +80,7 @@ module.exports = ProjectListComponent = React.createClass({
     var {projects} = this.props;
     var {total} = this.props;
 
-    
+
     var tableHeader = <tr>
       <th style={{verticalAlign:'middle'}}>
         {total} projects found.

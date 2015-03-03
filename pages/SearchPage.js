@@ -3,6 +3,7 @@ var {PropTypes} = React;
 // Helpers
 var isEqual = require('lodash/lang/isEqual');
 var isEmpty = require('lodash/lang/isEmpty');
+var assign = require('object-assign');
 
 // Stores
 var ProjectStore = require('stores/ProjectStore');
@@ -35,7 +36,8 @@ module.exports = SearchPage = React.createClass({
   getStateFromStores(props: mixed): mixed{
     return {
       projects: ProjectStore.getAll(),
-      projectsCount: ProjectStore.getProjectsCount()
+      projectsCount: ProjectStore.getProjectsCount(),
+      nextPageNum: ProjectStore.getNextPageNum()
     }
   },
 
@@ -61,8 +63,16 @@ module.exports = SearchPage = React.createClass({
   },
 
 
+  requestNextPage(){
+    let query = this.params || {};
+    query = assign(query||{}, {page: ProjectStore.getNextPageNum()});
+
+    // TODO: disable interaction when the request is being made
+    ProjectActionCreators.requestProjectsPaginate(query);
+  },
+
   render(){
-    var {projects,projectsCount} = this.state;
+    var {projects,projectsCount,nextPageNum} = this.state;
     return (<div>
       <Breadcrumbs>
           <Link to='homePage'>
@@ -81,6 +91,7 @@ module.exports = SearchPage = React.createClass({
             <SearchFieldComponent {...this.props}/>
             <ProjectListComponent projects={projects} total={projectsCount} />
 
+            {(projectsCount > 0 && nextPageNum) ? <a className='btn btn-block btn-primary' onClick={this.requestNextPage} style={{marginBottom: 40}}>Load more</a> : null}
           </div>
         </div>
       </div>

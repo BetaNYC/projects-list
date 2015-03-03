@@ -1,6 +1,7 @@
 /* @flow */
 "use strict"
 var React = require('react/addons');
+var Qs = require('qs');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('../dispatchers/AppDispatcher'),
     {createStore,extractRepoNames, mergeIntoBag, isInBag} = require('../utils/StoreUtils'),
@@ -9,15 +10,18 @@ var objectAssign  = require('object-assign'),
     {decodeField} = require('../utils/APIUtils');
 
 const {
-  REQUEST_PROJECT_SEARCH_SUCCESS
+  REQUEST_PROJECT_SEARCH_SUCCESS,
+  REQUEST_PROJECT_PAGINATE_SUCCESS
 } = require('../constants/ActionTypes');
 
 var _projects: Array<mixed> = [];
 var _projectsCount: number = 0;
+var _nextPageNum:number = 2;
 
 var ProjectStore = createStore({
   getAll(){return _projects},
-  getProjectsCount(){return _projectsCount}
+  getProjectsCount(){return _projectsCount},
+  getNextPageNum(){return _nextPageNum}
 });
 
 ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
@@ -25,30 +29,55 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
   let {action} = payload,
       {response} = action || {},
       {entities} = response || {},
+      {nextPageUrl} = response || {},
       {result} = response || [],
       {project} = entities || {},
       {projects} = entities || [];
 
+  let announce = false;
 
   if (!isEmpty(project)) {
     _projects = mergeIntoBag(_projects, project);
-    ProjectStore.emitChange();
+    announce = true;
   }
-  if (projects) {
-    _projects = result.map( (item)=> {return projects[item] });
-    _projectsCount = response.total;
-    ProjectStore.emitChange();
+
+
+  if(nextPageUrl){
+    // see: https://gist.github.com/jlong/2428561
+    let parser = document.createElement('a');
+    parser.href = nextPageUrl;
+    let {page} = Qs.parse(parser.search.slice(1));
+    _nextPageNum = page;
   }
+
   switch(action.type){
     case REQUEST_PROJECT_SEARCH_SUCCESS:
-      if(!projects){
+      if(projects){
+        let new_projects = result.map( (item)=> {return projects[item] });
+        _projects = new_projects;
+        _projectsCount = response.total;
+        announce = true;
+      }else{
         _projects = [];
         _projectsCount = 0;
-        ProjectStore.emitChange();
+        announce = true;
       }
+      break;
+    case REQUEST_PROJECT_PAGINATE_SUCCESS:
+      if(projects){
+        let new_projects = result.map( (item)=> {return projects[item] });
+        _projects = _projects.concat(new_projects);
+        announce = true;
+      }
+      if(!nextPageUrl){
+        _nextPageNum = null;
+      }
+      break;
 
   }
 
+  if(announce)
+    ProjectStore.emitChange();
 });
 
 
