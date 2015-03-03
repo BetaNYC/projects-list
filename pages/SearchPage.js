@@ -40,7 +40,6 @@ module.exports = SearchPage = React.createClass({
   },
 
   componentDidMount() {
-    RepoActionCreators.requestRepoNames();
     this.queryDidChange(this.props);
   },
 

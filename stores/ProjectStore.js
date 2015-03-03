@@ -9,7 +9,7 @@ var objectAssign  = require('object-assign'),
     isEmpty = require('lodash/lang/isEmpty'),
     {decodeField} = require('../utils/APIUtils');
 
-var _projects: mixed = {};
+var _projects: Array<mixed> = [];
 var _projectsCount: number = 0;
 
 var ProjectStore = createStore({
@@ -22,6 +22,7 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
   let {action} = payload,
       {response} = action || {},
       {entities} = response || {},
+      {result} = response || [],
       {project} = entities || {},
       {projects} = entities || [];
 
@@ -31,7 +32,7 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
     ProjectStore.emitChange();
   }
   if (!isEmpty(projects)) {
-    _projects = mergeIntoBag(_projects, projects);
+    _projects = result.map( (item)=> {return projects[item] });
     _projectsCount = response.total;
     ProjectStore.emitChange();
   }

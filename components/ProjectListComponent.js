@@ -72,7 +72,7 @@ var ProjectListComponent;
 module.exports = ProjectListComponent = React.createClass({
 
   propTypes: {
-    projects: PropTypes.object.isRequired
+    projects: PropTypes.array.isRequired
   },
 
   render(): any {
