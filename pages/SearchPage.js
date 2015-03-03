@@ -1,16 +1,25 @@
 var React = require('react/addons');
 var {PropTypes} = React;
-var RepoSearchStore = require('stores/RepoSearchStore');
-var RepoStore = require('stores/RepoStore');
-var RepoActionCreators = require('actions/RepoActionCreators');
-var ResultListComponent = require('components/ResultListComponent');
-var SearchFieldComponent = require('components/SearchFieldComponent');
-var SearchFilterListComponent = require('components/SearchFilterListComponent');
-var createStoreMixin = require('mixins/createStoreMixin');
+// Helpers
 var isEqual = require('lodash/lang/isEqual');
 var isEmpty = require('lodash/lang/isEmpty');
+
+// Stores
+var ProjectStore = require('stores/ProjectStore');
+var RepoStore = require('stores/RepoStore');
+// Actionc reators
+var ProjectActionCreators = require('actions/ProjectActionCreators');
+var RepoActionCreators = require('actions/RepoActionCreators');
+// Components
+var ProjectListComponent = require('components/ProjectListComponent');
+var SearchFieldComponent = require('components/SearchFieldComponent');
+var SearchFilterListComponent = require('components/SearchFilterListComponent');
 var {Link} = require('react-router');
+var Breadcrumbs = require('components/Breadcrumbs');
+// Mixins
+var createStoreMixin = require('mixins/createStoreMixin');
 var PureRenderMixin = React.addons;
+
 
 var SearchPage;
 module.exports = SearchPage = React.createClass({
@@ -19,13 +28,14 @@ module.exports = SearchPage = React.createClass({
     query: PropTypes.object.isRequired
   },
   mixins: [
-    createStoreMixin( RepoSearchStore, RepoStore ),
+    createStoreMixin( ProjectStore, RepoStore ),
     PureRenderMixin
   ],
 
   getStateFromStores(props: mixed): mixed{
     return {
-      seeds: RepoStore.getAll()
+      projects: ProjectStore.getAll(),
+      projectsCount: ProjectStore.getProjectsCount()
     }
   },
 
@@ -48,21 +58,20 @@ module.exports = SearchPage = React.createClass({
 
   queryDidChange(props) {
     var query = this.parseQuery(props);
-    RepoActionCreators.requestRepoSearch(query);
+    ProjectActionCreators.requestProjects(query);
   },
 
+
   render(){
+    var {projects,projectsCount} = this.state;
     return (<div>
-      <ol className="breadcrumb">
-        <li>
+      <Breadcrumbs>
           <Link to='homePage'>
             Home
           </Link>
-        </li>
-        <li className="active">
           Civic Projects
-        </li>
-      </ol>
+      </Breadcrumbs>
+
       <div className='container' style={{marginTop: 20}}>
         <div className='row'>
           <div className='col-lg-3 text-center'>
@@ -71,7 +80,7 @@ module.exports = SearchPage = React.createClass({
           <div className='col-lg-9'>
 
             <SearchFieldComponent {...this.props}/>
-            <ResultListComponent/>
+            <ProjectListComponent projects={projects} total={projectsCount} />
 
           </div>
         </div>

@@ -7,7 +7,7 @@ var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
 var Holder = require("imports?this=>window!Holder/holder");
 var {Link} = require('react-router');
-
+  
 var HomePage;
 module.exports = HomePage = React.createClass({
   propTypes: {

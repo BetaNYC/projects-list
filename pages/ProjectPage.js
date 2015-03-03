@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var {PropTypes} = React;
 var RepoStore = require('stores/RepoStore');
+var Breadcrumbs = require('components/Breadcrumbs');
 var ContentByRepoStore = require('../stores/ContentByRepoStore');
 
 
@@ -65,28 +66,22 @@ module.exports = ProjectPage = React.createClass({
     return this.props.owner + '/' + this.props.repoName
   },
   render(){
+    console.log(this.state.readme);
     var {repo} = this.props;
     return <div>
-      <ol className="breadcrumb">
-        <li>
-          <Link to='homePage'>
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to='searchPage'>
-            Civic Projects
-          </Link>
-        </li>
-        <li>
-          <Link to='ownerPage' params={{owner: this.props.params.owner}}>
-            {this.props.params.owner}
-          </Link>
-        </li>
-        <li className="active">
-          {this.props.params.repoName}
-        </li>
-      </ol>
+      <Breadcrumbs>
+        <Link to='homePage'>
+          Home
+        </Link>
+        <Link to='searchPage'>
+          Civic Projects
+        </Link>
+        <Link to='ownerPage' params={{owner: this.props.params.owner}}>
+          {this.props.params.owner}
+        </Link>
+        {this.props.params.repoName}
+      </Breadcrumbs>
+
       <div className='text-center'>
         <img src={require('images/under_construction.svg')} width='40%'/>
       </div>

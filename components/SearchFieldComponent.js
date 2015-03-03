@@ -52,6 +52,7 @@ module.exports = SearchFieldComponent = React.createClass({
         onKeyDown={this.onKeyDown}
         ref='q'
         style={{borderRight: 'none', boxShadow: 'none'}}
+        autoComplete='off'
       />
       {clearBtn}
       <div className='input-group-addon'>

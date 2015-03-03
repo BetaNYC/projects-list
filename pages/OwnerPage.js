@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var {PropTypes} = React;
 var {Link} = require('react-router');
+var Breadcrumbs = require('components/Breadcrumbs');
 
 var OwnerPage;
 module.exports = OwnerPage = React.createClass({
@@ -11,24 +12,18 @@ module.exports = OwnerPage = React.createClass({
   mixins: [],
   render(){
     return <div>
-          <ol className="breadcrumb">
-            <li>
+            <Breadcrumbs>
               <Link to='homePage'>
                 Home
               </Link>
-            </li>
-            <li>
               <Link to='searchPage'>
                 Civic Projects
               </Link>
-            </li>
-            <li className="active">
               {this.props.params.owner}
-            </li>
-          </ol>
-          <div className='text-center'>
-            <img src={require('images/under_construction.svg')} width='40%'/>
+            </Breadcrumbs>
+            <div className='text-center'>
+              <img src={require('images/under_construction.svg')} width='40%'/>
+            </div>
           </div>
-        </div>
   }
 });

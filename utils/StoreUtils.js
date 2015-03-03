@@ -5,6 +5,7 @@ var { EventEmitter } = require('events'),
     forEach = require('lodash/collection/each'),
     isFunction = require('lodash/lang/isFunction'),
     shallowEqual = require('react/lib/shallowEqual'),
+    I = require('immutable'),
     CHANGE_EVENT = 'change';
 
 var StoreUtils = {
@@ -54,18 +55,7 @@ var StoreUtils = {
     if (!transform) {
       transform = (x) => x;
     }
-
-    for (var key in entities) {
-      if (!entities.hasOwnProperty(key)) {
-        continue;
-      }
-
-      if (!bag.hasOwnProperty(key)) {
-        bag[key] = transform(entities[key]);
-      } else if (!shallowEqual(bag[key], entities[key])) {
-        bag[key] = transform(assign({}, bag[key], entities[key]));
-      }
-    }
+    return I.fromJS(bag).mergeDeepWith(transform, I.fromJS(entities)).toJS();
   }
 };
 

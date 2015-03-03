@@ -38,6 +38,7 @@
     "file-loader": "^0.8.1",
     "imports-loader": "~0.6.3",
     "lodash": "~3.2.0",
+    "immutable": "^3.4.1",
     "flux": "*",
     "Holder": "imsky/holder",
     "moment": "~2.9.0",

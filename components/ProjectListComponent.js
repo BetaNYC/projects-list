@@ -1,59 +1,55 @@
 /* @flow */
-
 "use strict"
-
 var React = require('react/addons');
 var {PropTypes} = React;
-var RepoSearchStore = require('../stores/RepoSearchStore');
-var ContentByRepoStore = require('../stores/ContentByRepoStore');
-var ContentActionCreators = require('../actions/ContentActionCreators');
-var createStoreMixin = require('../mixins/createStoreMixin');
 var isEmpty = require('lodash/lang/isEmpty');
 var forEach = require('lodash/collection/forEach');
 var toArray = require('lodash/lang/toArray');
 var map = require('lodash/collection/map');
 var moment = require('moment');
-var README = '/README.md';
+
+// Stores
+var RepoStore = require('../stores/RepoStore');
+var UserStore = require('../stores/UserStore');
+// Mixins
+var createStoreMixin = require('../mixins/createStoreMixin');
+// Components
 var {Link} = require('react-router');
 
-var ResultListItemComponent = React.createClass({
+var ProjectListItemComponent = React.createClass({
   mixins: [
-    createStoreMixin(
-      RepoSearchStore,
-      ContentByRepoStore
-    )
+    createStoreMixin( RepoStore, UserStore )
   ],
-  componetDidMount(){
-    this.requestReadmeFile();
-  },
-  componetWillReceiveProps(nextProps){
-    this.requestReadmeFile();
-  },
-  requestReadmeFile(){
-    if(!ContentByRepoStore.getContent(this.props.fullName, README))
-      ContentActionCreators.requestRepoContent(this.props.fullName, README);
-  },
-  getStateFromStores(props){
+
+  getStateFromStores(props: mixed): mixed{
     return {
-      readme: ContentByRepoStore.getContent(props.fullName, README)
+      repo: RepoStore.get(this.props.githubDetails)
     }
   },
+
   render(){
-    var repo = this.props;
-    if(!repo){return null;}
-    // <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
+    var project = this.props;
+    if(!project){return null;}
+    if(!this.state.repo){return null;}
+    var {repo} = this.state;
+
+    var owner = UserStore.get(repo.owner);
+    var ownerLogin = owner.login;
+    var ownerHtmlUrl = owner.htmlUrl;
+    var ownerAvatarUrl = owner.avatarUrl;
+
     return <tr key={this.props.key} >
       <td colSpan={2} style={{position: 'relative'}}>
         <Link to='projectPage'
-          params={{owner: repo.owner.login, repoName: repo.name}}
+          params={{owner: ownerLogin, repoName: project.name}}
           style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%'}} />
 
         <h2>
-          <Link to='projectPage' params={{owner: repo.owner.login, repoName: repo.name}}>{repo.name}
+          <Link to='projectPage' params={{owner: ownerLogin, repoName: project.name}}>{project.name}
           </Link>
 
-          <a href={repo.owner.htmlUrl} title={repo.owner.login} className='pull-right'>
-            <img src={repo.owner.avatarUrl} width={50}/>
+          <a href={ownerHtmlUrl} title={ownerLogin} className='pull-right'>
+            <img src={ownerAvatarUrl} width={50}/>
           </a>
         </h2>
         <ul className='list-inline'>
@@ -63,8 +59,8 @@ var ResultListItemComponent = React.createClass({
           <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
         </ul>
 
-        <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
-        <p>{repo.description}</p>
+        <p><small>Last updated {moment(project.updatedAt).fromNow()}</small></p>
+        <p>{project.description}</p>
         <p>{this.props.readme}</p>
 
       </td>
@@ -72,34 +68,38 @@ var ResultListItemComponent = React.createClass({
   }
 })
 
-var ResultListComponent;
-module.exports = ResultListComponent = React.createClass({
-  mixins: [
-    createStoreMixin(RepoSearchStore)
-  ],
-  getStateFromStores(props: mixed): mixed{
-    return {
-      repos: toArray(RepoSearchStore.getAllRepos())
-    }
+var ProjectListComponent;
+module.exports = ProjectListComponent = React.createClass({
+
+  propTypes: {
+    projects: PropTypes.object.isRequired
   },
+
   render(): any {
+
+    var {projects} = this.props;
+    var {total} = this.props;
+
+    if(isEmpty(projects))
+      return null
+
     var tableHeader = <tr>
       <th style={{verticalAlign:'middle'}}>
-        {this.state.repos.length} projects found.
+        {total} projects found.
       </th>
       <th className='text-right' style={{verticalAlign:'middle', width: 165}}>
       </th>
     </tr>
-    // {isEmpty(this.state.repos) || <SortButton/>}
+    // {isEmpty(projects) || <SortButton/>}
 
     var tableBody = null;
-    if(isEmpty(this.state.repos)){
+    if(isEmpty(projects)){
       tableBody = <tr>
-        <td  colSpan={2} style={{height:100, verticalAlign:'middle'}} className='text-center'>No repos found</td>
+        <td  colSpan={2} style={{height:100, verticalAlign:'middle'}} className='text-center'>Nothing found</td>
       </tr>
     }else{
-      tableBody = map(this.state.repos, (repo,i)=> {
-        return <ResultListItemComponent {...repo} key={i} />;
+      tableBody = map(projects, (project,i)=> {
+        return <ProjectListItemComponent {...project} key={i} />;
       });
     }
 

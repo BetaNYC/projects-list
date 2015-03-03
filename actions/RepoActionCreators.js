@@ -7,8 +7,8 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
     invariant = require('react/lib/invariant'),
     {extractRepoNames} = require('../utils/StoreUtils'),
     {decodeField} = require('../utils/APIUtils'),
-    {handleRepoSearchSuccess, handleRepoSearchError} = require('actions/RepoServerActionCreators'),
-    {handleSeedReposError, handleSeedReposSuccess} = require('actions/RepoServerActionCreators');
+    {handleSeedReposError, handleSeedReposSuccess} = require('actions/RepoServerActionCreators'),
+    {handleRepoSearchError, handleRepoSearchSuccess} = require('actions/RepoServerActionCreators');
 
 const {
   REQUEST_REPO_SEARCH,
@@ -42,6 +42,23 @@ var RepoActionCreators = {
 
     AppDispatcher.handleViewAction({ type: REQUEST_SEEDS });
     GithubAPI.requestRepoNames({error: handleSeedReposError, success: handleSeedReposSuccess});
+  },
+
+  handleSeedReposSuccess(response) {
+
+    AppDispatcher.handleServerAction({
+      type: REQUEST_SEEDS_SUCCESS,
+      response
+    });
+
+  },
+
+  handleSeedReposError(err) {
+    console.log(err);
+
+    AppDispatcher.handleServerAction({
+      type: REQUEST_SEEDS_ERROR
+    });
   }
 };
 

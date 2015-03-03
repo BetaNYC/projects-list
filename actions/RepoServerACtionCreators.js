@@ -1,7 +1,6 @@
 'use strict';
 
-var AppDispatcher = require('dispatchers/AppDispatcher'),
-    GithubAPI = require('apis/GithubAPI');
+var AppDispatcher = require('dispatchers/AppDispatcher');
 
 const {
   REQUEST_SEEDS_SUCCESS,
