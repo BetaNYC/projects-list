@@ -10,6 +10,7 @@ var objectAssign  = require('object-assign'),
     {decodeField} = require('../utils/APIUtils');
 
 const {
+  REQUEST_PROJECT_SUCCESS,
   REQUEST_PROJECT_SEARCH_SUCCESS,
   REQUEST_PROJECT_PAGINATE_SUCCESS
 } = require('../constants/ActionTypes');
@@ -20,6 +21,7 @@ var _nextPageNum = 2;
 
 var ProjectStore = createStore({
   getAll(){return _projects},
+  getByName(name){return _projects.filter((project)=>{return project.name == name})},
   getProjectsCount(){return _projectsCount},
   getNextPageNum(){return _nextPageNum}
 });
@@ -53,6 +55,18 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
   }
 
   switch(action.type){
+    case REQUEST_PROJECT_SUCCESS:
+      if(projects){
+        let new_projects = result.map( (item)=> {return projects[item] });
+        _projects = new_projects;
+        _projectsCount = response.total;
+        announce = true;
+      }else{
+        _projects = [];
+        _projectsCount = 0;
+        announce = true;
+      }
+      break;
     case REQUEST_PROJECT_SEARCH_SUCCESS:
       if(projects){
         let new_projects = result.map( (item)=> {return projects[item] });

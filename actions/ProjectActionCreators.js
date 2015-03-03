@@ -8,6 +8,8 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
     {extractRepoNames} = require('../utils/StoreUtils'),
     {decodeField} = require('../utils/APIUtils'),
     {
+      handleProjectError,
+      handleProjectSuccess,
       handleProjectSearchError,
       handleProjectSearchSuccess,
       handleProjectPaginateSuccess,
@@ -15,13 +17,19 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
     } = require('actions/ProjectServerActionCreators');
 
 const {
+  REQUEST_PROJECT,
   REQUEST_PROJECT_SEARCH,
   REQUEST_PROJECT_PAGINATE
 } = require('constants/ActionTypes');
 
-var RepoActionCreators;
+var ProjectActionCreators;
 
-export default RepoActionCreators = {
+export default ProjectActionCreators = {
+  requestProject({name}){
+    AppDispatcher.handleViewAction({ type: REQUEST_PROJECT, name });
+
+    CfAPI.requestProject({name, success: handleProjectSuccess, error: handleProjectError });
+  },
   requestProjects({q,sort_by, sort_dir, category, page}){
     AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_SEARCH, q, sort_by, sort_dir, category, page });
 
@@ -29,7 +37,7 @@ export default RepoActionCreators = {
   },
   requestProjectsPaginate({q,sort_by, sort_dir, category, page}){
     AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_PAGINATE, q, sort_by, sort_dir, category, page });
-    
+
     CfAPI.requestProjects({q, sort_by, sort_dir, category, page, success: handleProjectPaginateSuccess, error: handleProjectPaginateError });
   }
 };

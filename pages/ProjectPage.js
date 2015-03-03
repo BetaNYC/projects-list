@@ -1,20 +1,33 @@
 var React = require('react/addons');
+var Holder = require("imports?this=>window!Holder/holder");
 var {PropTypes} = React;
+var moment = require('moment');
+
+// Helpers
+var isEqual = require('lodash/lang/isEqual');
+var README = '/README.md';
+
+// Stores
 var RepoStore = require('stores/RepoStore');
-var Breadcrumbs = require('components/Breadcrumbs');
+var ProjectStore = require('../stores/ProjectStore');
 var ContentByRepoStore = require('../stores/ContentByRepoStore');
 
-
+// Action creators
+var ProjectActionCreators = require('actions/ProjectActionCreators');
 var RepoActionCreators = require('actions/RepoActionCreators');
+
+// Mixins
 var createStoreMixin = require('mixins/createStoreMixin');
-var isEqual = require('lodash/lang/isEqual');
-var Holder = require("imports?this=>window!Holder/holder");
+
+// Components
 var {Link} = require('react-router');
-var README = '/README.md';
+var Breadcrumbs = require('components/Breadcrumbs');
+
 
 var ProjectPage;
 var ProjectHeading = React.createClass({
   render(){
+    var {repo} = this.props;
     return <div className='container'>
         <h2>
           <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
@@ -36,7 +49,8 @@ var ProjectHeading = React.createClass({
       </div>
   }
 });
-module.exports = ProjectPage = React.createClass({
+
+export default ProjectPage = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired
@@ -44,30 +58,31 @@ module.exports = ProjectPage = React.createClass({
   mixins: [
     createStoreMixin(
       RepoStore,
+      ProjectStore,
       ContentByRepoStore
     )
   ],
-  componetDidMount(){
+  componentDidMount(){
+    ProjectActionCreators.requestProject({name: this.props.params.repoName});
     this.requestReadmeFile();
   },
-  componetWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps){
     this.requestReadmeFile();
   },
   requestReadmeFile(){
-    if(!ContentByRepoStore.getContent(this.fullName(), README))
-      ContentActionCreators.requestRepoContent(this.fullName(), README);
+    // if(!ContentByRepoStore.getContent(this.fullName(), README))
+    //   ContentActionCreators.requestRepoContent(this.fullName(), README);
+    // readme: ContentByRepoStore.getContent(this.fullName(), README)
   },
   getStateFromStores(props){
     return {
-      readme: ContentByRepoStore.getContent(this.fullName(), README)
+      projects: ProjectStore.getByName(this.props.params.repoName)
     }
   },
-  fullName(){
-    return this.props.owner + '/' + this.props.repoName
-  },
   render(){
-    console.log(this.state.readme);
-    var {repo} = this.props;
+    var [project] = this.state.projects;
+    if(project)
+      var repo = RepoStore.get(project.githubDetails);
     return <div>
       <Breadcrumbs>
         <Link to='homePage'>
@@ -76,16 +91,16 @@ module.exports = ProjectPage = React.createClass({
         <Link to='searchPage'>
           Civic Projects
         </Link>
-        <Link to='ownerPage' params={{owner: this.props.params.owner}}>
-          {this.props.params.owner}
-        </Link>
         {this.props.params.repoName}
       </Breadcrumbs>
 
-      <div className='text-center'>
-        <img src={require('images/under_construction.svg')} width='40%'/>
-      </div>
-      {repo ? <ProjectHeading /> : null}
+
+      {project ? <ProjectHeading {...project} repo={repo} /> : null}
     </div>
   }
 });
+
+
+// <div className='text-center'>
+//   <img src={require('images/under_construction.svg')} width='40%'/>
+// </div>

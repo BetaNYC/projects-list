@@ -19,7 +19,6 @@ module.exports = (
   <Route name='app' path='/' handler={App}>
     <Route name='homePage' path='/'  handler={HomePage} />
     <Route name='searchPage' path='/search'  handler={SearchPage} />
-    <Route name='ownerPage' path='/project/:owner'  handler={OwnerPage} />
-    <Route name='projectPage' path='/project/:owner/:repoName'  handler={ProjectPage} />
+    <Route name='projectPage' path='/project/:repoName'  handler={ProjectPage} />
   </Route>
 );

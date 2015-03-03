@@ -23,6 +23,11 @@ projectSchema.define({
 })
 
 // Helper functions
+var normalizeProjectResponse = (response) => {
+  var {objects} = response.body;
+  return assign(normalize(camelizeKeys(objects), projectSchema));
+};
+
 var normalizeProjectArrayResponse = (response) => {
   var {objects, total, pages} = response.body;
   return assign(
@@ -38,6 +43,16 @@ var CfAPI = {
     request(API_ROOT + qs).query({q,sort_by,sort_dir, categories: category, per_page, page}).end((res)=> {
         var {ok} = res;
         if(!ok){ error({q, sort_by, sort_dir, category, page, err: res.text}); }
+        success(normalizeProjectArrayResponse(res));
+    });
+  },
+  requestProject({name, success, error}){
+    var qs = '/projects';
+
+    // This query might return multiple results occasionally since name is not a unique identifier.
+    request(API_ROOT + qs).query({name}).end((res)=> {
+        var {ok} = res;
+        if(!ok){ error({name, err: res.text}); }
         success(normalizeProjectArrayResponse(res));
     });
   }
