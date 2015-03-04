@@ -77,7 +77,7 @@ var ProjectListItemComponent = React.createClass({
           <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
         </ul>
 
-        <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
+        <p><small>Last updated {moment(repo.pushedAt).fromNow()}</small></p>
         <p>{repo.description}</p>
         <p>{this.props.readme}</p>
 

@@ -50,7 +50,7 @@ var ProjectHeading = React.createClass({
           <li title='open issues'>{repo.openIssues} <span className='octicon-issue-opened octicon'/></li>
         </ul>
 
-        <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
+        <p><small>Last updated {moment(repo.pushedAt).fromNow()}</small></p>
         <p className='lead'>{repo.description}</p>
         <hr/>
         <p>{this.props.readme}</p>
