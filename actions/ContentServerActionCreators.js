@@ -8,7 +8,9 @@ const {
 } = require('constants/ActionTypes');
 
 
-var ContentServerActionCreator = {
+var ContentServerActionCreator;
+  
+export default ContentServerActionCreator = {
 
   handleRepoContentSuccess(response) {
     AppDispatcher.handleServerAction({
@@ -26,5 +28,3 @@ var ContentServerActionCreator = {
   }
 }
 
-
-module.exports = ContentServerActionCreator;

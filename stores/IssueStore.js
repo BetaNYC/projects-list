@@ -2,6 +2,8 @@
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     { createStore, mergeIntoBag, isInBag } = require('utils/StoreUtils');
+var map = require('lodash/collection/map');
+var marked = require('marked');
 
 var _issues = {};
 
@@ -17,11 +19,21 @@ var IssueStore = createStore({
 
 IssueStore.dispatchToken = AppDispatcher.register(function (payload) {
   var {action} = payload || {},
-      {response} = action|| {},
+      {response} = action || {},
+      {result} = response || {},
       {entities} = response || {},
       {issues_CfAPI} = entities || {};
 
   if (issues_CfAPI) {
+
+    map(issues_CfAPI, (issue)=>{
+      if(issue.body){
+        issue.body = marked(issue.body);
+      }else{
+        issue.body = "<i class='text-muted'>No description provided.</i>";
+      }
+      return issue
+    })
     _issues = mergeIntoBag(_issues, issues_CfAPI);
     IssueStore.emitChange();
   }

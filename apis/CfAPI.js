@@ -17,7 +17,8 @@ var repoSchema  = new Schema('repos_CfAPI', { idAttribute: 'id' });
 var issueSchema  = new Schema('issues_CfAPI', { idAttribute: 'id' });
 var projectSchema  = new Schema('projects_CfAPI', { idAttribute: 'id' });
 projectSchema.define({
-  githubDetails: repoSchema
+  githubDetails: repoSchema,
+  issues: arrayOf(issueSchema)
 })
 repoSchema.define({
   owner: userSchema

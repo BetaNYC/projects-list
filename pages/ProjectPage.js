@@ -4,8 +4,9 @@ var {PropTypes} = React;
 var moment = require('moment');
 
 // Helpers
+var isEmpty = require('lodash/lang/isEmpty');
 var isEqual = require('lodash/lang/isEqual');
-var README = '/README.md';
+var README = 'README.md';
 
 // Stores
 var UserStore = require('stores/UserStore');
@@ -18,6 +19,7 @@ var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 var ProjectActionCreators = require('actions/ProjectActionCreators');
 var RepoActionCreators = require('actions/RepoActionCreators');
 var IssueActionCreators = require('actions/IssueActionCreators');
+var ContentActionCreators = require('actions/ContentActionCreators');
 
 // Mixins
 var createStoreMixin = require('mixins/createStoreMixin');
@@ -79,28 +81,40 @@ export default ProjectPage = React.createClass({
     var {repoName} = this.props.params;
     ProjectActionCreators.requestProject({name: repoName});
     IssueActionCreators.requestRepoIssues({repoName});
-    this.requestReadmeFile();
-  },
-  componentWillReceiveProps(nextProps){
-    this.requestReadmeFile();
-  },
-  requestReadmeFile(){
-    // if(!ContentByRepoStore.getContent(this.fullName(), README))
-    //   ContentActionCreators.requestRepoContent(this.fullName(), README);
-    // readme: ContentByRepoStore.getContent(this.fullName(), README)
+    ContentActionCreators.requestRepoContent({repoName, path: README});
   },
   getStateFromStores(props){
     var {repoName} = this.props.params;
     return {
-      projects: ProjectStore.getByName(repoName),
+      project: ProjectStore.getFirstByName(repoName),
       issues: IssuesByRepoStore.getIssuesByRepo(repoName)
     }
   },
+  getProjectRepo(project){
+    return RepoStore.get(project.githubDetails);
+  },
+  getRepoReadme(repo){
+    let {name,owner} = repo;
+    return ContentByRepoStore.getContent({repoName: name, owner: owner, path: README});
+  },
   render(){
-    var [project] = this.state.projects;
+    var {project} = this.state;
     var {issues} = this.state;
     if(project)
-      var repo = RepoStore.get(project.githubDetails);
+      var repo = this.getProjectRepo(project);
+    if(repo)
+      var readme = this.getRepoReadme(repo);
+    var {repoName} = this.props.params;
+    var cx = React.addons.classSet;
+    let tab = this.props.query.tab;
+    var readmeTabClasses = cx({active: !tab || tab == 'readme'});
+    var issueTabClasses = cx({active: tab == 'issues'});
+    var discussTabClasses = cx({active: tab == 'discussion', disabled: true});
+
+    let readmeSection = readme ? <div style={{overflow: 'hidden', paddingTop: 10}} dangerouslySetInnerHTML={{__html: readme}} /> : <div className='text-center' style={{paddingTop: 100}}>
+        <span className='fa fa-cog fa-3x fa-spin text-muted'/>
+      </div>;
+      
     return <div>
       <Breadcrumbs>
         <Link to='homePage'>
@@ -109,12 +123,49 @@ export default ProjectPage = React.createClass({
         <Link to='searchPage'>
           Civic Projects
         </Link>
-        {this.props.params.repoName}
+        {repoName}
       </Breadcrumbs>
       {project ? <ProjectHeading {...project} repo={repo} /> : null}
 
+
       <div className='container'>
-        <IssueListComponent issues={issues}/>
+        <ul className="nav nav-tabs">
+          <li role="presentation" className={readmeTabClasses}>
+            <Link to='projectPage' params={{repoName}} query={{tab:'readme'}}>
+              README
+            </Link>
+          </li>
+          <li role="presentation" className={issueTabClasses}>
+            <Link to='projectPage' params={{repoName}} query={{tab:'issues'}}>
+              Issues
+            </Link>
+          </li>
+          <li role="presentation" className={discussTabClasses}>
+            <a className='disabled'>Discussion</a>
+            <Link to='projectPage' params={{repoName}} query={{tab:'discussion'}} className='hide'>
+            </Link>
+          </li>
+          <li role="presentation" className={discussTabClasses}>
+            <a className='disabled'>Badges</a>
+          </li>
+          <li role="presentation" className={discussTabClasses}>
+            <a className='disabled'>Data</a>
+          </li>
+          <li role="presentation" className={discussTabClasses}>
+            <a className='disabled'>Related projects</a>
+          </li>
+        </ul>
+
+
+
+
+        {!tab || tab == 'readme' ? readmeSection : null}
+
+
+
+        {tab == 'issues' ? <IssueListComponent issues={issues}/> : null}
+
+
       </div>
 
     </div>

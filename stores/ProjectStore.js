@@ -7,6 +7,8 @@ var objectAssign  = require('object-assign'),
     {createStore,extractRepoNames, mergeIntoBag, isInBag} = require('../utils/StoreUtils'),
     values = require('lodash/object/values'),
     isEmpty = require('lodash/lang/isEmpty'),
+    findWhere = require('lodash/collection/findWhere'),
+    where = require('lodash/collection/where'),
     {decodeField} = require('../utils/APIUtils');
 
 const {
@@ -21,7 +23,8 @@ var _nextPageNum = 2;
 
 var ProjectStore = createStore({
   getAll(){return _projects},
-  getByName(name){return _projects.filter((project)=>{return project.name == name})},
+  getFirstByName(name){ return findWhere(_projects, {name}) },
+  getByName(name){return where(_projects, {name}) },
   getProjectsCount(){return _projectsCount},
   getNextPageNum(){return _nextPageNum}
 });

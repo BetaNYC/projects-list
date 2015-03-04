@@ -7,11 +7,15 @@ var objectAssign  = require('object-assign'),
     {decodeField} = require('../utils/APIUtils'),
     {createStore,extractRepoNames} = require('../utils/StoreUtils');
 
+var keys = require('lodash/object/keys');
+var marked = require('marked');
+
 var _repos = {};
 
 var ContentByRepoStore = createStore({
-  getContent(repoId: string, path: string): string {
-    return (_repos[repoId] && _repos[repoId][path]) || '';
+  getContent({repoName, owner, path}): string {
+    let fullName = owner + '/' + repoName;
+    return (_repos[fullName] && _repos[fullName][path]) || '';
   }
 });
 
@@ -21,12 +25,14 @@ ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
   let {action} = payload,
       {response} = action || {},
       {entities} = response || {},
-      {content} = entities || {};
+      {content_GithubAPI} = entities || {};
 
-  if (content) {
+  if (content_GithubAPI) {
     var res = {};
-    res[content.path] = decodeField(content.content, 'base64');
-    _repos[response.repoId] = res;
+    let [key] = keys(content_GithubAPI);
+    var entity = content_GithubAPI[key];
+    res[entity.path] = marked(decodeField(entity.content, 'base64'));
+    _repos[response.fullName] = res;
     ContentByRepoStore.emitChange();
   }
 });

@@ -9,7 +9,7 @@ var humps = require('humps'),
     assign = require('object-assign'),
     superagent = require('superagent');
 
-
+// Schemas
 var seeds       = new Schema('seeds', { idAttribute: 'id' });
 var repoSearch  = new Schema('repoSearch', { idAttribute: 'fullName' });
 var issue       = new Schema('issue', { idAttribute: 'id' });
@@ -59,6 +59,7 @@ var APIUtils = {
     };
   },
 
+  // TODO: remove the normalizers from utils. They belong in API.
   normalizeIssueResponse(response) {
     return assign(normalize(camelizeKeys(response.body), issue), APIUtils.extractPaginationFromHeader(response));
   },
