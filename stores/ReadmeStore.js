@@ -12,14 +12,14 @@ var marked = require('marked');
 
 var _repos = {};
 
-var ContentByRepoStore = createStore({
-  getContent({repoName, owner, path}): string {
+var ReadmeStore = createStore({
+  getReadme({repoName, owner}): string {
     let fullName = owner + '/' + repoName;
-    return (_repos[fullName] && _repos[fullName][path]) || '';
+    return _repos[fullName];
   }
 });
 
-ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
+ReadmeStore.dispatchToken = AppDispatcher.register((payload)=> {
   AppDispatcher.waitFor([RepoStore.dispatchToken]);
 
   let {action} = payload,
@@ -31,12 +31,12 @@ ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
     var res = {};
     let [key] = keys(content_GithubAPI);
     var entity = content_GithubAPI[key];
-    res[entity.path] = marked(decodeField(entity.content, 'base64'));
-    _repos[response.fullName] = res;
-    ContentByRepoStore.emitChange();
+    if(entity.content)
+      _repos[response.fullName] = marked(decodeField(entity.content, 'base64'));
+    ReadmeStore.emitChange();
   }
 });
 
 
 
-module.exports = ContentByRepoStore;
+module.exports = ReadmeStore;

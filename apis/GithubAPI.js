@@ -23,10 +23,10 @@ var normalizeRepoContentResponse = (response)=>{
 
 
 var GithubAPI = {
-  getRepoContentsAtPath({repoName, owner, path, error, success}){
+  getReadme({repoName, owner, error, success}){
     let fullName = owner + '/' + repoName;
-    if(!path){path='/readme'}
-    let q = '/repos/'+fullName+'/contents/' + path;
+    let path='readme';
+    let q = '/repos/'+fullName+'/' + path;
     request(API_ROOT + q).query(API_KEY).end((res)=> {
       if(!res.ok){ error(res.text); }
       let response = normalizeRepoContentResponse(res);

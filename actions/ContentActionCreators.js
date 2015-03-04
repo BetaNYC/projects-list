@@ -3,7 +3,7 @@
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     GithubAPI = require('apis/GithubAPI'),
     CfAPI = require('apis/CfAPI'),
-    ContentByRepoStore = require('stores/ContentByRepoStore'),
+    ReadmeStore = require('stores/ReadmeStore'),
     {handleRepoContentError, handleRepoContentSuccess} = require('actions/ContentServerActionCreators');
 
 var toArray = require('lodash/lang/toArray');
@@ -13,10 +13,10 @@ const {
 } = require('../constants/ActionTypes');
 
 var ContentActionCreators = {
-  requestRepoContent({repoName, path}){
+  requestRepoReadme({repoName}){
 
     // Do nothing if the content is already in the store
-    if(ContentByRepoStore.getContent(repoName,path)){ return; }
+    if(ReadmeStore.getReadme(repoName)){ return; }
 
     // TODO: get the project with the repoName
 
@@ -26,9 +26,9 @@ var ContentActionCreators = {
       if(repos_CfAPI){
         let [repo] = toArray(repos_CfAPI)
 
-        AppDispatcher.handleViewAction({ type: REQUEST_REPO_CONTENT, repoName, path });
+        AppDispatcher.handleViewAction({ type: REQUEST_REPO_CONTENT, repoName });
 
-        GithubAPI.getRepoContentsAtPath({repoName:repo.name, owner: repo.owner, path, error: handleRepoContentError, success: handleRepoContentSuccess});
+        GithubAPI.getReadme({repoName:repo.name, owner: repo.owner, error: handleRepoContentError, success: handleRepoContentSuccess});
       }
 
     }});

@@ -15,7 +15,7 @@ const {
 
 var IssuesByRepoStore
 export default IssuesByRepoStore = createIndexedListStore({
-  getIssuesByRepo(repoName) {
+  getIssues(repoName) {
     // console.log(this.getIds(repoName))
     return this.getIds(repoName).map(IssueStore.get);
   }
@@ -33,7 +33,7 @@ AppDispatcher.register(function (payload) {
   let {action} = payload || {},
       {response} = action || {},
       {repoName} = action || {};
-      
+
 
   if (repoName || (response && response.repoName)) {
     let _repoName = repoName || response.repoName;

@@ -20,7 +20,7 @@ var IssueActionCreators;
 export default IssueActionCreators = {
   requestRepoIssues({repoName, page}){
     // If we already have issues for this repo, do nothing in this request.
-    // if(IssuesByRepoStore.getIssuesByRepo(repoName).length != 0){
+    // if(IssuesByRepoStore.getIssues(repoName).length != 0){
     //   return;
     // }
 

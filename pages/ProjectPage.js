@@ -12,7 +12,7 @@ var README = 'README.md';
 var UserStore = require('stores/UserStore');
 var RepoStore = require('stores/RepoStore');
 var ProjectStore = require('../stores/ProjectStore');
-var ContentByRepoStore = require('../stores/ContentByRepoStore');
+var ReadmeStore = require('../stores/ReadmeStore');
 var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 
 // Action creators
@@ -73,7 +73,7 @@ export default ProjectPage = React.createClass({
     createStoreMixin(
       RepoStore,
       ProjectStore,
-      ContentByRepoStore,
+      ReadmeStore,
       IssuesByRepoStore
     )
   ],
@@ -81,13 +81,13 @@ export default ProjectPage = React.createClass({
     var {repoName} = this.props.params;
     ProjectActionCreators.requestProject({name: repoName});
     IssueActionCreators.requestRepoIssues({repoName});
-    ContentActionCreators.requestRepoContent({repoName, path: README});
+    ContentActionCreators.requestRepoReadme({repoName});
   },
   getStateFromStores(props){
     var {repoName} = this.props.params;
     return {
       project: ProjectStore.getFirstByName(repoName),
-      issues: IssuesByRepoStore.getIssuesByRepo(repoName)
+      issues: IssuesByRepoStore.getIssues(repoName)
     }
   },
   getProjectRepo(project){
@@ -95,7 +95,7 @@ export default ProjectPage = React.createClass({
   },
   getRepoReadme(repo){
     let {name,owner} = repo;
-    return ContentByRepoStore.getContent({repoName: name, owner: owner, path: README});
+    return ReadmeStore.getReadme({repoName: name, owner: owner, path: README});
   },
   render(){
     var {project} = this.state;
