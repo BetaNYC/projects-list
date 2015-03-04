@@ -34,7 +34,7 @@ export default IssueList = React.createClass({
 
     if(issues.length == 0){return null;}
 
-    return <div style={{overflow: 'hidden'}}>
+    return <div style={{overflow: 'hidden'}} id='issuesSection'>
         <table className='table table-condensed' >
           <tbody>
             {issues}

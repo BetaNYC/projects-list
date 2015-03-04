@@ -111,10 +111,10 @@ export default ProjectPage = React.createClass({
     var issueTabClasses = cx({active: tab == 'issues'});
     var discussTabClasses = cx({active: tab == 'discussion', disabled: true});
 
-    let readmeSection = readme ? <div style={{overflow: 'hidden', paddingTop: 10}} dangerouslySetInnerHTML={{__html: readme}} /> : <div className='text-center' style={{paddingTop: 100}}>
+    let readmeSection = readme ? <div id='readmeSection' dangerouslySetInnerHTML={{__html: readme}} /> : <div className='text-center' style={{paddingTop: 100}}>
         <span className='fa fa-cog fa-3x fa-spin text-muted'/>
       </div>;
-      
+
     return <div>
       <Breadcrumbs>
         <Link to='homePage'>
