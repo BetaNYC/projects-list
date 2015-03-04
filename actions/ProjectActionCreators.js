@@ -36,19 +36,9 @@ export default ProjectActionCreators = {
     }
   },
   requestProjects({q,sort_by, sort_dir, category, page}){
-    if(ProjectStore.getNextPageNum() > 2){
-      // Return instantly if the projects have been paginated.
-      ProjectStore.emitChange()
-    }else{
-      AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_SEARCH, q, sort_by, sort_dir, category, page });
+    AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_SEARCH, q, sort_by, sort_dir, category, page });
 
-      CfAPI.requestProjects({q, sort_by, sort_dir, category, page, success: handleProjectSearchSuccess, error: handleProjectSearchError });
-    }
-  },
-  requestProjectsPaginate({q,sort_by, sort_dir, category, page}){
-    AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_PAGINATE, q, sort_by, sort_dir, category, page });
-
-    CfAPI.requestProjects({q, sort_by, sort_dir, category, page, success: handleProjectPaginateSuccess, error: handleProjectPaginateError });
+    CfAPI.requestProjects({q, sort_by, sort_dir, category, page, success: handleProjectSearchSuccess, error: handleProjectSearchError });
   }
 };
 

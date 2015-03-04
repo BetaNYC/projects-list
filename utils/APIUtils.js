@@ -49,10 +49,10 @@ var APIUtils = {
 
     var nextLink = link.next;
     var lastLink = link.last;
-    if (!nextLink) {
-      return;
-    }
-
+    // if (!nextLink) {
+    //   return;
+    // }
+    
     return {
       nextPageUrl: nextLink,
       lastPageUrl: lastLink

@@ -104,6 +104,7 @@ module.exports = ProjectListComponent = React.createClass({
         {total} projects found.
       </th>
       <th className='text-right' style={{verticalAlign:'middle', width: 165}}>
+        page {this.props.query.page || 1} of {this.props.lastPage}
       </th>
     </tr>
     // {isEmpty(projects) || <SortButton/>}
