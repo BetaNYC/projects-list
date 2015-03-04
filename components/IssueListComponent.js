@@ -32,12 +32,12 @@ export default IssueList = React.createClass({
       </tr>
     });
 
-    if(issues.length == 0){return null;}
+
 
     return <div style={{overflow: 'hidden'}} id='issuesSection'>
         <table className='table table-condensed' >
           <tbody>
-            {issues}
+            {issues.length == 0 ? <div className='text-center text-muted'>No issues found</div> : issues}
           </tbody>
         </table>
     </div>
