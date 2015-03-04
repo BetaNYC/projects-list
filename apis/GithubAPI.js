@@ -6,7 +6,7 @@ var invariant = require('react/lib/invariant');
 
 
 var API_ROOT = 'https://api.github.com';
-var API_KEY = {token: '5029595087e21aaf90b56772b151e57ab6c68f01'};
+var API_KEY = {token: '234e7011ae7c3b56ed79d13cb34059f86f36576c'};
 
 var {
   request,
