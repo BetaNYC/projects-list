@@ -5,7 +5,6 @@ var React = require('react/addons'),
     App = require('./App'),
     HomePage = require('pages/HomePage'),
     ProjectPage = require('pages/ProjectPage'),
-    OwnerPage = require('pages/OwnerPage'),
     SearchPage = require('pages/SearchPage');
 
 if (__PRERELEASE__) {

@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var {PropTypes} = React;
-var RepoSearchStore = require('stores/RepoSearchStore');
 var RepoStore = require('stores/RepoStore');
 var RepoActionCreators = require('actions/RepoActionCreators');
 var createStoreMixin = require('mixins/createStoreMixin');
@@ -15,7 +14,7 @@ module.exports = HomePage = React.createClass({
     query: PropTypes.object.isRequired
   },
   mixins: [
-    createStoreMixin( RepoSearchStore, RepoStore )
+    createStoreMixin( RepoStore )
   ],
 
   getStateFromStores(props: mixed): mixed{

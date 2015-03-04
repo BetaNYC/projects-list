@@ -3,7 +3,7 @@
 var React = require('react/addons');
 var objectAssign  = require('object-assign'),
     AppDispatcher = require('../dispatchers/AppDispatcher'),
-    RepoSearchStore = require('../stores/RepoSearchStore'),
+    RepoStore = require('../stores/RepoStore'),
     {decodeField} = require('../utils/APIUtils'),
     {createStore,extractRepoNames} = require('../utils/StoreUtils');
 
@@ -16,7 +16,7 @@ var ContentByRepoStore = createStore({
 });
 
 ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
-  AppDispatcher.waitFor([RepoSearchStore.dispatchToken]);
+  AppDispatcher.waitFor([RepoStore.dispatchToken]);
 
   let {action} = payload,
       {response} = action || {},

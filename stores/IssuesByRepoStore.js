@@ -2,7 +2,7 @@
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
-    RepoSearchStore = require('stores/RepoSearchStore'),
+    RepoStore = require('stores/RepoStore'),
     IssueStore = require('../stores/IssueStore'),
     { createIndexedListStore, createListActionHandler } = require('utils/PaginatedStoreUtils');
 
@@ -25,7 +25,7 @@ var handleListAction = createListActionHandler({
 });
 
 AppDispatcher.register(function (payload) {
-  AppDispatcher.waitFor([RepoSearchStore.dispatchToken]);
+  AppDispatcher.waitFor([RepoStore.dispatchToken]);
 
   let {action} = payload || {},
       {fullName} = action || {};
