@@ -8,6 +8,7 @@ var isEqual = require('lodash/lang/isEqual');
 var README = '/README.md';
 
 // Stores
+var UserStore = require('stores/UserStore');
 var RepoStore = require('stores/RepoStore');
 var ProjectStore = require('../stores/ProjectStore');
 var ContentByRepoStore = require('../stores/ContentByRepoStore');
@@ -28,13 +29,20 @@ var ProjectPage;
 var ProjectHeading = React.createClass({
   render(){
     var {repo} = this.props;
+
+    var owner = UserStore.get(repo.owner);
+    var ownerLogin = owner.login;
+    var ownerHtmlUrl = owner.htmlUrl;
+    var ownerAvatarUrl = owner.avatarUrl;
+
     return <div className='container'>
-        <h2>
-          <a href={repo.htmlUrl} target="_blank">{repo.name}</a>
-          <a href={repo.owner.htmlUrl} title={repo.owner.login} className='pull-right'>
-            <img src={repo.owner.avatarUrl} width={50}/>
+        <h1>
+          <a href={repo.htmlUrl} target="_blank">{repo.name} <span className='mega-octicon octicon-mark-github' /></a>
+          <a href={owner.htmlUrl} title={owner.login} className='pull-right'>
+            <img src={owner.avatarUrl} width={150} className='img-thumbnail'/>
+
           </a>
-        </h2>
+        </h1>
         <ul className='list-inline'>
           <li title='stargazers'>{repo.stargazersCount} <span className='octicon-star octicon'/></li>
           <li title='watchers'>{repo.watchersCount} <span className='octicon-eye-watch octicon'/></li>
@@ -43,7 +51,8 @@ var ProjectHeading = React.createClass({
         </ul>
 
         <p><small>Last updated {moment(repo.updatedAt).fromNow()}</small></p>
-        <p>{repo.description}</p>
+        <p className='lead'>{repo.description}</p>
+        <hr/>
         <p>{this.props.readme}</p>
 
       </div>

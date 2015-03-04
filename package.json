@@ -47,7 +47,8 @@
     "eventemitter3": "~0.1.6",
     "object-assign": "2.0.0",
     "url-loader": "^0.5.5",
-    "zeptojs": "~1.1.4"
+    "zeptojs": "~1.1.4",
+    "marked": "~0.3.3"
   },
   "dependencies": {
   },
