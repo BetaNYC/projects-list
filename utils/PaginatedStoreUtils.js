@@ -11,10 +11,8 @@ var PROXIED_PAGINATED_LIST_METHODS = [
   'isExpectingPage', 'isLastPage'
 ];
 
-function createListStoreSpec({ getList, callListMethod }) {
-  var spec = {
-    getList: getList
-  };
+export function createListStoreSpec({ getList, callListMethod }) {
+  var spec = {getList};
 
   PROXIED_PAGINATED_LIST_METHODS.forEach(method => {
     spec[method] = function (...args) {
@@ -28,7 +26,7 @@ function createListStoreSpec({ getList, callListMethod }) {
 /**
  * Creates a simple paginated store that represents a global list (e.g. feed).
  */
-function createListStore(spec) {
+export function createListStore(spec) {
   var list = new PaginatedList();
 
   function getList() {
@@ -40,10 +38,7 @@ function createListStore(spec) {
   }
 
   return createStore(
-    assign(createListStoreSpec({
-      getList: getList,
-      callListMethod: callListMethod
-    }), spec)
+    assign(createListStoreSpec({ getList, callListMethod }), spec)
   );
 }
 
@@ -52,13 +47,12 @@ function createListStore(spec) {
  * (e.g. user's posts). Expects foreign key ID to be passed as first parameter
  * to store methods.
  */
-function createIndexedListStore(spec) {
+export function createIndexedListStore(spec) {
   var lists = {},
       prefix = 'ID_';
 
   function getList(id) {
     var key = prefix + id;
-
     if (!lists[key]) {
       lists[key] = new PaginatedList();
     }
@@ -77,17 +71,14 @@ function createIndexedListStore(spec) {
   }
 
   return createStore(
-    assign(createListStoreSpec({
-      getList: getList,
-      callListMethod: callListMethod
-    }), spec)
+    assign(createListStoreSpec({ getList, callListMethod }), spec)
   );
 }
 
 /**
  * Creates a handler that responds to list store pagination actions.
  */
-function createListActionHandler(actions) {
+export function createListActionHandler(actions) {
   var {
     request: requestAction,
     error: errorAction,
@@ -120,11 +111,3 @@ function createListActionHandler(actions) {
     }
   };
 }
-
-var PaginatedStoreUtils = {
-  createListStore: createListStore,
-  createIndexedListStore: createIndexedListStore,
-  createListActionHandler: createListActionHandler
-};
-
-module.exports = PaginatedStoreUtils;

@@ -10,8 +10,7 @@ const {
 var IssueServerActionCreators = {
   handleIssuesSuccess(response) {
     AppDispatcher.handleServerAction({
-      type: REQUEST_ISSUES_SUCCESS,
-      response
+      type: REQUEST_ISSUES_SUCCESS, response
     });
   },
 

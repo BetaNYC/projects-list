@@ -12,10 +12,12 @@ var UserStore = require('stores/UserStore');
 var RepoStore = require('stores/RepoStore');
 var ProjectStore = require('../stores/ProjectStore');
 var ContentByRepoStore = require('../stores/ContentByRepoStore');
+var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 
 // Action creators
 var ProjectActionCreators = require('actions/ProjectActionCreators');
 var RepoActionCreators = require('actions/RepoActionCreators');
+var IssueActionCreators = require('actions/IssueActionCreators');
 
 // Mixins
 var createStoreMixin = require('mixins/createStoreMixin');
@@ -23,6 +25,7 @@ var createStoreMixin = require('mixins/createStoreMixin');
 // Components
 var {Link} = require('react-router');
 var Breadcrumbs = require('components/Breadcrumbs');
+var IssueListComponent = require('components/IssueListComponent');
 
 
 var ProjectPage;
@@ -68,11 +71,14 @@ export default ProjectPage = React.createClass({
     createStoreMixin(
       RepoStore,
       ProjectStore,
-      ContentByRepoStore
+      ContentByRepoStore,
+      IssuesByRepoStore
     )
   ],
   componentDidMount(){
-    ProjectActionCreators.requestProject({name: this.props.params.repoName});
+    var {repoName} = this.props.params;
+    ProjectActionCreators.requestProject({name: repoName});
+    IssueActionCreators.requestRepoIssues({repoName});
     this.requestReadmeFile();
   },
   componentWillReceiveProps(nextProps){
@@ -84,12 +90,15 @@ export default ProjectPage = React.createClass({
     // readme: ContentByRepoStore.getContent(this.fullName(), README)
   },
   getStateFromStores(props){
+    var {repoName} = this.props.params;
     return {
-      projects: ProjectStore.getByName(this.props.params.repoName)
+      projects: ProjectStore.getByName(repoName),
+      issues: IssuesByRepoStore.getIssuesByRepo(repoName)
     }
   },
   render(){
     var [project] = this.state.projects;
+    var {issues} = this.state;
     if(project)
       var repo = RepoStore.get(project.githubDetails);
     return <div>
@@ -102,9 +111,12 @@ export default ProjectPage = React.createClass({
         </Link>
         {this.props.params.repoName}
       </Breadcrumbs>
-
-
       {project ? <ProjectHeading {...project} repo={repo} /> : null}
+
+      <div className='container'>
+        <IssueListComponent issues={issues}/>
+      </div>
+
     </div>
   }
 });

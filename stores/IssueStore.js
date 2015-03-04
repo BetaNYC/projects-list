@@ -6,23 +6,23 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
 var _issues = {};
 
 var IssueStore = createStore({
-  contains(fullName, fields) {
-    return isInBag(_issues, fullName, fields);
+  contains(id, fields) {
+    return isInBag(_issues, id, fields);
   },
 
-  get(fullName) {
-    return _issues[fullName];
+  get(id) {
+    return _issues[id];
   }
 });
 
 IssueStore.dispatchToken = AppDispatcher.register(function (payload) {
-  var action = payload.action,
-      response = action.response,
-      entities = response && response.entities,
-      fetchedIssues = entities && entities.issues;
+  var {action} = payload || {},
+      {response} = action|| {},
+      {entities} = response || {},
+      {issues_CfAPI} = entities || {};
 
-  if (fetchedIssues) {
-    mergeIntoBag(_issues, fetchedIssues);
+  if (issues_CfAPI) {
+    _issues = mergeIntoBag(_issues, issues_CfAPI);
     IssueStore.emitChange();
   }
 });

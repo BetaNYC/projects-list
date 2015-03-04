@@ -26,7 +26,7 @@ ContentByRepoStore.dispatchToken = AppDispatcher.register((payload)=> {
   if (content) {
     var res = {};
     res[content.path] = decodeField(content.content, 'base64');
-    _repos[response.fullName] = res;
+    _repos[response.repoId] = res;
     ContentByRepoStore.emitChange();
   }
 });

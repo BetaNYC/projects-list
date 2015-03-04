@@ -1,25 +1,31 @@
 'use strict';
 
 var AppDispatcher = require('dispatchers/AppDispatcher'),
-    GithubAPI = require('apis/GithubAPI');
+    CfAPI = require('apis/CfAPI');
+
+// Stores
+var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 
 const {
-  REQUEST_REPO_ISSUES
+  REQUEST_ISSUES
 } = require('../constants/ActionTypes');
 
-var IssueActionCreators = {
-  requestRepoIssues(fullName){
-    if(IssuesByRepoStore.getIssuesByRepo(fullName).length == 0){
-      return;
-    }
+var {
+  handleIssuesError,
+  handleIssuesSuccess,
+} = require('actions/IssueServerActionCreators');
 
-    AppDispatcher.handleViewAction({
-      type: REQUEST_REPO_ISSUES,
-      fullName: fullName
-    });
 
-    GithubAPI.getIssues(fullName);
+var IssueActionCreators;
+export default IssueActionCreators = {
+  requestRepoIssues({repoName, page}){
+    // If we already have issues for this repo, do nothing in this request.
+    // if(IssuesByRepoStore.getIssuesByRepo(repoName).length != 0){
+    //   return;
+    // }
+
+    AppDispatcher.handleViewAction({type: REQUEST_ISSUES, repoName});
+    // GithubAPI.getIssues(repoName);
+    CfAPI.requestIssues({repoName, page, success: handleIssuesSuccess, error: handleIssuesError});
   }
 }
-
-module.exports = IssueActionCreators;

@@ -4,35 +4,40 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
     ActionTypes = require('constants/ActionTypes'),
     RepoStore = require('stores/RepoStore'),
     IssueStore = require('../stores/IssueStore'),
+    IssuesByRepoStore = require('../stores/IssuesByRepoStore'),
     { createIndexedListStore, createListActionHandler } = require('utils/PaginatedStoreUtils');
 
 const {
-  REQUEST_REPO_CONTENT,
-  REQUEST_REPO_CONTENT_SUCCESS,
-  REQUEST_REPO_CONTENT_ERROR
+  REQUEST_ISSUES,
+  REQUEST_ISSUES_SUCCESS,
+  REQUEST_ISSUES_ERROR
 } = ActionTypes;
 
-var IssuesByRepoStore = createIndexedListStore({
-  getIssuesByRepo(repoFullName) {
-    return this.getIds(repoFullName).map(IssueStore.get);
+var IssuesByRepoStore
+export default IssuesByRepoStore = createIndexedListStore({
+  getIssuesByRepo(repoName) {
+    // console.log(this.getIds(repoName))
+    return this.getIds(repoName).map(IssueStore.get);
   }
 });
 
 var handleListAction = createListActionHandler({
-  request: REQUEST_REPO_CONTENT,
-  success: REQUEST_REPO_CONTENT_SUCCESS,
-  error:   REQUEST_REPO_CONTENT_ERROR,
+  request: REQUEST_ISSUES,
+  success: REQUEST_ISSUES_SUCCESS,
+  error:   REQUEST_ISSUES_ERROR,
 });
 
 AppDispatcher.register(function (payload) {
   AppDispatcher.waitFor([RepoStore.dispatchToken]);
 
   let {action} = payload || {},
-      {fullName} = action || {};
+      {response} = action || {},
+      {repoName} = action || {};
+      
 
-  if (fullName) {
-    handleListAction( action, IssuesByRepoStore.getList(fullName), IssuesByRepoStore.emitChange );
+  if (repoName || (response && response.repoName)) {
+    let _repoName = repoName || response.repoName;
+    handleListAction( action, IssuesByRepoStore.getList(_repoName), IssuesByRepoStore.emitChange );
   }
 });
 
-module.exports = IssuesByRepoStore;
