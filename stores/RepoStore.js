@@ -26,7 +26,7 @@ RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
   let {action} = payload,
       {response} = action || {},
       {entities} = response || {},
-      {repos} = entities || {},
+      {repos_CfAPI} = entities || {},
       {repo} = entities || {};
 
 
@@ -34,8 +34,8 @@ RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
     // Decode the content && parse the field to extract the repo names as an array
     // _repoNames = extractRepoNames(decodeField(repo[0].content, 'base64'));
   }
-  if (repos) {
-    _repos = mergeIntoBag(_repos,repos);
+  if (repos_CfAPI) {
+    _repos = mergeIntoBag(_repos,repos_CfAPI);
     RepoStore.emitChange();
   }
 });

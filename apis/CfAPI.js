@@ -12,12 +12,12 @@ var {
 var API_ROOT = 'http://betanyc-api.herokuapp.com/api';
 
 // Schema
-var userSchema  = new Schema('users', { idAttribute: 'login' });
-var repoSchema  = new Schema('repos', { idAttribute: 'id' });
+var userSchema  = new Schema('users_CfAPI', { idAttribute: 'login' });
+var repoSchema  = new Schema('repos_CfAPI', { idAttribute: 'id' });
 repoSchema.define({
   owner: userSchema
 })
-var projectSchema  = new Schema('projects', { idAttribute: 'id' });
+var projectSchema  = new Schema('projects_CfAPI', { idAttribute: 'id' });
 projectSchema.define({
   githubDetails: repoSchema
 })

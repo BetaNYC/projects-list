@@ -1,6 +1,6 @@
-var Navigation, React, RepoSearchStore, SearchFieldComponent, createStoreMixin, assign;
+var Navigation, React, RepoStore, SearchFieldComponent, createStoreMixin, assign;
 React = require('react/addons');
-RepoSearchStore = require('stores/RepoSearchStore');
+RepoStore = require('stores/RepoStore');
 createStoreMixin = require('mixins/createStoreMixin');
 Navigation = require('react-router').Navigation;
 assign = require('object-assign');
@@ -8,7 +8,7 @@ var clone = require('lodash/lang/clone');
 
 module.exports = SearchFieldComponent = React.createClass({
   mixins: [
-    createStoreMixin(RepoSearchStore),
+    createStoreMixin(RepoStore),
     Navigation
   ],
   getStateFromStores(props) {

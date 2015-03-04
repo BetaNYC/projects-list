@@ -34,7 +34,7 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
       {nextPageUrl} = response || {},
       {result} = response || [],
       {project} = entities || {},
-      {projects} = entities || [];
+      {projects_CfAPI} = entities || [];
 
   let announce = false;
 
@@ -56,8 +56,8 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
 
   switch(action.type){
     case REQUEST_PROJECT_SUCCESS:
-      if(projects){
-        let new_projects = result.map( (item)=> {return projects[item] });
+      if(projects_CfAPI){
+        let new_projects = result.map( (item)=> {return projects_CfAPI[item] });
         _projects = new_projects;
         _projectsCount = response.total;
         announce = true;
@@ -68,8 +68,8 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
       }
       break;
     case REQUEST_PROJECT_SEARCH_SUCCESS:
-      if(projects){
-        let new_projects = result.map( (item)=> {return projects[item] });
+      if(projects_CfAPI){
+        let new_projects = result.map( (item)=> {return projects_CfAPI[item] });
         _projects = new_projects;
         _projectsCount = response.total;
         announce = true;
@@ -80,8 +80,8 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
       }
       break;
     case REQUEST_PROJECT_PAGINATE_SUCCESS:
-      if(projects){
-        let new_projects = result.map( (item)=> {return projects[item] });
+      if(projects_CfAPI){
+        let new_projects = result.map( (item)=> {return projects_CfAPI[item] });
         _projects = _projects.concat(new_projects);
         announce = true;
       }

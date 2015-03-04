@@ -22,15 +22,15 @@ UserStore.dispatchToken = AppDispatcher.register((payload)=> {
       {response} = action || {},
       {entities} = response || {},
       {user} = entities || {},
-      {users} = entities || [];
+      {users_CfAPI} = entities || [];
 
 
   if (!isEmpty(user)) {
     _users = mergeIntoBag(_users, user);
     UserStore.emitChange();
   }
-  if (!isEmpty(users)) {
-    _users = mergeIntoBag(_users, users);
+  if (!isEmpty(users_CfAPI)) {
+    _users = mergeIntoBag(_users, users_CfAPI);
     UserStore.emitChange();
   }
 });
