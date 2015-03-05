@@ -13,6 +13,7 @@ var definePlugin = new webpack.DefinePlugin({
 var plugins = [ definePlugin ];
 var entries = ['./index'];
 var serverBase = "http://localhost:4000";
+
 if('true' === isPrerelease){
   // Minimize all javascript output of chunks. Loaders are switched into minimizing mode. You can pass an object containing UglifyJs options.
   var uglifyPlugin = webpack.optimize.UglifyJsPlugin;
@@ -25,6 +26,7 @@ if('true' === isPrerelease){
       }
     })
   );
+
   var CompressionPlugin = require("compression-webpack-plugin");
   plugins.push(
     new CompressionPlugin({
@@ -48,6 +50,7 @@ if('true' === isPrerelease){
   ]);
 }
 
+  
 module.exports = {
   devtool: 'eval',
   entry: entries,
