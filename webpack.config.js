@@ -13,7 +13,7 @@ var definePlugin = new webpack.DefinePlugin({
 var plugins = [ definePlugin ];
 var entries = ['./index'];
 var serverBase = "http://localhost:4000";
-if(isPrerelease){
+if('true' === isPrerelease){
   // Minimize all javascript output of chunks. Loaders are switched into minimizing mode. You can pass an object containing UglifyJs options.
   var uglifyPlugin = webpack.optimize.UglifyJsPlugin;
   plugins.push(

@@ -3,27 +3,27 @@
 var AppDispatcher = require('dispatchers/AppDispatcher');
 
 const {
-  REQUEST_REPO_CONTENT_SUCCESS,
-  REQUEST_REPO_CONTENT_ERROR
+  REQUEST_REPO_README_SUCCESS,
+  REQUEST_REPO_README_ERROR
 } = require('constants/ActionTypes');
 
 
 var ContentServerActionCreator;
-  
+
 export default ContentServerActionCreator = {
 
-  handleRepoContentSuccess(response) {
+  handleRepoReadmeSuccess(response) {
     AppDispatcher.handleServerAction({
-      type: REQUEST_REPO_CONTENT_SUCCESS,
+      type: REQUEST_REPO_README_SUCCESS,
       response
     });
   },
 
-  handleRepoContentError(err) {
+  handleRepoReadmeError(err) {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: REQUEST_REPO_CONTENT_ERROR
+      type: REQUEST_REPO_README_ERROR
     });
   }
 }

@@ -8,6 +8,7 @@ var objectAssign  = require('object-assign'),
     { createIndexedListStore, createListActionHandler } = require('utils/PaginatedStoreUtils'),
     values = require('lodash/object/values'),
     isEmpty = require('lodash/lang/isEmpty'),
+    toArray = require('lodash/lang/toArray'),
     findWhere = require('lodash/collection/findWhere'),
     where = require('lodash/collection/where'),
     {decodeField} = require('../utils/APIUtils');
@@ -75,13 +76,14 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
     //   action,
     //   ProjectStore.getList(query), ProjectStore.emitChange
     // );
-    let new_projects = result.map( (item)=> {return projects_CfAPI[item] });
+    let new_projects;
+    if(toArray(projects_CfAPI).length > 1){
+      new_projects = result.map( (item)=> {return projects_CfAPI[item] });
+    }else{
+      new_projects = projects_CfAPI;
+    }
     _projects = new_projects;
     _projectsCount = response.total;
-    announce = true;
-  }else{
-    _projects = [];
-    _projectsCount = 0;
     announce = true;
   }
 
