@@ -19,10 +19,14 @@ if('true' === isPrerelease){
   var uglifyPlugin = webpack.optimize.UglifyJsPlugin;
   plugins.push(
     new uglifyPlugin({
+      comments: false,
       compress: {
         warnings: false,
         drop_console: true,
         dead_code: true
+      },
+      mangle: {
+        reserved: '$,require,exports,L,d3,webpackJsonp'
       }
     })
   );
@@ -50,7 +54,7 @@ if('true' === isPrerelease){
   ]);
 }
 
-  
+
 module.exports = {
   devtool: 'eval',
   entry: entries,
