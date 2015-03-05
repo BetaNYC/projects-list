@@ -114,7 +114,6 @@ export default ProjectPage = React.createClass({
         <span className='fa fa-cog fa-3x fa-spin text-muted'/>
       </div>;
 
-    console.log(repo)
     return <div>
       <Breadcrumbs>
         <Link to='homePage'>

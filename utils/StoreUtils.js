@@ -4,15 +4,10 @@ var { EventEmitter } = require('events'),
     assign = require('object-assign'),
     forEach = require('lodash/collection/each'),
     isFunction = require('lodash/lang/isFunction'),
-    shallowEqual = require('react/lib/shallowEqual'),
     I = require('immutable'),
     CHANGE_EVENT = 'change';
 
 var StoreUtils = {
-  extractRepoNames(content){
-    // Magic REPO file parser.
-    return content && content.split('-beta-\n')[1].split('\n');
-  },
   createStore(spec) {
     var store = assign({
       emitChange() {

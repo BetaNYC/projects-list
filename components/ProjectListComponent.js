@@ -18,15 +18,6 @@ var createStoreMixin = require('../mixins/createStoreMixin');
 var {Link} = require('react-router');
 
 var ProjectListItemComponent = React.createClass({
-  mixins: [
-    createStoreMixin( RepoStore, UserStore )
-  ],
-
-  getStateFromStores(props: mixed): mixed{
-    return {
-    }
-  },
-
   componentDidUpdate(){
     this.highlightText()
   },
@@ -107,8 +98,7 @@ module.exports = ProjectListComponent = React.createClass({
         page {this.props.query.page || 1} of {this.props.lastPage}
       </th>
     </tr>
-    // {isEmpty(projects) || <SortButton/>}
-
+    
     var tableBody = null;
     if(isEmpty(projects)){
       tableBody = <tr>

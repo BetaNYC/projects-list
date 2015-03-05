@@ -16,7 +16,7 @@ var ContentActionCreators = {
   requestRepoReadme({repoName}){
 
     // Do nothing if the content is already in the store
-    if(ReadmeStore.getReadme(repoName)){ return; }
+    if(ReadmeStore.getReadme({repoName})){ return; }
 
     // TODO: get the project with the repoName
 

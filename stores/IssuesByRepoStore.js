@@ -16,7 +16,6 @@ const {
 var IssuesByRepoStore
 export default IssuesByRepoStore = createIndexedListStore({
   getIssues(repoName) {
-    // console.log(this.getIds(repoName))
     return this.getIds(repoName).map(IssueStore.get);
   }
 });

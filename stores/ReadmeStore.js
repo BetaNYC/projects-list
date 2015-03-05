@@ -10,6 +10,10 @@ var objectAssign  = require('object-assign'),
 var keys = require('lodash/object/keys');
 var marked = require('marked');
 
+const {
+  REQUEST_REPO_README_ERROR
+} = require('constants/ActionTypes');
+
 var _repos = {};
 
 var ReadmeStore = createStore({
@@ -24,8 +28,15 @@ ReadmeStore.dispatchToken = AppDispatcher.register((payload)=> {
 
   let {action} = payload,
       {response} = action || {},
+      {err} = action || {},
       {entities} = response || {},
       {content_GithubAPI} = entities || {};
+
+
+  if(err){
+    // _repos[response.fullName] = null;
+    ReadmeStore.emitChange();
+  }
 
   if (content_GithubAPI) {
     var res = {};

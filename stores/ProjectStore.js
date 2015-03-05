@@ -15,8 +15,7 @@ var objectAssign  = require('object-assign'),
 
 const {
   REQUEST_PROJECT_SUCCESS,
-  REQUEST_PROJECT_SEARCH_SUCCESS,
-  REQUEST_PROJECT_PAGINATE_SUCCESS
+  REQUEST_PROJECT_SEARCH_SUCCESS
 } = require('../constants/ActionTypes');
 
 var _projects: Array<mixed> = [];
@@ -71,6 +70,7 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
     // _lastPageNum = null;
   }
 
+
   if(projects_CfAPI){
     // handleListAction(
     //   action,
@@ -85,6 +85,12 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
     _projects = new_projects;
     _projectsCount = response.total;
     announce = true;
+  }else{
+    if(action.type === REQUEST_PROJECT_SEARCH_SUCCESS){
+      _projects = [];
+      _projectsCount = 0;
+      announce = true;
+    }
   }
 
   if(announce)

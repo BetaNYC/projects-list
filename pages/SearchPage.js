@@ -29,8 +29,12 @@ module.exports = SearchPage = React.createClass({
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired
   },
+
   mixins: [
-    createStoreMixin( ProjectStore, RepoStore ),
+    createStoreMixin(
+      ProjectStore,
+      RepoStore
+    ),
     PureRenderMixin,
     Navigation
   ],
@@ -63,6 +67,7 @@ module.exports = SearchPage = React.createClass({
   queryDidChange(props) {
     var query = this.parseQuery(props);
     ProjectActionCreators.requestProjects(query);
+    window.scrollTo(0,0);
   },
 
   requestNextPage(){
@@ -77,7 +82,6 @@ module.exports = SearchPage = React.createClass({
 
   render(){
     var {projects,projectsCount,nextPageNum} = this.state;
-
     return (<div>
       <Breadcrumbs>
           <Link to='homePage'>

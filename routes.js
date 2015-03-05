@@ -7,7 +7,7 @@ var React = require('react/addons'),
     ProjectPage = require('pages/ProjectPage'),
     SearchPage = require('pages/SearchPage');
 
-if (__PRERELEASE__) {
+if (!__PRERELEASE__) {
   // Clear the browser console.
   console.clear();
 }

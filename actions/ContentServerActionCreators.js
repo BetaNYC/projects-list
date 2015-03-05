@@ -23,7 +23,7 @@ export default ContentServerActionCreator = {
     console.log(err);
 
     AppDispatcher.handleServerAction({
-      type: REQUEST_REPO_README_ERROR
+      type: REQUEST_REPO_README_ERROR, err
     });
   }
 }

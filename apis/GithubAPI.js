@@ -28,12 +28,15 @@ var GithubAPI = {
     let path='readme';
     let q = '/repos/'+fullName+'/' + path;
     request(API_ROOT + q).query(API_KEY).end((res)=> {
-      if(!res.ok){ error(res.text); }
+      if(!res.ok){
+        error(res.text);
+        return;
+      }
       let response = normalizeRepoContentResponse(res);
       // Add the fullName to the response to make it findable.
       response.fullName = fullName;
       success(response);
-    })
+    }).catch(error);
   }
 };
 
