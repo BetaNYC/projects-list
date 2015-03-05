@@ -10,9 +10,11 @@ var IssueListHeader = React.createClass({
   }
 });
 
-var IssueList;
-export default IssueList = React.createClass({
-
+var IssueListComponent;
+export default IssueListComponent = React.createClass({
+  propTypes: {
+    repo: React.PropTypes.object
+  },
   render(){
     var issues = map(this.props.issues, (issue,i) => {
       issue.labels.map(label => {return <span className='label' style={{backgroundColor: issue.color}}>{label.name}</span> });
@@ -32,12 +34,19 @@ export default IssueList = React.createClass({
       </tr>
     });
 
+    var {repo} = this.props;
+    console.log(repo && repo.htmlUrl)
 
+    if(repo)
+      var {htmlUrl} = repo.htmlUrl;
 
     return <div style={{overflow: 'hidden'}} id='issuesSection'>
+        <div className='well well-sm'>
+          <a className='btn btn-primary' href={repo && repo.htmlUrl + '/issues/new'} target="_blank">Create issue</a>
+        </div>
         <table className='table table-condensed' >
           <tbody>
-            {issues.length == 0 ? <div className='text-center text-muted'>No issues found</div> : issues}
+            {issues.length == 0 ? <tr className='text-center text-muted'><td style={{paddingTop: 40}}>No issues found</td></tr> : issues}
           </tbody>
         </table>
     </div>

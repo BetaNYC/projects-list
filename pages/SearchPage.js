@@ -11,7 +11,6 @@ var ProjectStore = require('stores/ProjectStore');
 var RepoStore = require('stores/RepoStore');
 // Actionc reators
 var ProjectActionCreators = require('actions/ProjectActionCreators');
-var RepoActionCreators = require('actions/RepoActionCreators');
 // Components
 var ProjectListComponent = require('components/ProjectListComponent');
 var SearchFieldComponent = require('components/SearchFieldComponent');

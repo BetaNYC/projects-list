@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var {PropTypes} = React;
 var RepoStore = require('stores/RepoStore');
-var RepoActionCreators = require('actions/RepoActionCreators');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
 var Holder = require("imports?this=>window!Holder/holder");
@@ -24,7 +23,6 @@ module.exports = HomePage = React.createClass({
 
   componentDidMount() {
     Holder.run()
-    RepoActionCreators.requestRepoNames();
     this.queryDidChange(this.props);
   },
 
@@ -42,7 +40,6 @@ module.exports = HomePage = React.createClass({
 
   queryDidChange(props) {
     var query = this.parseQuery(props);
-    RepoActionCreators.requestRepoSearch(query);
   },
 
   render(){
@@ -54,7 +51,7 @@ module.exports = HomePage = React.createClass({
             <div className='col-lg-8'>
               <h1 style={{textTransform: 'uppercase'}}> Civic Tech Project Finder </h1>
               <p>
-                Simply add a <a href="http://codefordc.org/resources/builder.html" target='_blank'>civic.json</a> file to your Github repo, and <a href='https://github.com/BetaNYC/betanyc-project-repos/edit/master/REPOS' target='_blank'>open a pull request</a> to add your project to this list.
+                Simply send us <a href="mailto: spocksplanet@gmail.com" target='_blank'>an email</a> to add your project to this list.
               </p>
               <p>
                 Want to help out? Check out the collections below.

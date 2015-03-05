@@ -17,7 +17,6 @@ var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
 
 // Action creators
 var ProjectActionCreators = require('actions/ProjectActionCreators');
-var RepoActionCreators = require('actions/RepoActionCreators');
 var IssueActionCreators = require('actions/IssueActionCreators');
 var ContentActionCreators = require('actions/ContentActionCreators');
 
@@ -115,7 +114,7 @@ export default ProjectPage = React.createClass({
         <span className='fa fa-cog fa-3x fa-spin text-muted'/>
       </div>;
 
-    console.log(project)
+    console.log(repo)
     return <div>
       <Breadcrumbs>
         <Link to='homePage'>
@@ -164,7 +163,7 @@ export default ProjectPage = React.createClass({
 
 
 
-        {tab == 'issues' ? <IssueListComponent issues={issues}/> : null}
+        {tab == 'issues' ? <IssueListComponent issues={issues} repo={repo} /> : null}
 
 
       </div>
