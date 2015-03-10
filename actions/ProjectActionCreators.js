@@ -27,7 +27,7 @@ var ProjectActionCreators;
 
 export default ProjectActionCreators = {
   requestProject({name}){
-    if(ProjectStore.getByName(name).length != 0){
+    if(ProjectStore.get({name}).length != 0){
       // Return instantly if the project is available locally.
       ProjectStore.emitChange();
     }else{

@@ -85,7 +85,7 @@ export default ProjectPage = React.createClass({
   getStateFromStores(props){
     var {repoName} = this.props.params;
     return {
-      project: ProjectStore.getFirstByName(repoName),
+      project: ProjectStore.getFirst(repoName),
       issues: IssuesByRepoStore.getIssues(repoName)
     }
   },
@@ -111,7 +111,7 @@ export default ProjectPage = React.createClass({
     var discussTabClasses = cx({active: tab == 'discussion', disabled: true});
 
     let readmeSection = readme ? <div id='readmeSection' dangerouslySetInnerHTML={{__html: readme}} /> : <div className='text-center' style={{paddingTop: 100}}>
-        <span className='fa fa-cog fa-3x fa-spin text-muted'/>
+        <span className='fa fa-circle-o-notch fa-3x fa-spin text-muted'/>
       </div>;
 
     return <div>
@@ -154,24 +154,10 @@ export default ProjectPage = React.createClass({
             <a className='disabled'>Related projects</a>
           </li>
         </ul>
-
-
-
-
         {!tab || tab == 'readme' ? readmeSection : null}
-
-
-
         {tab == 'issues' ? <IssueListComponent issues={issues} repo={repo} /> : null}
-
-
       </div>
 
     </div>
   }
 });
-
-
-// <div className='text-center'>
-//   <img src={require('images/under_construction.svg')} width='40%'/>
-// </div>

@@ -1,6 +1,6 @@
-var Navigation, React, RepoStore, SearchFieldComponent, createStoreMixin, assign;
+var Navigation, React, ProjectStore, SearchFieldComponent, createStoreMixin, assign;
 React = require('react/addons');
-RepoStore = require('stores/RepoStore');
+ProjectStore = require('stores/ProjectStore');
 createStoreMixin = require('mixins/createStoreMixin');
 Navigation = require('react-router').Navigation;
 assign = require('object-assign');
@@ -8,12 +8,12 @@ var clone = require('lodash/lang/clone');
 
 module.exports = SearchFieldComponent = React.createClass({
   mixins: [
-    createStoreMixin(RepoStore),
+    createStoreMixin(ProjectStore),
     Navigation
   ],
+
   getStateFromStores(props) {
     return {
-      repos: []
     };
   },
   onChange(e) {
@@ -23,7 +23,9 @@ module.exports = SearchFieldComponent = React.createClass({
     this.transitionTo("searchPage", {}, query);
   },
   onKeyDown(e) {
-    // Instant search FTW!
+    // if(e.which == 13){
+    //   this.runQuery({q: e.target.value});
+    // }
   },
   clearQuery(){
     this.runQuery({});
@@ -39,7 +41,6 @@ module.exports = SearchFieldComponent = React.createClass({
           <span className='fa fa-times'/>
         </a>;
     }
-
 
     return <div className='input-group' style={{paddingBottom:10}}>
       <input

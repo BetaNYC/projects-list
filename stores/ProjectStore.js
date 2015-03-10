@@ -1,100 +1,72 @@
 /* @flow */
 "use strict"
 var React = require('react/addons');
-var Qs = require('qs');
-var objectAssign  = require('object-assign'),
+var _ = require('lodash');
+var moment = require('moment');
+var RepoStore = require('stores/RepoStore');
+var assign  = require('object-assign'),
     AppDispatcher = require('../dispatchers/AppDispatcher'),
     {extractRepoNames, mergeIntoBag, isInBag} = require('../utils/StoreUtils'),
-    { createIndexedListStore, createListActionHandler } = require('utils/PaginatedStoreUtils'),
-    values = require('lodash/object/values'),
-    isEmpty = require('lodash/lang/isEmpty'),
-    toArray = require('lodash/lang/toArray'),
-    findWhere = require('lodash/collection/findWhere'),
-    where = require('lodash/collection/where'),
-    {decodeField} = require('../utils/APIUtils');
+    { createListStore, createListActionHandler } = require('utils/PaginatedStoreUtils');
 
 const {
   REQUEST_PROJECT_SUCCESS,
-  REQUEST_PROJECT_SEARCH_SUCCESS
+  REQUEST_PROJECT_SEARCH,
+  REQUEST_PROJECT_SEARCH_SUCCESS,
+  REQUEST_PROJECT_SEARCH_ERROR
 } = require('../constants/ActionTypes');
 
-var _projects: Array<mixed> = [];
-var _projectsCount: number = 0;
-var _nextPageNum = 2;
+var _projects: mixed = {};
 var _lastPageNum = null;
 
-var ProjectStore = createIndexedListStore({
-  getAll(){return _projects},
-  getFirstByName(name){ return findWhere(_projects, {name}) },
-  getByName(name){return where(_projects, {name}) },
-  getProjectsCount(){return _projectsCount},
-  getNextPageNum(){return _nextPageNum},
-  getLastPageNum(){return _lastPageNum}
+const PER_PAGE = 10;
+var offset = PER_PAGE
+
+var ProjectStore = createListStore({
+  getAll(page=1){
+    let offset = (page - 1) * PER_PAGE;
+    let total = ProjectStore.getList().getTotal();
+    let lastResult = ProjectStore.getList().getLastResult();
+    let filterFn = _.identity;
+    if(total < PER_PAGE)
+      filterFn = (item)=>{return lastResult.indexOf(item.name) != -1 }
+    return _.chain(_projects).values().sortBy((item)=>{
+      // Sort the projects by the last update of their repo
+      let repo = RepoStore.get(item.githubDetails);
+      let lastUpdated = Date.parse(repo.pushedAt)/1000;
+      return lastUpdated
+    }).reverse().filter(filterFn).value().slice(offset,PER_PAGE*page);
+   },
+   getFirst(name){
+    return _.chain(_projects).findWhere({name}).value()
+   },
+   get(props){
+    return _.chain(_projects).where(props).value()
+   }
 });
+
+var handleListAction = createListActionHandler({request: REQUEST_PROJECT_SEARCH, success: REQUEST_PROJECT_SEARCH_SUCCESS, error: REQUEST_PROJECT_SEARCH_ERROR});
+
 
 ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
 
   let {action} = payload,
       {response} = action || {},
       {entities} = response || {},
-      {nextPageUrl} = response || {},
-      {lastPageUrl} = response || {},
       {result} = response || [],
       {project} = entities || {},
       {projects_CfAPI} = entities || [];
 
-  let announce = false;
-
-  if (!isEmpty(project)) {
-    _projects = mergeIntoBag(_projects, project);
-    announce = true;
-  }
-
-  if(nextPageUrl){
-    // see: https://gist.github.com/jlong/2428561
-    let parser = document.createElement('a');
-    parser.href = nextPageUrl;
-    let {page} = Qs.parse(parser.search.slice(1));
-    _nextPageNum = page;
-  }else{
-    _nextPageNum = null;
-  }
-
-  if(lastPageUrl){
-    // see: https://gist.github.com/jlong/2428561
-    let parser = document.createElement('a');
-    parser.href = lastPageUrl;
-    let {page} = Qs.parse(parser.search.slice(1));
-    _lastPageNum = page;
-  }else{
-    // _lastPageNum = null;
-  }
-
 
   if(projects_CfAPI){
-    // handleListAction(
-    //   action,
-    //   ProjectStore.getList(query), ProjectStore.emitChange
-    // );
-    let new_projects;
-    if(toArray(projects_CfAPI).length > 1){
-      new_projects = result.map( (item)=> {return projects_CfAPI[item] });
-    }else{
-      new_projects = projects_CfAPI;
-    }
-    _projects = new_projects;
-    _projectsCount = response.total;
-    announce = true;
-  }else{
-    if(action.type === REQUEST_PROJECT_SEARCH_SUCCESS){
-      _projects = [];
-      _projectsCount = 0;
-      announce = true;
-    }
+    _projects = mergeIntoBag(_projects, projects_CfAPI);
   }
 
-  if(announce)
-    ProjectStore.emitChange();
+  handleListAction(action, ProjectStore.getList(), ProjectStore.emitChange);
+
+
+
+
 });
 
 

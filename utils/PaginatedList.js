@@ -7,8 +7,11 @@ var union = require('lodash/array/union'),
 class PaginatedList {
   constructor(ids) {
     this._ids = ids || [];
+    this._lastResult = ids || [];
     this._pageCount = 0;
+    this._total = 0;
     this._nextPageUrl = null;
+    this._lastPageUrl = null;
     this._isExpectingPage = false;
   }
 
@@ -16,8 +19,16 @@ class PaginatedList {
     return this._ids;
   }
 
+  getLastResult() {
+    return this._lastResult;
+  }
+
   getPageCount() {
     return this._pageCount;
+  }
+
+  getTotal(){
+    return this._total;
   }
 
   isExpectingPage() {
@@ -50,15 +61,18 @@ class PaginatedList {
     this._isExpectingPage = false;
   }
 
-  receivePage(newIds, nextPageUrl) {
+  receivePage({newIds, nextPageUrl, lastPageUrl, total}) {
     invariant(this._isExpectingPage, 'Cannot call receivePage without prior expectPage call.');
 
     if (newIds.length) {
       this._ids = union(this._ids, newIds);
     }
 
+    this._lastResult = newIds;
+    this._total = total;
     this._isExpectingPage = false;
     this._nextPageUrl = nextPageUrl || null;
+    this._lastPageUrl = lastPageUrl || null;
     this._pageCount++;
   }
 }

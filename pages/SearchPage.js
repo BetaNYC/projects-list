@@ -40,11 +40,11 @@ module.exports = SearchPage = React.createClass({
   ],
 
   getStateFromStores(props: mixed): mixed{
+    let pageCount = this.props.query.page || 1;
     return {
-      projects: ProjectStore.getAll(),
-      projectsCount: ProjectStore.getProjectsCount(),
-      nextPageNum: ProjectStore.getNextPageNum(),
-      lastPageNum: ProjectStore.getLastPageNum()
+      projects: ProjectStore.getAll(pageCount),
+      projectsCount: ProjectStore.getList().getTotal(),
+      pageCount, nextPageUrl: ProjectStore.getNextPageUrl()
     }
   },
 
@@ -72,16 +72,16 @@ module.exports = SearchPage = React.createClass({
 
   requestNextPage(){
     let query = this.params || {};
-    let {nextPageNum} = this.state;
-    if(nextPageNum){
-      query = assign(query||{}, {page: ProjectStore.getNextPageNum()});
-      // TODO: disable interaction when the request is being made
+    let {nextPageUrl, pageCount} = this.state;
+    if(nextPageUrl){
+      query = assign(query||{}, {page: ++pageCount});
       this.transitionTo('searchPage', {}, query);
     }
   },
 
   render(){
-    var {projects,projectsCount,nextPageNum} = this.state;
+    var {projects,projectsCount,nextPageUrl} = this.state;
+    let isFetching = ProjectStore.isExpectingPage();
     return (<div>
       <Breadcrumbs>
           <Link to='homePage'>
@@ -98,9 +98,10 @@ module.exports = SearchPage = React.createClass({
           <div className='col-lg-9'>
 
             <SearchFieldComponent {...this.props}/>
-            <ProjectListComponent projects={projects} total={projectsCount} query={this.props.query} lastPage={this.state.lastPageNum || this.props.query.page || 1} />
 
-            {(projectsCount > 0 && nextPageNum) ? <a className='btn btn-block btn-primary' onClick={this.requestNextPage} style={{marginBottom: 40}}>Next page</a> : null}
+            {isFetching ? <div><span className='fa fa-1x fa-circle-o-notch text-muted fa-spin'/></div> : <ProjectListComponent projects={projects} total={projectsCount} query={this.props.query} lastPage={this.state.lastPageNum || this.props.query.page || 1} /> }
+
+            {(projectsCount > 0 && nextPageUrl && !isFetching) ? <a className='btn btn-block btn-primary' onClick={this.requestNextPage} style={{marginBottom: 40}}>Next page</a> : null}
           </div>
         </div>
       </div>

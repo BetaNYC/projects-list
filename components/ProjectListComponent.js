@@ -2,10 +2,7 @@
 "use strict"
 var React = require('react/addons');
 var {PropTypes} = React;
-var isEmpty = require('lodash/lang/isEmpty');
-var forEach = require('lodash/collection/forEach');
-var toArray = require('lodash/lang/toArray');
-var map = require('lodash/collection/map');
+var _ = require('lodash');
 var moment = require('moment');
 require('blast-text');
 
@@ -88,31 +85,31 @@ module.exports = ProjectListComponent = React.createClass({
 
     var {projects} = this.props;
     var {total} = this.props;
-
+    let isEmpty = _.isEmpty(projects);
 
     var tableHeader = <tr>
       <th style={{verticalAlign:'middle'}}>
         {total} projects found.
       </th>
       <th className='text-right' style={{verticalAlign:'middle', width: 165}}>
-        page {this.props.query.page || 1} of {this.props.lastPage}
+        page {this.props.query.page || 1}
       </th>
     </tr>
-    
+
     var tableBody = null;
-    if(isEmpty(projects)){
+    if(isEmpty){
       tableBody = <tr>
         <td  colSpan={2} style={{height:100, verticalAlign:'middle'}} className='text-center'>Nothing found</td>
       </tr>
     }else{
-      tableBody = map(projects, (project,i)=> {
+      tableBody = _.map(projects, (project,i)=> {
         return <ProjectListItemComponent {...project} query={this.props.query} key={i} />;
       });
     }
 
     return <table className='table table-condensed' >
       <tbody>
-        {tableHeader}
+        {isEmpty ? null : tableHeader}
         {tableBody}
       </tbody>
     </table>

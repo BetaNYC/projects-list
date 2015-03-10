@@ -92,6 +92,9 @@ export function createListActionHandler(actions) {
   return function (action, list, emitChange) {
     switch (action.type) {
     case requestAction:
+      if(list.isExpectingPage())
+        list.cancelPage()
+
       list.expectPage();
       emitChange();
       break;
@@ -102,10 +105,10 @@ export function createListActionHandler(actions) {
       break;
 
     case successAction:
-      list.receivePage(
-        action.response.result,
-        action.response.nextPageUrl
-      );
+      let {result,nextPageUrl,total,lastPageUrl} = action.response;
+      list.receivePage({
+        newIds: result, nextPageUrl, total, lastPageUrl
+      });
       emitChange();
       break;
     }
