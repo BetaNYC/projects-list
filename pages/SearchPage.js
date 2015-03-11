@@ -8,6 +8,7 @@ var assign = require('object-assign');
 
 // Stores
 var ProjectStore = require('stores/ProjectStore');
+var SearchByProjectStore = require('stores/SearchByProjectStore');
 var RepoStore = require('stores/RepoStore');
 // Actionc reators
 var ProjectActionCreators = require('actions/ProjectActionCreators');
@@ -33,7 +34,8 @@ module.exports = SearchPage = React.createClass({
   mixins: [
     createStoreMixin(
       ProjectStore,
-      RepoStore
+      RepoStore,
+      SearchByProjectStore
     ),
     PureRenderMixin,
     Navigation
@@ -42,9 +44,10 @@ module.exports = SearchPage = React.createClass({
   getStateFromStores(props: mixed): mixed{
     let pageCount = this.props.query.page || 1;
     return {
-      projects: ProjectStore.getAll(pageCount),
+      projects: SearchByProjectStore.getAll(),
       projectsCount: ProjectStore.getList().getTotal(),
-      pageCount, nextPageUrl: ProjectStore.getNextPageUrl()
+      pageCount,
+      nextPageUrl: ProjectStore.getNextPageUrl()
     }
   },
 

@@ -85,7 +85,7 @@ module.exports = ProjectPage = React.createClass({
   getStateFromStores(props){
     var {repoName} = this.props.params;
     return {
-      project: ProjectStore.getFirst(repoName),
+      project: ProjectStore.getFirst({name: repoName}),
       issues: IssuesByRepoStore.getIssues(repoName)
     }
   },

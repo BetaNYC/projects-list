@@ -29,20 +29,19 @@ issueSchema.define({
 
 // Helper functions
 var normalizeProjectResponse = (response) => {
-  var {objects} = response.body;
-  return assign(normalize(camelizeKeys(objects), projectSchema));
+  return assign(normalize(camelizeKeys(response.body), projectSchema));
 };
 
 var normalizeProjectArrayResponse = (response) => {
   var {objects, total, pages} = response.body;
   return assign(
-    normalize(camelizeKeys(objects), arrayOf(projectSchema)), extractPaginationFromBody(response), {total: total});
+    normalize(camelizeKeys(objects), arrayOf(projectSchema)), extractPaginationFromBody(response), {total});
 };
 
 var normalizeIssuesArrayResponse = (response) => {
   var {objects, total, pages} = response.body;
   return assign(
-    normalize(camelizeKeys(objects), arrayOf(issueSchema)), extractPaginationFromBody(response), {total: total});
+    normalize(camelizeKeys(objects), arrayOf(issueSchema)), extractPaginationFromBody(response), {total});
 };
 
 // Main

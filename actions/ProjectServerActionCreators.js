@@ -4,11 +4,7 @@ var AppDispatcher = require('dispatchers/AppDispatcher');
 
 const {
   REQUEST_PROJECT_SUCCESS,
-  REQUEST_PROJECT_ERROR,
-  REQUEST_PROJECT_SEARCH_SUCCESS,
-  REQUEST_PROJECT_SEARCH_ERROR,
-  REQUEST_PROJECT_PAGINATE_SUCCESS,
-  REQUEST_PROJECT_PAGINATE_ERROR
+  REQUEST_PROJECT_ERROR
 } = require('constants/ActionTypes');
 
 var RepoServerActionCreators = {
@@ -24,36 +20,6 @@ var RepoServerActionCreators = {
 
     AppDispatcher.handleServerAction({
       type: REQUEST_PROJECT_ERROR
-    });
-  },
-
-  handleProjectSearchSuccess(response) {
-    AppDispatcher.handleServerAction({
-      type: REQUEST_PROJECT_SEARCH_SUCCESS,
-      response
-    });
-  },
-
-  handleProjectSearchError(...err) {
-    console.log(err);
-
-    AppDispatcher.handleServerAction({
-      type: REQUEST_PROJECT_SEARCH_ERROR
-    });
-  },
-
-  handleProjectPaginateSuccess(response) {
-    AppDispatcher.handleServerAction({
-      type: REQUEST_PROJECT_PAGINATE_SUCCESS,
-      response
-    });
-  },
-
-  handleProjectPaginateError(...err) {
-    console.log(err);
-
-    AppDispatcher.handleServerAction({
-      type: REQUEST_PROJECT_PAGINATE_ERROR
     });
   }
 

@@ -9,18 +9,12 @@ var AppDispatcher = require('dispatchers/AppDispatcher'),
     {extractRepoNames} = require('../utils/StoreUtils'),
     {decodeField} = require('../utils/APIUtils'),
     {
-      handleProjectError,
-      handleProjectSuccess,
-      handleProjectSearchError,
-      handleProjectSearchSuccess,
-      handleProjectPaginateSuccess,
-      handleProjectPaginateError
+      handleProjectError: error,
+      handleProjectSuccess: success
     } = require('actions/ProjectServerActionCreators');
 
 const {
-  REQUEST_PROJECT,
-  REQUEST_PROJECT_SEARCH,
-  REQUEST_PROJECT_PAGINATE
+  REQUEST_PROJECT
 } = require('constants/ActionTypes');
 
 var ProjectActionCreators;
@@ -32,13 +26,20 @@ module.exports = ProjectActionCreators = {
       ProjectStore.emitChange();
     }else{
       AppDispatcher.handleViewAction({ type: REQUEST_PROJECT, name });
-      CfAPI.requestProject({name, success: handleProjectSuccess, error: handleProjectError });
+
+      CfAPI.requestProject({ name, success, error });
     }
   },
-  requestProjects({q,sort_by, sort_dir, category, page}){
-    AppDispatcher.handleViewAction({ type: REQUEST_PROJECT_SEARCH, q, sort_by, sort_dir, category, page });
+  requestProjects({q, sort_by, sort_dir, category, page}){
 
-    CfAPI.requestProjects({q, sort_by, sort_dir, category, page, success: handleProjectSearchSuccess, error: handleProjectSearchError });
+    AppDispatcher.handleViewAction({
+      type: REQUEST_PROJECT,
+      q, sort_by, sort_dir, category, page
+    });
+
+    CfAPI.requestProjects({
+      q, sort_by, sort_dir, category, page, success, error
+    });
   }
 };
 

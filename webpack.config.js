@@ -54,7 +54,7 @@ if('true' === isPrerelease){
     'webpack/hot/only-dev-server'
   ]);
 }
-  
+
 module.exports = {
   devtool: 'eval',
   entry: entries,
@@ -74,7 +74,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['react-hot','babel?experimental','jsx?harmony&stripTypes&target=es6'],
+        loaders: ['react-hot','babel?experimental','jsx?harmony&stripTypes&target=es6&es6Module'],
         exclude: /(node_modules|bootstrap(-sass)?\.config.*)/
       },
 
