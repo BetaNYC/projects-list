@@ -28,6 +28,7 @@
     "react-router": "^0.12.0",
     "humps": "0.0.1",
     "normalizr": "^0.1.2",
+    "uglify-js": "~2.4.16",
     "react-document-title": "^1.0.0",
     "font-awesome": "4.2.0",
     "font-awesome-webpack": "~0.0.2",

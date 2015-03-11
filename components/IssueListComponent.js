@@ -1,6 +1,11 @@
 var React = require('react/addons');
 var map = require('lodash/collection/map');
 
+
+// Stores
+var IssuesByRepoStore = require('../stores/IssuesByRepoStore');
+
+
 var IssueListHeader = React.createClass({
   render(){
     return <tr className='text-muted'>
@@ -16,6 +21,9 @@ export default IssueListComponent = React.createClass({
     repo: React.PropTypes.object
   },
   render(){
+    let {name} = this.props.repo  || {};
+    let fetchingIssues = name ? IssuesByRepoStore.isExpectingPage(name) : false;
+
     var issues = map(this.props.issues, (issue,i) => {
       issue.labels.map(label => {return <span className='label' style={{backgroundColor: issue.color}}>{label.name}</span> });
       let labelsSection;
@@ -35,8 +43,7 @@ export default IssueListComponent = React.createClass({
     });
 
     var {repo} = this.props;
-    console.log(repo && repo.htmlUrl)
-
+    
     if(repo)
       var {htmlUrl} = repo.htmlUrl;
 
@@ -46,7 +53,9 @@ export default IssueListComponent = React.createClass({
         </div>
         <table className='table table-condensed' >
           <tbody>
-            {issues.length == 0 ? <tr className='text-center text-muted'><td style={{paddingTop: 40}}>No issues found</td></tr> : issues}
+            {fetchingIssues ? <div className='text-center' style={{paddingTop: 100}}>
+        <span className='fa fa-circle-o-notch fa-3x fa-spin text-muted'/>
+      </div> : (issues.length == 0 ? <tr className='text-center text-muted'><td style={{paddingTop: 40}}>No issues found</td></tr> : issues) }
           </tbody>
         </table>
     </div>

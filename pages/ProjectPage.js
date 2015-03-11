@@ -114,6 +114,7 @@ export default ProjectPage = React.createClass({
         <span className='fa fa-circle-o-notch fa-3x fa-spin text-muted'/>
       </div>;
 
+
     return <div>
       <Breadcrumbs>
         <Link to='homePage'>
