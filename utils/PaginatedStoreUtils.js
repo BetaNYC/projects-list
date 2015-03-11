@@ -11,7 +11,7 @@ var PROXIED_PAGINATED_LIST_METHODS = [
   'isExpectingPage', 'isLastPage'
 ];
 
-export function createListStoreSpec({ getList, callListMethod }) {
+module.exports.createListStoreSpec =  function({ getList, callListMethod }) {
   var spec = {getList};
 
   PROXIED_PAGINATED_LIST_METHODS.forEach(method => {
@@ -26,7 +26,7 @@ export function createListStoreSpec({ getList, callListMethod }) {
 /**
  * Creates a simple paginated store that represents a global list (e.g. feed).
  */
-export function createListStore(spec) {
+ module.exports.createListStore = function(spec) {
   var list = new PaginatedList();
 
   function getList() {
@@ -47,7 +47,7 @@ export function createListStore(spec) {
  * (e.g. user's posts). Expects foreign key ID to be passed as first parameter
  * to store methods.
  */
-export function createIndexedListStore(spec) {
+ module.exports.createIndexedListStore = function(spec) {
   var lists = {},
       prefix = 'ID_';
 
@@ -78,7 +78,7 @@ export function createIndexedListStore(spec) {
 /**
  * Creates a handler that responds to list store pagination actions.
  */
-export function createListActionHandler(actions) {
+ module.exports.createListActionHandler = function(actions) {
   var {
     request: requestAction,
     error: errorAction,

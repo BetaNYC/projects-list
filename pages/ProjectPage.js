@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Holder = require("imports?this=>window!Holder/holder");
+var Holder = require("holderjs");
 var {PropTypes} = React;
 var moment = require('moment');
 
@@ -63,7 +63,7 @@ var ProjectHeading = React.createClass({
   }
 });
 
-export default ProjectPage = React.createClass({
+module.exports = ProjectPage = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired

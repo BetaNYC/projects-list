@@ -25,7 +25,7 @@ const {
 
 var ProjectActionCreators;
 
-export default ProjectActionCreators = {
+module.exports = ProjectActionCreators = {
   requestProject({name}){
     if(ProjectStore.get({name}).length != 0){
       // Return instantly if the project is available locally.

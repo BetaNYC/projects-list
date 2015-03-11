@@ -14,9 +14,9 @@ var HomePage = require('pages/HomePage');
 var DocumentTitle = require('react-document-title');
 var { RouteHandler } = require('react-router');
 
-
+  
 var App;
-export default App = React.createClass({
+module.exports = App = React.createClass({
   propTypes: {
     params: PropTypes.object.isRequired,
     query: PropTypes.object.isRequired

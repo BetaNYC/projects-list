@@ -3,7 +3,7 @@ var {PropTypes} = React;
 var RepoStore = require('stores/RepoStore');
 var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
-var Holder = require("imports?this=>window!Holder/holder");
+var Holder = require("holderjs");
 var {Link} = require('react-router');
 
 var HomePage;

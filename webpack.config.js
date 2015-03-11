@@ -43,6 +43,7 @@ if('true' === isPrerelease){
   );
   // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
   // plugins.push(new webpack.optimize.DedupePlugin());
+
 } else {
   plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
@@ -54,10 +55,10 @@ if('true' === isPrerelease){
   ]);
 }
 
-
 module.exports = {
   devtool: 'eval',
   entry: entries,
+  context: __dirname,
   output: {
     path: __dirname + '/public/assets/',
     filename: 'bundle.js',
@@ -65,22 +66,16 @@ module.exports = {
     // This is my custom config –– not required by Webpack.
     serverBase: serverBase
   },
-  plugins: plugins,
   resolve: {
-    extensions: ['', '.js', '.coffee'],
+    extensions: ['', '.js'],
     root: [__dirname]
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['react-hot','babel','jsx?harmony&stripTypes'],
+        loaders: ['react-hot','babel?experimental','jsx?harmony&stripTypes&target=es6'],
         exclude: /(node_modules|bootstrap(-sass)?\.config.*)/
-      },
-      // Pattern matches the coffeescript files
-      {
-        test: /\.coffee$/,
-        loaders: ['react-hot','babel','jsx?harmony&stripTypes', 'coffee']
       },
 
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
@@ -105,5 +100,8 @@ module.exports = {
         loader: 'style!css!less'
       }
     ]
-  }
+  },
+
+  plugins: plugins
+
 };

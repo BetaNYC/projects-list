@@ -71,4 +71,4 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
 
 
 
-export default ProjectStore;
+module.exports = ProjectStore;

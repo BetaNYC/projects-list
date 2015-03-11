@@ -37,4 +37,4 @@ UserStore.dispatchToken = AppDispatcher.register((payload)=> {
 
 
 
-export default UserStore;
+module.exports = UserStore;

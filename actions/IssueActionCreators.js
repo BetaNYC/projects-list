@@ -17,7 +17,7 @@ var {
 
 
 var IssueActionCreators;
-export default IssueActionCreators = {
+module.exports = IssueActionCreators = {
   requestRepoIssues({repoName, page}){
     // If we already have issues for this repo, do nothing in this request.
     // if(IssuesByRepoStore.getIssues(repoName).length != 0){

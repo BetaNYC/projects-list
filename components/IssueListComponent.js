@@ -16,7 +16,7 @@ var IssueListHeader = React.createClass({
 });
 
 var IssueListComponent;
-export default IssueListComponent = React.createClass({
+module.exports = IssueListComponent = React.createClass({
   propTypes: {
     repo: React.PropTypes.object
   },
@@ -43,7 +43,7 @@ export default IssueListComponent = React.createClass({
     });
 
     var {repo} = this.props;
-    
+
     if(repo)
       var {htmlUrl} = repo.htmlUrl;
 

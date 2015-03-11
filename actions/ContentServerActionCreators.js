@@ -10,7 +10,7 @@ const {
 
 var ContentServerActionCreator;
 
-export default ContentServerActionCreator = {
+module.exports = ContentServerActionCreator = {
 
   handleRepoReadmeSuccess(response) {
     AppDispatcher.handleServerAction({

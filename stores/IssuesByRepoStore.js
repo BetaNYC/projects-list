@@ -14,7 +14,7 @@ const {
 } = ActionTypes;
 
 var IssuesByRepoStore
-export default IssuesByRepoStore = createIndexedListStore({
+module.exports = IssuesByRepoStore = createIndexedListStore({
   getIssues(repoName) {
     return this.getIds(repoName).map(IssueStore.get);
   }
