@@ -22,7 +22,7 @@ module.exports = IssueListComponent = React.createClass({
   },
   render(){
     let {name} = this.props.repo  || {};
-    let fetchingIssues = name ? IssuesByRepoStore.isExpectingPage(name) : false;
+    let fetchingIssues = name ? IssuesByRepoStore.isExpectingPage(name) : true;
 
     var issues = map(this.props.issues, (issue,i) => {
       issue.labels.map(label => {return <span className='label' style={{backgroundColor: issue.color}}>{label.name}</span> });
@@ -53,9 +53,12 @@ module.exports = IssueListComponent = React.createClass({
         </div>
         <table className='table table-condensed' >
           <tbody>
-            {fetchingIssues ? <div className='text-center' style={{paddingTop: 100}}>
-        <span className='fa fa-circle-o-notch fa-3x fa-spin text-muted'/>
-      </div> : (issues.length == 0 ? <tr className='text-center text-muted'><td style={{paddingTop: 40}}>No issues found</td></tr> : issues) }
+            {fetchingIssues ? <tr className='text-center' style={{paddingTop: 100}}>
+              <td className='fa fa-circle-o-notch fa-3x fa-spin text-muted' style={{border: 'none'}}/>
+            </tr> : null }
+
+            {!fetchingIssues && issues.length == 0 ? <tr className='text-center text-muted'><td style={{paddingTop: 40}}>No issues found</td></tr> : issues}
+
           </tbody>
         </table>
     </div>
