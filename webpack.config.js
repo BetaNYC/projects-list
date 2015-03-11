@@ -54,7 +54,7 @@ if('true' === isPrerelease){
     'webpack/hot/only-dev-server'
   ]);
 }
-
+  
 module.exports = {
   devtool: 'eval',
   entry: entries,
