@@ -2,7 +2,7 @@
 
 set -e
 
-git checkout -b release
+git checkout -b gh-pages
 PRERELEASE_BUILD='true' webpack  --devtool sourcemap --color --display-error-details --config webpack.config.js --bail 2>&1
 # TODO: regexp and remove the line containing hot loader server
 git add .
@@ -10,4 +10,3 @@ git commit -am 'release build'
 git push origin :gh-pages
 git subtree push --prefix public origin gh-pages
 git checkout master
-git branch -D release

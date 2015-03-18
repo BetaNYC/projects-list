@@ -73,7 +73,7 @@ module.exports = HomePage = React.createClass({
       <div className='container-fluid showcase-links'>
         <div className='row'>
           <div className='col-lg-2'>
-            <Link to="searchPage"  className='brick' query={{category: 'data-journalism'}}>
+            <Link to="searchPage"  className='brick' query={{category: 'civic-hacking'}}>
               <div className='brick-icon'>
                 <img src={require('../images/hacker.svg')}/>
               </div>
@@ -89,7 +89,7 @@ module.exports = HomePage = React.createClass({
             </Link>
           </div>
           <div className='col-lg-4 text-center'>
-            <Link to="searchPage"  className='brick' query={{category: 'crime-data'}}>
+            <Link to="searchPage"  className='brick' query={{category: 'crime'}}>
               <div className='brick-icon'>
                 <img src={require('../images/crime.svg')}/>
               </div>

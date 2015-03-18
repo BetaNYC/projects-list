@@ -17,7 +17,7 @@ module.exports = SearchFilterListComponent = React.createClass({
 
     return <div className='hidden-sm hidden-xs hidden-md'>
       <div className='list-group text-left'>
-        <Link to='searchPage' className='list-group-item' query={{category:'crime', q: this.props.query.q}}>
+        <Link to='searchPage' className='list-group-item' query={{category:'civic-hacking', q: this.props.query.q}}>
           Crime
         </Link>
 
@@ -25,36 +25,33 @@ module.exports = SearchFilterListComponent = React.createClass({
           Education
         </Link>
 
-        <Link to='searchPage' className='list-group-item' query={{category:'healthcare', q: this.props.query.q}}>
-          Healthcare
+        <Link to='searchPage' className='list-group-item' query={{category:'crime', q: this.props.query.q}}>
+          Crime
         </Link>
 
-        <Link to='searchPage' className='list-group-item' query={{category:'311-hacks', q: this.props.query.q}}>
-          {'311 Hacks'}
+        <Link to='searchPage' className='list-group-item' query={{category:'transportation', q: this.props.query.q}}>
+          {'Transportation'}
         </Link>
 
-        <Link to='searchPage' className='list-group-item' query={{category: 'data-journalism', q: this.props.query.q}}>
-          Data journalism
-        </Link>
-
-        <Link to='searchPage' className='list-group-item' query={{category:'poverty', q: this.props.query.q}}>
-          Poverty
-        </Link>
 
         <Link to='searchPage' className='list-group-item' query={{category:'parks', q: this.props.query.q}}>
           Parks
         </Link>
 
-        <Link to='searchPage' className='list-group-item' query={{category:'transportation', q: this.props.query.q}}>
-          Transportation
+        <Link to='searchPage' className='list-group-item' query={{category:'elections', q: this.props.query.q}}>
+          Elections
         </Link>
 
-        <Link to='searchPage' className='list-group-item' query={{category:'science', q: this.props.query.q}}>
-          Science
+        <Link to='searchPage' className='list-group-item' query={{category:'311', q: this.props.query.q}}>
+          311
         </Link>
 
-        <Link to='searchPage' className='list-group-item' query={{category:'tools', q: this.props.query.q}}>
-          {"Hacker's toolkit"}
+        <Link to='searchPage' className='list-group-item' query={{category:'health', q: this.props.query.q}}>
+          Health
+        </Link>
+
+        <Link to='searchPage' className='list-group-item' query={{category:'housing', q: this.props.query.q}}>
+          {"Housing"}
         </Link>
 
         {removeFiltersBtn}
