@@ -1,6 +1,33 @@
 @import "./images/octicons/octicons";
 @import "./config/bootstrap.config.less";
 
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('./fonts/ProximaNova-Regular.eot'); /* IE9 Compat Modes */
+  src: url('./fonts/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/ProximaNova-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('./fonts/ProximaNova-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/ProximaNova-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'ProximaNovaBold';
+  src: url('./fonts/ProximaNova-Bold.eot'); /* IE9 Compat Modes */
+  src: url('./fonts/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/ProximaNova-Bold.woff') format('woff'), /* Pretty Modern Browsers */
+       url('./fonts/ProximaNova-Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/ProximaNova-Bold.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'ProximaNovaLight';
+  src: url('./fonts/ProximaNova-Light.eot'); /* IE9 Compat Modes */
+  src: url('./fonts/ProximaNova-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/ProximaNova-Light.woff') format('woff'), /* Pretty Modern Browsers */
+       url('./fonts/ProximaNova-Light.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('./fonts/ProximaNova-Light.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
 body{
 }
 .App{
@@ -14,6 +41,9 @@ body{
 .jumbotron{
   background-color: @blue3;
   color: white;
+  h1{
+    font-family: ProximaNovaBold;
+  }
 }
 
 .brick{
@@ -65,6 +95,13 @@ body{
   font-family: Helvetica;
   background-color: rgba(0,0,0,.2);
   height: 100%;
+
+  font-family: ProximaNovaLight;
+}
+
+
+.project-name{
+  font-family: ProximaNova;
 }
 
 #readmeSection, #issuesSection{

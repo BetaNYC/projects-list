@@ -51,7 +51,7 @@ var ProjectListItemComponent = React.createClass({
           style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%'}} />
 
         <h2>
-          <Link to='projectPage' params={{owner: ownerLogin, repoName: project.name}}>{project.name}
+          <Link to='projectPage' params={{owner: ownerLogin, repoName: project.name}} className='project-name'>{project.name}
           </Link>
 
           <a href={ownerHtmlUrl} title={ownerLogin} className='pull-right'>

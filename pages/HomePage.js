@@ -51,7 +51,9 @@ module.exports = HomePage = React.createClass({
         <div className='container'>
           <div className='row'>
             <div className='col-lg-8'>
-              <h1 style={{textTransform: 'uppercase'}}> Civic Tech Project Finder </h1>
+              <h1 style={{textTransform: 'uppercase'}}> Civic Tech
+                &nbsp;
+                Project Finder </h1>
               <p>
                 Simply send us <a href="mailto: spocksplanet@gmail.com" target='_blank'>an email</a> to add your project to this list.
               </p>
