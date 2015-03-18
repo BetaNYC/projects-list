@@ -7,6 +7,7 @@ require('./app.less');
 var React = require('react/addons');
 var { PropTypes } = React;
 window.Zepto = window.$ = require('zeptojs');
+require('lib/fittext?this=window');
 
 // Components
 var NavBarComponent = require('./components/NavBarComponent');
@@ -14,7 +15,7 @@ var HomePage = require('pages/HomePage');
 var DocumentTitle = require('react-document-title');
 var { RouteHandler } = require('react-router');
 
-  
+
 var App;
 module.exports = App = React.createClass({
   propTypes: {

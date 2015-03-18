@@ -1,17 +1,99 @@
 @import "./images/octicons/octicons";
+@import "./config/bootstrap.config.less";
 
 body{
+}
+.App{
+  overflow:hidden;
 }
 
 .blast{
   background-color:yellow;
 }
 
+.jumbotron{
+  background-color: @blue3;
+  color: white;
+}
 
-#readmeSection,#issuesSection{
+.brick{
+  height: 200;
+  text-align: center;
+  // line-height:1;
+  background: #efefef;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  justify-content: center;
+  position: relative;
+
+
+  &:hover{
+    .brick-text{
+      opacity:1;
+    }
+    .brick-icon{
+      opacity:.2;
+    }
+  }
+
+  & > *{
+    flex: 0 1 auto;
+    width:100%;
+    transition: .4s opacity;
+
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    // margin: 0 auto;
+    // display: block;
+    // width:100%;
+  }
+
+}
+
+.brick-icon{
+  img{height:80%;}
+}
+.brick-text{
+  opacity: 0;
+  position: absolute;
+  top:0px;
+  left:0px;
+  font-family: Helvetica;
+  background-color: rgba(0,0,0,.2);
+  height: 100%;
+}
+
+#readmeSection, #issuesSection{
   padding-top: 20px;
   padding-bottom: 40px;
   img{
     max-width:100%;
   }
+}
+
+.search-btn{
+  background-color: @pink4;
+  color:white;
+  border:none;
+  box-shadow:none;
+  padding: 15px 0px;
+  border-radius:0;
+  margin-bottom:-45px;
+  &:hover{
+    background-color: @pink5;
+    color:white;
+  }
+}
+.showcase-links{
+  margin-top:60px;
+
+  img {
+    transition: .8s opacity;
+    opacity: 0.6;
+  }
+  img:hover { opacity: 1; }
 }

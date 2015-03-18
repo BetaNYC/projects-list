@@ -66,7 +66,10 @@ var CfAPI = {
     request(API_ROOT + qs).query({q,sort_by,sort_dir, categories: category, per_page, page}).end((res)=> {
         var {ok} = res;
         if(!ok){ error({q, sort_by, sort_dir, category, page, err: res.text}); }
-        success(normalizeProjectArrayResponse(res));
+
+        // Add a few additional fields to the response
+        let normalizedResponse = assign({},normalizeProjectArrayResponse(res), {query: {q,page,category,sort_by}});
+        success(normalizedResponse);
     });
   },
   requestProject({name, success, error}){

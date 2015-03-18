@@ -31,7 +31,7 @@ module.exports = ProjectActionCreators = {
     }
   },
   requestProjects({q, sort_by, sort_dir, category, page}){
-
+    
     AppDispatcher.handleViewAction({
       type: REQUEST_PROJECT,
       q, sort_by, sort_dir, category, page

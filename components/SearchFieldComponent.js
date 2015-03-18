@@ -17,15 +17,15 @@ module.exports = SearchFieldComponent = React.createClass({
     };
   },
   onChange(e) {
-    this.runQuery({q: e.target.value});
+    // this.runQuery({q: e.target.value});
   },
   runQuery(query: mixed){
     this.transitionTo("searchPage", {}, query);
   },
   onKeyDown(e) {
-    // if(e.which == 13){
-    //   this.runQuery({q: e.target.value});
-    // }
+    if(e.which == 13){
+      this.runQuery({q: e.target.value});
+    }
   },
   clearQuery(){
     this.runQuery({});

@@ -1,0 +1,7 @@
+[
+  {
+    "name": "Education",
+    "query": {"q": "education"},
+    "icon": "education.svg"
+  }
+]

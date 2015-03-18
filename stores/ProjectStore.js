@@ -27,7 +27,7 @@ var ProjectStore = createListStore({
     return _.chain(_projects).where(props).value()
    }
 });
-  
+
 var handleListAction = createListActionHandler({
   request: REQUEST_PROJECT,
   success: REQUEST_PROJECT_SUCCESS,

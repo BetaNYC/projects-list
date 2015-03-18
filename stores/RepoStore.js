@@ -29,15 +29,18 @@ RepoStore.dispatchToken = AppDispatcher.register((payload)=> {
       {repos_CfAPI} = entities || {},
       {repo} = entities || {};
 
-
   if (repo) {
     // Decode the content && parse the field to extract the repo names as an array
     // _repoNames = extractRepoNames(decodeField(repo[0].content, 'base64'));
   }
+
+
   if (repos_CfAPI) {
     _repos = mergeIntoBag(_repos,repos_CfAPI);
     RepoStore.emitChange();
   }
+
+  
 });
 
 
