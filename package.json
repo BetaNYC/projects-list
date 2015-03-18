@@ -25,6 +25,8 @@
     "superagent": "~0.21.0",
     "react-router": "^0.12.0",
     "humps": "0.0.1",
+    "autoprefixer": "5.1.0",
+    "postcss-loader":"0.3.0",
     "normalizr": "^0.1.2",
     "react-document-title": "^1.0.0",
     "font-awesome": "4.3.0",

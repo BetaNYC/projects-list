@@ -13,6 +13,8 @@ var definePlugin = new webpack.DefinePlugin({
 var plugins = [ definePlugin ];
 var entries = ['./index'];
 var serverBase = "http://localhost:4000";
+var autoprefixer = require('autoprefixer');
+
 
 if('true' === isPrerelease){
   // Minimize all javascript output of chunks. Loaders are switched into minimizing mode. You can pass an object containing UglifyJs options.
@@ -70,6 +72,7 @@ module.exports = {
     extensions: ['', '.js'],
     root: [__dirname]
   },
+  postcss: [ autoprefixer({ browsers: ['last 2 version'] }) ],
   module: {
     loaders: [
       {
