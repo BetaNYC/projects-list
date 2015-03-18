@@ -6,6 +6,7 @@ var isEqual = require('lodash/lang/isEqual');
 var Holder = require("holderjs");
 var {Link} = require('react-router');
 var SearchFieldComponent = require('components/SearchFieldComponent');
+var Ink = require('react-ink');
 
 var HomePage;
 module.exports = HomePage = React.createClass({
@@ -47,8 +48,11 @@ module.exports = HomePage = React.createClass({
   render(){
     // <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Education Apps"/>
     return (<div>
-      <div className='jumbotron'>
-        <div className='container'>
+      <div className='jumbotron' style={{ position: "relative" }}>
+        <Ink />
+
+        <div className='container' style={{position: 'relative'}}>
+
           <div className='row'>
             <div className='col-lg-8'>
               <h1 style={{textTransform: 'uppercase'}}> Civic Tech
@@ -65,12 +69,18 @@ module.exports = HomePage = React.createClass({
               </small>
             </div>
           </div>
+
         </div>
         <div className='row' style={{marginBottom: -30}}>
           <div className='col-lg-4 col-lg-offset-4'>
-            <Link to='searchPage' className='btn btn-lg btn-default search-btn' style={{display: 'block'}}>Search</Link>
+
+
+            <Link to='searchPage' className='btn btn-lg btn-default search-btn' style={{display: 'block'}}>
+
+              Search</Link>
           </div>
         </div>
+
       </div>
       <div className='container-fluid showcase-links'>
         <div className='row'>
