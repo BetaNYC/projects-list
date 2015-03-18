@@ -5,6 +5,7 @@ var React = require('react/addons'),
     App = require('./App'),
     HomePage = require('pages/HomePage'),
     ProjectPage = require('pages/ProjectPage'),
+    ShowcasePage = require('pages/ShowcasePage'),
     SearchPage = require('pages/SearchPage');
 
 if (!__PRERELEASE__) {
@@ -19,5 +20,6 @@ module.exports = (
     <Route name='homePage' path='/'  handler={HomePage} />
     <Route name='searchPage' path='/search'  handler={SearchPage} />
     <Route name='projectPage' path='/project/:repoName'  handler={ProjectPage} />
+    <Route name='showcasePage' path='/showcases/:name'  handler={ShowcasePage} />
   </Route>
 );

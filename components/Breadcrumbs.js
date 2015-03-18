@@ -7,6 +7,6 @@ module.exports = Breadcrumbs = React.createClass({
       var classs = this.props.children.length - 1 === i ? 'active' : null
       return <li key={i} className={classs}>{link}</li>
     })
-    return <ol className="breadcrumb">{children}</ol>
+    return <ol className="breadcrumb" {...this.props}>{children}</ol>
   }
 });

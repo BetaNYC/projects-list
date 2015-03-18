@@ -1,9 +1,14 @@
 var React = require('react/addons');
 var {PropTypes} = React;
-var RepoStore = require('stores/RepoStore');
-var createStoreMixin = require('mixins/createStoreMixin');
 var isEqual = require('lodash/lang/isEqual');
-var Holder = require("holderjs");
+
+// Stores
+var RepoStore = require('stores/RepoStore');
+
+// Mixins
+var createStoreMixin = require('mixins/createStoreMixin');
+
+// Components
 var {Link} = require('react-router');
 var SearchFieldComponent = require('components/SearchFieldComponent');
 var Ink = require('react-ink');
@@ -24,7 +29,6 @@ module.exports = HomePage = React.createClass({
   },
 
   componentDidMount() {
-    Holder.run()
     this.queryDidChange(this.props);
     $('.brick-text').fitText()
   },
@@ -46,9 +50,8 @@ module.exports = HomePage = React.createClass({
   },
 
   render(){
-    // <img data-src="holder.js/100%x200/font:Helvetica/gray/text:Education Apps"/>
     return (<div>
-      <div className='jumbotron' style={{ position: "relative" }}>
+      <div className='jumbotron homePage-intro' style={{ position: "relative" }}>
         <Ink />
 
         <div className='container' style={{position: 'relative'}}>
@@ -97,7 +100,7 @@ module.exports = HomePage = React.createClass({
               <div className='brick-icon'>
                 <img src={require('../images/education.svg')}/>
               </div>
-              <div className='brick-text'> Education Apps</div>
+              <div className='brick-text'> Education</div>
             </Link>
           </div>
           <div className='col-lg-4 text-center'>
@@ -137,7 +140,7 @@ module.exports = HomePage = React.createClass({
         </div>
         <div className='row' style={{marginTop: 20, marginBottom: 20}}>
           <div className='col-lg-12'>
-            <Link to="searchPage"  className='brick' query={{category: '311'}}>
+            <Link to="showcasePage"  className='brick' params={{name: '311'}}>
               <div className='brick-icon'>
                 <img src={require('../images/service.svg')}/>
               </div>

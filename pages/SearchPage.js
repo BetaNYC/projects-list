@@ -10,7 +10,7 @@ var assign = require('object-assign');
 var ProjectStore = require('stores/ProjectStore');
 var ProjectsByQueryStore = require('stores/ProjectsByQueryStore');
 var RepoStore = require('stores/RepoStore');
-// Actionc reators
+// Action creators
 var ProjectActionCreators = require('actions/ProjectActionCreators');
 // Components
 var ProjectListComponent = require('components/ProjectListComponent');

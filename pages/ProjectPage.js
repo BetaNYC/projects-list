@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Holder = require("holderjs");
 var {PropTypes} = React;
 var moment = require('moment');
 
@@ -27,6 +26,7 @@ var createStoreMixin = require('mixins/createStoreMixin');
 var {Link} = require('react-router');
 var Breadcrumbs = require('components/Breadcrumbs');
 var IssueListComponent = require('components/IssueListComponent');
+var DiscussionListComponent = require('components/DiscussionListComponent');
 
 
 var ProjectPage;
@@ -108,7 +108,8 @@ module.exports = ProjectPage = React.createClass({
     let tab = this.props.query.tab;
     var readmeTabClasses = cx({active: !tab || tab == 'readme'});
     var issueTabClasses = cx({active: tab == 'issues'});
-    var discussTabClasses = cx({active: tab == 'discussion', disabled: true});
+    var discussTabClasses = cx({active: tab == 'discussion'});
+    var disabledTabClasses = cx({disabled: true});
 
     let readmeSection = readme ? <div id='readmeSection' dangerouslySetInnerHTML={{__html: readme}} /> : <div className='text-center' style={{paddingTop: 100}}>
         <span className='fa fa-circle-o-notch fa-3x fa-spin text-muted'/>
@@ -141,22 +142,23 @@ module.exports = ProjectPage = React.createClass({
             </Link>
           </li>
           <li role="presentation" className={discussTabClasses}>
-            <a className='disabled'>Discussion</a>
-            <Link to='projectPage' params={{repoName}} query={{tab:'discussion'}} className='hide'>
+            <Link to='projectPage' params={{repoName}} query={{tab:'discussion'}}>
+              Discussion
             </Link>
           </li>
-          <li role="presentation" className={discussTabClasses}>
+          <li role="presentation" className={disabledTabClasses}>
             <a className='disabled'>Badges</a>
           </li>
-          <li role="presentation" className={discussTabClasses}>
+          <li role="presentation" className={disabledTabClasses}>
             <a className='disabled'>Data</a>
           </li>
-          <li role="presentation" className={discussTabClasses}>
+          <li role="presentation" className={disabledTabClasses}>
             <a className='disabled'>Related projects</a>
           </li>
         </ul>
         {!tab || tab == 'readme' ? readmeSection : null}
         {tab == 'issues' ? <IssueListComponent issues={issues} repo={repo} /> : null}
+        {tab == 'discussion' ? <DiscussionListComponent /> : null}
       </div>
 
     </div>
