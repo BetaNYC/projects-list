@@ -14,7 +14,7 @@ if('production' == process.env.NODE_ENV){
     , noInfo: false
     , watchDelay: 100
     // , lazy: true
-    , headers: { "X-Custom-Header": "yes" }
+    , headers: { "X-Custom-Header": "yes", "Access-Control-Allow-Origin": "*" }
     , stats: { colors: true }
 
   });

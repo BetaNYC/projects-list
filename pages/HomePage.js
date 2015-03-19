@@ -12,6 +12,7 @@ var createStoreMixin = require('mixins/createStoreMixin');
 var {Link} = require('react-router');
 var SearchFieldComponent = require('components/SearchFieldComponent');
 var Ink = require('react-ink');
+var Brick = require('components/Brick');
 
 var HomePage;
 module.exports = HomePage = React.createClass({
@@ -53,19 +54,17 @@ module.exports = HomePage = React.createClass({
     return (<div>
       <div className='jumbotron homePage-intro' style={{ position: "relative" }}>
         <Ink />
-
         <div className='container' style={{position: 'relative'}}>
-
           <div className='row'>
-            <div className='col-lg-8'>
+            <div className='masonry-cell col-lg-8'>
               <h1 style={{textTransform: 'uppercase'}}> Civic Tech
-                &nbsp;
+                <span style={{display:'block'}}/>
                 Project Finder </h1>
               <p>
                 Simply send us <a href="mailto: spocksplanet@gmail.com" target='_blank'>an email</a> to add your project to this list.
               </p>
             </div>
-            <div className='col-lg-4 text-center'>
+            <div className='masonry-cell col-lg-4 text-center'>
               <img src={require('images/city.svg')} style={{width:280,marginTop:30}}/>
               <small style={{margin:'10px 0 34px 0', paddingBottom:6, display: 'block'}}>
                 a <a href='http://beta.nyc'><img src = "https://cloud.githubusercontent.com/assets/94735/6129864/4562ab74-b10f-11e4-83bf-2cc54a1e102c.png"  style={{margin: '0 -7px 0 -7px', maxWidth: 30}}/>etaNYC</a> project
@@ -75,7 +74,7 @@ module.exports = HomePage = React.createClass({
 
         </div>
         <div className='row' style={{marginBottom: -30}}>
-          <div className='col-lg-4 col-lg-offset-4'>
+          <div className='masonry-cell col-lg-4 col-lg-offset-4'>
 
 
             <Link to='searchPage' className='btn btn-lg btn-default search-btn' style={{display: 'block'}}>
@@ -85,86 +84,40 @@ module.exports = HomePage = React.createClass({
         </div>
 
       </div>
-      <div className='container-fluid showcase-links'>
-        <div className='row'>
-          <div className='col-lg-2'>
-            <Link to="searchPage"  className='brick' query={{category: 'civic-hacking'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/hacker.svg')}/>
-              </div>
-              <div className='brick-text'> Civic Hacking 101</div>
-            </Link>
-          </div>
-          <div className='col-lg-6'>
-            <Link to="searchPage"  className='brick' query={{category: 'education'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/education.svg')}/>
-              </div>
-              <div className='brick-text'> Education</div>
-            </Link>
-          </div>
-          <div className='col-lg-4 text-center'>
-            <Link to="searchPage"  className='brick' query={{category: 'crime'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/crime.svg')}/>
-              </div>
-              <div className='brick-text'> Crime data</div>
-            </Link>
-          </div>
+      <div className='showcase-links'>
+        <div className='showcase-links-row'>
+          <Link to="searchPage"  query={{category: 'civic-hacking'}} style={{flex: '2 0'}}>
+            <Brick text=' Civic Hacking 101' icon='hacker'/>
+          </Link>
+          <Link to="searchPage"  query={{category: 'education'}} style={{flex: '6 0'}}>
+            <Brick text=' Education' icon='education'/>
+          </Link>
+          <Link to="searchPage"  query={{category: 'crime'}} style={{flex: '3 0'}}>
+            <Brick text=' Crime data' icon='crime'/>
+          </Link>
         </div>
-        <div className='row' style={{marginTop: 20}}>
-          <div className='col-lg-4'>
-            <Link to="searchPage"  className='brick' query={{category: 'transportation'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/bicycle.svg')}/>
-              </div>
-              <div className='brick-text'> Transportation</div>
-            </Link>
-          </div>
-          <div className='col-lg-3'>
-            <Link to="searchPage"  className='brick' query={{category: 'parks'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/parks.svg')}/>
-              </div>
-              <div className='brick-text'>Parks</div>
-            </Link>
-          </div>
-          <div className='col-lg-5 text-center'>
-            <Link to="searchPage"  className='brick' query={{category: 'elections'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/elections.svg')}/>
-              </div>
-              <div className='brick-text'>Elections</div>
-            </Link>
-          </div>
+        <div className='showcase-links-row'>
+          <Link to="searchPage"  query={{category: 'transportation'}} style={{flex: '4 0'}}>
+            <Brick text=' Transportation' icon='bicycle'/>
+          </Link>
+          <Link to="searchPage"  query={{category: 'parks'}} style={{flex: '2 0'}}>
+            <Brick text='Parks' icon='parks'/>
+          </Link>
+          <Link to="searchPage"  query={{category: 'elections'}} style={{flex: '4 0'}}>
+            <Brick text='Elections' icon='elections'/>
+          </Link>
         </div>
-        <div className='row' style={{marginTop: 20, marginBottom: 20}}>
-          <div className='col-lg-12'>
-            <Link to="showcasePage"  className='brick' params={{name: '311'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/service.svg')}/>
-              </div>
-              <div className='brick-text'>311</div>
-            </Link>
-          </div>
-        </div>
-        <div className='row' style={{marginTop: 20, marginBottom: 20}}>
-          <div className='col-lg-4'>
-            <Link to="searchPage"  className='brick' query={{category: 'health'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/health.svg')}/>
-              </div>
-              <div className='brick-text'>Health</div>
-            </Link>
-          </div>
-          <div className='col-lg-8'>
-            <Link to="searchPage"  className='brick' query={{category: 'housing'}}>
-              <div className='brick-icon'>
-                <img src={require('../images/housing.svg')}/>
-              </div>
-              <div className='brick-text'>Housing</div>
-            </Link>
-          </div>
+
+        <div className='showcase-links-row'>
+          <Link to="searchPage"  query={{category: 'health'}} style={{flex: '2 0'}}>
+            <Brick text='Health' icon='health'/>
+          </Link>
+          <Link to="searchPage"  query={{category: 'housing'}} style={{flex: '4 0'}}>
+            <Brick text='Housing' icon='housing'/>
+          </Link>
+          <Link to="showcasePage"  params={{name: '311'}} style={{flex: '2 0'}}>
+            <Brick text='311' icon='service'/>
+          </Link>
         </div>
       </div>
     </div>)

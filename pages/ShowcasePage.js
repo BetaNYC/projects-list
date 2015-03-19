@@ -12,6 +12,7 @@ var ProjectsByQueryStore = require('stores/ProjectsByQueryStore');
 var {Link} = require('react-router');
 var Breadcrumbs = require('components/Breadcrumbs');
 var ProjectListComponent = require('components/ProjectListComponent');
+var Brick = require('components/Brick');
 
 // Action creators
 var ProjectActionCreators = require('actions/ProjectActionCreators');
@@ -29,7 +30,7 @@ module.exports = ShowcasePage = React.createClass({
     query: T.object.isRequired
   },
   mixins: [
-    createStoreMixin( ProjectStore ),
+    createStoreMixin( ProjectStore, ProjectsByQueryStore ),
     PureRenderMixin
   ],
 
@@ -72,10 +73,11 @@ module.exports = ShowcasePage = React.createClass({
       <div className='container'>
         <div className='row'>
           <div className='col-lg-8'>
-            {isFetching ? <div><span className='fa fa-1x fa-circle-o-notch text-muted fa-spin'/></div> : <ProjectListComponent projects={projects} query={this.props.query} lastPage={1} /> }
+            {isFetching ? <div><span className='fa fa-1x fa-circle-o-notch text-muted fa-spin'/></div> : <ProjectListComponent projects={projects} query={this.props.query} lastPage={1} hideHeader={true} /> }
           </div>
           <div className='col-lg-4'>
-            gah
+            <h3 style={{marginTop:0}}>Related showcases</h3>
+            <Brick text='Civic Hacking 101' icon='hacker'/>
           </div>
         </div>
       </div>

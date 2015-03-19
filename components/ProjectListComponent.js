@@ -109,7 +109,7 @@ module.exports = ProjectListComponent = React.createClass({
 
     return <table className='table table-condensed' >
       <tbody>
-        {isEmpty ? null : tableHeader}
+        {(isEmpty || this.props.hideHeader) ? null : tableHeader}
         {tableBody}
       </tbody>
     </table>
