@@ -14,7 +14,7 @@
   "license": "MIT",
   "homepage": "https://github.com/BetaNYC/betanyc-projects-list",
   "devDependencies": {
-    "react": "^0.12.0",
+    "react": "^0.13.0",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.1",
     "blast-text": "^2.0.0",
@@ -24,7 +24,7 @@
     "bootstrap-webpack": "~0.0.4",
     "react-bootstrap": "~0.14.0",
     "superagent": "~0.21.0",
-    "react-router": "^0.12.0",
+    "react-router": "^0.13.0",
     "humps": "0.0.1",
     "autoprefixer": "5.1.0",
     "postcss-loader":"0.3.0",

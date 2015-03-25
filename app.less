@@ -73,6 +73,7 @@ header.navbar{
   &:hover{
     .brick-text{
       opacity:1;
+      top:0;
     }
     .brick-icon{
       opacity:.2;
@@ -82,7 +83,7 @@ header.navbar{
   & > *{
     flex: 0 1 auto;
     width:100%;
-    transition: .4s opacity;
+    transition: .4s all;
 
     display: flex;
     align-items: center;
@@ -102,7 +103,7 @@ header.navbar{
 .brick-text{
   opacity: 0;
   position: absolute;
-  top:0px;
+  top:10px;
   left:0px;
   font-family: Helvetica;
   background-color: rgba(0,0,0,.2);
@@ -155,4 +156,86 @@ header.navbar{
   a{
     border: solid 1px #fff;
   }
+}
+
+
+
+
+
+//=========ANIMATIONS
+
+.moveUp-enter {
+  position: absolute;
+
+  transition-duration: .3s;
+  transition-property: transform, opacity;
+  transition-timing-function: ease-out;
+  transform: translate3d(0,100%,0);
+  z-index: 10000;
+}
+
+.moveUp-enter.moveUp-enter-active {
+  transform: translate3d(0,0,0);
+}
+
+.moveUp-leave {
+  position: absolute;
+
+  transition-duration: .3s;
+  transition-property: transform, opacity;
+  transition-timing-function: ease-out;
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+
+.moveUp-leave.moveUp-leave-active {
+  transform: translate3d(0,-15%,0);
+  opacity: 0.3;
+}
+
+.moveDown-enter {
+  position: absolute;
+
+  transition-duration: .3s;
+  transition-property: transform, opacity;
+  transition-timing-function: ease-out;
+  transform: translate3d(0,-100%,0);
+  z-index: 10000;
+}
+
+.moveDown-enter.moveDown-enter-active {
+  transform: translate3d(0,0,0);
+}
+
+.moveDown-leave {
+  position: absolute;
+
+  transition-duration: .3s;
+  transition-property: transform, opacity;
+  transition-timing-function: ease-out;
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+
+.moveDown-leave.moveDown-leave-active {
+  transform: translate3d(0,15%,0);
+  opacity: 0.3;
+}
+
+.fade-enter {
+  opacity: 0.01;
+  transition: opacity .1s ease-in;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-leave {
+  opacity: 1;
+  transition: opacity .1s ease-in;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
 }
