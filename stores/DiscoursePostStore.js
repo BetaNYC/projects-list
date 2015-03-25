@@ -4,15 +4,23 @@ var { createListStore, createListActionHandler } = require('utils/PaginatedStore
 
 
 var _posts = {};
+var _topics = {};
 
 var DiscoursePostStore;
 DiscoursePostStore = createListStore({
-  getAll(){
+  getAllPosts():array{
     // Sort the projects by the last update of their repo
-    return _.chain(_posts).compact().sortBy((item)=>{
-      let lastUpdated = Date.parse(item.updatedAt)/1000;
-      return lastUpdated
+    let ret = _.chain(_posts).toArray().sortBy((item)=>{
+      return Date.parse(item.updatedAt)/1000;
     }).reverse().value();
+    return ret;
+  },
+  getAllTopics():array{
+    // Sort the projects by the last update of their repo
+    let ret = _.chain(_topics).toArray().sortBy((item)=>{
+      return Date.parse(item.bumpedAt)/1000;
+    }).reverse().value();
+    return ret;
   }
 });
 
@@ -30,7 +38,9 @@ DiscoursePostStore.dispatchToken = AppDispatcher.register((payload)=>{
 
     switch(action.type){
       case REQUEST_DISCUSSIONS_SUCCESS:
-        console.log(entities);
+        _posts = entities.posts;
+        _topics = entities.topics;
+        DiscoursePostStore.emitChange();
         break;
     }
 

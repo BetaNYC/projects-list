@@ -115,6 +115,15 @@ module.exports = ProjectPage = React.createClass({
         <span className='fa fa-circle-o-notch fa-3x fa-spin text-muted'/>
       </div>;
 
+    // <li role="presentation" className={disabledTabClasses}>
+    //   <a className='disabled'>Badges</a>
+    // </li>
+    // <li role="presentation" className={disabledTabClasses}>
+    //   <a className='disabled'>Data</a>
+    // </li>
+    // <li role="presentation" className={disabledTabClasses}>
+    //   <a className='disabled'>Related projects</a>
+    // </li>
 
     return <div>
       <Breadcrumbs>
@@ -146,19 +155,11 @@ module.exports = ProjectPage = React.createClass({
               Discussion
             </Link>
           </li>
-          <li role="presentation" className={disabledTabClasses}>
-            <a className='disabled'>Badges</a>
-          </li>
-          <li role="presentation" className={disabledTabClasses}>
-            <a className='disabled'>Data</a>
-          </li>
-          <li role="presentation" className={disabledTabClasses}>
-            <a className='disabled'>Related projects</a>
-          </li>
+
         </ul>
         {!tab || tab == 'readme' ? readmeSection : null}
         {tab == 'issues' ? <IssueListComponent issues={issues} repo={repo} /> : null}
-        {tab == 'discussion' ? <DiscussionListComponent /> : null}
+        {tab == 'discussion' ? <DiscussionListComponent repo={repo} /> : null}
       </div>
 
     </div>

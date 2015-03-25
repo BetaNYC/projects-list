@@ -16,15 +16,14 @@ module.exports = SearchFieldComponent = React.createClass({
     return {
     };
   },
-  onChange(e) {
-    // this.runQuery({q: e.target.value});
-  },
   runQuery(query: mixed){
     this.transitionTo("searchPage", {}, query);
   },
   onKeyDown(e) {
     if(e.which == 13){
       this.runQuery({q: e.target.value});
+    }else{
+
     }
   },
   clearQuery(){
@@ -48,8 +47,7 @@ module.exports = SearchFieldComponent = React.createClass({
         className='form-control input-lg'
         placeholder='Search'
         name='q'
-        value={this.props.query.q}
-        onChange={this.onChange}
+        defaultValue={this.props.query.q}
         onKeyDown={this.onKeyDown}
         ref='q'
         style={{borderRight: 'none', boxShadow: 'none'}}

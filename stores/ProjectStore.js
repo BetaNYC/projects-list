@@ -51,9 +51,7 @@ ProjectStore.dispatchToken = AppDispatcher.register((payload)=> {
 
   handleListAction(action, ProjectStore.getList(), ProjectStore.emitChange);
 
-
-
-
+  
 });
 
 

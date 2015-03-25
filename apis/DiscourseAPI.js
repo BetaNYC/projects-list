@@ -13,15 +13,17 @@ var {
 var API_ROOT = 'http://talk.beta.nyc';
 
 // Schemas
-var postSchema  = new Schema('post_DiscourseAPI', { idAttribute: 'id' });
-var searchSchema  = new Schema('search_DiscourseAPI', { idAttribute: 'id' });
+var postSchema  = new Schema('posts', { idAttribute: 'id' });
+var topicsSchema  = new Schema('topics', { idAttribute: 'id' });
+var searchSchema  = new Schema('search', {id:1});
 searchSchema.define({
-  posts: arrayOf(postSchema)
+  posts: arrayOf(postSchema),
+  topics: arrayOf(topicsSchema)
 });
 
 // Helper functions
 var normalizeDiscussionsResponse = (response) => {
-  return assign(normalize(camelizeKeys(arrayOf(response.body)), searchSchema));
+  return assign(normalize(camelizeKeys(response.body), searchSchema));
 };
 
 // Main

@@ -44,7 +44,7 @@ module.exports = {
     "thumbnails": true,
     "alerts": true,
     "progress-bars": true,
-    "media": false,
+    "media": true,
     "list-group": true,
     "panels": true,
     "wells": true,
